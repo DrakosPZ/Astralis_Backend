@@ -132,4 +132,16 @@ public class UserController extends AbstractController<UserDTO>{
                 find.map(this::addSelfLink)
         );
     }
+
+    /**
+     * A route made to register new Users
+     *
+     * @param dto the new UserDTO
+     * @return the newly added UserDTO
+     */
+    @PostMapping(path = "/registration", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<UserDTO> registration(
+            @RequestBody UserDTO dto) {
+        return create(dto);
+    }
 }

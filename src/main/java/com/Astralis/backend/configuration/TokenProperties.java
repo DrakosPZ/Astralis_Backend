@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class TokenProperties {
 
     private String loginPath = "/user/login";
-    private String registrationPath = "/user/register";
+    private String registrationPath = "/user/registration";
     private String logoutPath = "/user/logout";
 
     private String header = "Authorization";
