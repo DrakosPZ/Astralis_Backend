@@ -1,6 +1,5 @@
 package com.Astralis.backend.controller;
 
-import com.Astralis.backend.dto.OccasionDto;
 import com.Astralis.backend.service.OccasionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

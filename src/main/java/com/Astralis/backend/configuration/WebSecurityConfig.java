@@ -79,9 +79,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationEntryPoint unauthorizedResponse() {
         return (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }
-
-    //@Override
-    //protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    //    auth.userDetailsService(personService).passwordEncoder(passwordEncoder);
-    //}
 }

@@ -1,7 +1,5 @@
 package com.Astralis.backend.utils;
 
-import com.Astralis.backend.dto.OccasionDto;
-import com.Astralis.backend.dto.PersonDto;
 import com.Astralis.backend.service.OccasionService;
 import com.Astralis.backend.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;

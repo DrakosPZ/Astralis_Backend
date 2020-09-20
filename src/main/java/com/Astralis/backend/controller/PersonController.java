@@ -1,6 +1,5 @@
 package com.Astralis.backend.controller;
 
-import com.Astralis.backend.dto.PersonDto;
 import com.Astralis.backend.service.OccasionTagService;
 import com.Astralis.backend.service.PersonService;
 import lombok.RequiredArgsConstructor;

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Setter
 public class TokenProperties {
 
-    private String loginPath = "/person/login";
-    private String logoutPath = "/person/logout";
+    private String loginPath = "/person/login";//#!Update
+    private String logoutPath = "/person/logout";//#!Update
 
     private String header = "Authorization";
 
@@ -18,5 +18,5 @@ public class TokenProperties {
 
     private int expiration = 43200; //in Seconds 43200 = 12h
 
-    private String secret = "rnbAbzzcPddgLLFcTR8b";
+    private String secret = "6B7fZsI!ORgiBÜrlhYK9?p";
 }

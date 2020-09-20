@@ -1,9 +1,10 @@
 package com.Astralis.backend.persistence;
 
-import com.Astralis.backend.model.WorkWeek;
+import com.Astralis.backend.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
-public interface WorkWeekRepo extends AbstractRepo<WorkWeek>, CrudRepository<WorkWeek, Long> {
+public interface UserRepo extends AbstractRepo<User>, CrudRepository<User, Long> {
 }

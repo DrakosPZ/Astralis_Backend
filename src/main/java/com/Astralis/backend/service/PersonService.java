@@ -1,12 +1,5 @@
 package com.Astralis.backend.service;
 
-import com.Astralis.backend.dto.CalenderDto;
-import com.Astralis.backend.dto.OccasionTagDto;
-import com.Astralis.backend.dto.PersonDto;
-import com.Astralis.backend.model.*;
-import com.Astralis.backend.persistence.CalenderRepo;
-import com.Astralis.backend.persistence.OccasionRepo;
-import com.Astralis.backend.persistence.OccasionTagRepo;
 import com.Astralis.backend.persistence.PersonRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

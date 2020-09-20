@@ -1,8 +1,5 @@
 package com.Astralis.backend.service;
 
-import com.Astralis.backend.dto.WorkWeekDto;
-import com.Astralis.backend.model.WorkWeek;
-import com.Astralis.backend.persistence.WorkWeekRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

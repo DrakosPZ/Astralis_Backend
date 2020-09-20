@@ -1,6 +1,5 @@
 package com.Astralis.backend.controller;
 
-import com.Astralis.backend.dto.WorkWeekDto;
 import com.Astralis.backend.service.WorkWeekService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
