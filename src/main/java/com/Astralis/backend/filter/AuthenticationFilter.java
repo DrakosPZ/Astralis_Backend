@@ -1,6 +1,7 @@
 package com.Astralis.backend.filter;
 
 import com.Astralis.backend.configuration.TokenProperties;
+import com.Astralis.backend.dto.LoginInformationDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -35,33 +36,33 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         setRequiresAuthenticationRequestMatcher(
                 new AntPathRequestMatcher(tokenProperties.getLoginPath(), "POST"));
     }
-    //#!Update
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
         try {
-            PersonDto credentials = getCredentials(request);
+            LoginInformationDTO credentials = getCredentials(request);
             UsernamePasswordAuthenticationToken token = createAuthenticationToken(credentials);
             return authenticationManager.authenticate(token);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    //#!Update
-    private PersonDto getCredentials(HttpServletRequest request) throws IOException {
+
+    private LoginInformationDTO getCredentials(HttpServletRequest request) throws IOException {
         Map<String, String> holder = objectMapper.readValue(request.getInputStream(), HashMap.class);
-        String username = holder.keySet().stream()
+        String loginName = holder.keySet().stream()
                 .map(key -> key)
                 .collect(Collectors.toList()).get(0);
         String password = holder.keySet().stream()
                 .map(key -> holder.get(key))
                 .collect(Collectors.toList()).get(0);
-        return PersonDto.builder().username(username).password(password).build();
+        return LoginInformationDTO.builder().loginName(loginName).password(password).build();
     }
-    //#!Update
-    private UsernamePasswordAuthenticationToken createAuthenticationToken(PersonDto credentials) {
+
+    private UsernamePasswordAuthenticationToken createAuthenticationToken(LoginInformationDTO credentials) {
         return new UsernamePasswordAuthenticationToken(
-                credentials.getUsername(),
+                credentials.getLoginName(),
                 credentials.getPassword(),
                 new ArrayList<>()
         );
@@ -74,7 +75,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             Authentication auth) {
         response.addHeader(tokenProperties.getHeader(), tokenProperties.getPrefix() + createToken(auth));
     }
-    //#!Update
+
     private String createToken(Authentication auth) {
         long now = System.currentTimeMillis();
         List<String> authorities = auth.getAuthorities().stream()

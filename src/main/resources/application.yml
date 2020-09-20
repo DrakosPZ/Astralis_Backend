@@ -13,6 +13,6 @@ spring:
       #ddl-auto: create
       ddl-auto: update
   datasource:
-    url: jdbc:mysql://localhost:3306/ateamtestschema?useLegacyDatetimeCode=false&serverTimezone=CET
+    url: jdbc:mysql://localhost:3306/astralisdb?useLegacyDatetimeCode=false&serverTimezone=CET
     username: root
     password: Lilli2010!

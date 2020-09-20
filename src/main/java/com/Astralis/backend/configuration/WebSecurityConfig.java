@@ -2,7 +2,7 @@ package com.Astralis.backend.configuration;
 
 import com.Astralis.backend.filter.AuthenticationFilter;
 import com.Astralis.backend.filter.AuthorizationFilter;
-import com.Astralis.backend.service.PersonService;
+import com.Astralis.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private PersonService personService;
+    private UserService personService;
     @Autowired
     private LogoutSuccess logoutSuccess;
 

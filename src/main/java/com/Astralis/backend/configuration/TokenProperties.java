@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Setter
 public class TokenProperties {
 
-    private String loginPath = "/person/login";//#!Update
-    private String logoutPath = "/person/logout";//#!Update
+    private String loginPath = "/user/login";
+    private String logoutPath = "/user/logout";
 
     private String header = "Authorization";
 

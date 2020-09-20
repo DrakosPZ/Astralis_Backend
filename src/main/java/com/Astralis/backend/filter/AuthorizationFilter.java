@@ -1,6 +1,9 @@
 package com.Astralis.backend.filter;
 
 import com.Astralis.backend.configuration.TokenProperties;
+import com.Astralis.backend.dto.LoginInformationDTO;
+import com.Astralis.backend.dto.UserDTO;
+import com.Astralis.backend.model.LoginInformation;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -59,9 +62,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     private String getToken(String header) {
         return header.replace(tokenProperties.getPrefix(), "");
     }
-    //#!Update
-    private void setUserContext(Claims claims, String username) {
-        PersonDto userDetails = PersonDto.builder().username(username).password("").build();
+
+    private void setUserContext(Claims claims, String loginName) {
+        LoginInformationDTO userDetails = LoginInformationDTO.builder().loginName(loginName).password("").build();
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 null,
