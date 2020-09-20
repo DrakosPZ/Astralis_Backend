@@ -1,5 +1,6 @@
 package com.Astralis.backend.controller;
 
+import com.Astralis.backend.dto.LoginInformationDTO;
 import com.Astralis.backend.dto.UserDTO;
 import com.Astralis.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -118,7 +119,7 @@ public class UserController extends AbstractController<UserDTO>{
      * @param loginName the looked for Users's LoginName.
      * @return the looked for Users in a ResponseEntity.
      */
-    @GetMapping(params = "username")
+    @GetMapping(params = "loginName")
     public ResponseEntity<UserDTO> findByUsername(
             @RequestParam String loginName
     ) {

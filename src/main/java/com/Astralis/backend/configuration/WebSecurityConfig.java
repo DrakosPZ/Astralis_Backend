@@ -65,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new AuthorizationFilter(tokenProperties), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, tokenProperties.getLoginPath()).permitAll()
+                .antMatchers(HttpMethod.POST, tokenProperties.getRegistrationPath()).permitAll()
                 .antMatchers("/**").authenticated();
     }
 

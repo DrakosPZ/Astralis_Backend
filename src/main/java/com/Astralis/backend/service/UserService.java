@@ -1,5 +1,6 @@
 package com.Astralis.backend.service;
 
+import com.Astralis.backend.dto.LoginInformationDTO;
 import com.Astralis.backend.dto.UserDTO;
 import com.Astralis.backend.model.User;
 import com.Astralis.backend.persistence.LoginInformationRepo;
@@ -197,10 +198,7 @@ public class UserService
      * @return the looked for UserDTO
      */
     public Optional<UserDTO> findByLoginName(String loginName){
-        return userRepo.findByIdentifier
-                (loginInformationRepo.findByLoginName(loginName).orElseThrow(
-                    () -> new IllegalArgumentException("No User found with given LoginName")
-                ).getUser().getIdentifier())
+        return userRepo.findByLoginInformationLoginName(loginName)
                     .map(m -> convertModelIntoDTO(m));
     }
 

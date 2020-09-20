@@ -4,6 +4,7 @@ import com.Astralis.backend.dto.LoginInformationDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,6 +18,8 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 public class LoginInformation extends AbstractModel{
 
+    @NotNull
+    @Column(unique=true)
     private String loginName;
     private String password;
 
@@ -25,7 +28,7 @@ public class LoginInformation extends AbstractModel{
     @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             orphanRemoval = true)
-    @JoinColumn(name="id")
+    @JoinColumn(name="loginInformation")
     private User user;
 
     //DTO Constructor
