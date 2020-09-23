@@ -1,14 +1,13 @@
 package com.Astralis.backend.service;
 
-import com.Astralis.backend.dto.LoginInformationDTO;
+import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.dto.UserDTO;
+import com.Astralis.backend.model.GameState;
 import com.Astralis.backend.model.User;
-import com.Astralis.backend.persistence.LoginInformationRepo;
-import com.Astralis.backend.persistence.UserRepo;
+import com.Astralis.backend.persistence.GameStateRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,12 +18,10 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class UserService
-        extends AbstractService<UserDTO, User> {
+public class GameStateService
+        extends AbstractService<GameStateDTO, GameState> {
 
-    private final UserRepo userRepo;
-    private final LoginInformationRepo loginInformationRepo;
-    private final BCryptPasswordEncoder encoder;
+    private final GameStateRepo gameStateRepo;
 
     /**
      * Convert a given Model into a respective DTO
@@ -33,8 +30,8 @@ public class UserService
      * @return transformed DTO
      */
     @Override
-    UserDTO convertModelIntoDTO(User model) {
-        return new UserDTO(model);
+    GameStateDTO convertModelIntoDTO(GameState model) {
+        return new GameStateDTO(model);
     }
 
     /**
@@ -44,8 +41,8 @@ public class UserService
      * @return transformed model
      */
     @Override
-    User convertDTOIntoModel(UserDTO dto) {
-        User model = new User(dto);
+    GameState convertDTOIntoModel(GameStateDTO dto) {
+        GameState model = new GameState(dto);
         return model;
     }
 
@@ -55,24 +52,20 @@ public class UserService
      * If a field has changed, the old model's field is updated to the new version.
      * The old model is then returned with the updated fields.
      *
-     * @param old User model
-     * @param model new User model
-     * @return the old User model with the updated fields.
+     * @param old GameState model
+     * @param model new GameState model
+     * @return the old GameState model with the updated fields.
      */
     @Override
-    User compareUpdate(User old, User model) {
-        if(!old.getNickName().equals(model.getNickName())){
-            old.setNickName(model.getNickName());
+    GameState compareUpdate(GameState old, GameState model) {
+        if(!old.getName().equals(model.getName())){
+            old.setName(model.getName());
         }
-        if(!old.getRole().equals(model.getRole())){
-            old.setRole(model.getRole());
+        if(!old.getDescription().equals(model.getDescription())){
+            old.setDescription(model.getDescription());
         }
-        if(!old.getLoginInformation().getLoginName().equals(model.getLoginInformation().getLoginName())){
-            old.getLoginInformation().setLoginName(model.getLoginInformation().getLoginName());
-        }
-        if(!encoder.matches(model.getLoginInformation().getPassword(), old.getLoginInformation().getPassword()) &&
-           !model.getLoginInformation().getPassword().equals(old.getLoginInformation().getPassword())){
-            old.getLoginInformation().setPassword(encoder.encode(model.getLoginInformation().getPassword()));
+        if(!old.getImage().equals(model.getImage())){
+            old.setImage(model.getImage());
         }
         return old;
     }
@@ -92,29 +85,29 @@ public class UserService
      * So to commit the changes the model is called from the database.
      * The returned model is handed forward.
      *
-     * @param old User model.
-     * @param dto new User dto.
+     * @param old GameState model.
+     * @param dto new GameState dto.
      * @return the updated model from the database.
      */
     @Override
-    User storeListChanges(User old, UserDTO dto) {
+    GameState storeListChanges(GameState old, GameStateDTO dto) {
         //for those that are fully loaded by the converter
-        User model = convertDTOIntoModel(dto);
+        GameState model = convertDTOIntoModel(dto);
 
-        // not included gameStates --- added by remove and add route
+        // not included users --- added by remove and add route
 
         return findByIdentifier(model.getIdentifier()).get();
     }
 
     /**
-     * Sets for every created User ...
+     * Sets for every created GameState ...
      *             Not yet Used
      *
      * @param model the to be instantiated model.
      * @return the fully set-up model.
      */
     @Override
-    User setStandardData(User model) {
+    GameState setStandardData(GameState model) {
         //set Standard Data
 
         return model;
@@ -126,8 +119,8 @@ public class UserService
      * @return a List of all stored Persons in the table.
      */
     @Override
-    List<User> findall() {
-        return userRepo.findAll();
+    List<GameState> findall() {
+        return gameStateRepo.findAll();
     }
 
     /**
@@ -138,10 +131,9 @@ public class UserService
      * @return the stored model.
      */
     @Override
-    User saveRep(User model) {
-        model.getLoginInformation().setPassword(encoder.encode(model.getLoginInformation().getPassword()));
+    GameState saveRep(GameState model) {
         //clean Relations --
-        return userRepo.save(model);
+        return gameStateRepo.save(model);
     }
 
     /**
@@ -152,10 +144,10 @@ public class UserService
      * @return the updated model.
      */
     @Override
-    User updateRep(User model) {
+    GameState updateRep(GameState model) {
         //clean Relations
 
-        return userRepo.save(model);
+        return gameStateRepo.save(model);
     }
 
     /**
@@ -165,8 +157,8 @@ public class UserService
      * @return the looked for model.
      */
     @Override
-    Optional<User> findByIdentifier(String identifier) {
-        return userRepo.findByIdentifier(identifier);
+    Optional<GameState> findByIdentifier(String identifier) {
+        return gameStateRepo.findByIdentifier(identifier);
     }
 
     /**
@@ -176,7 +168,7 @@ public class UserService
      */
     @Override
     void deleteByIdentifier(String identifier) {
-        userRepo.deleteByIdentifier(identifier);
+        gameStateRepo.deleteByIdentifier(identifier);
     }
 
     /**
@@ -192,47 +184,8 @@ public class UserService
 
 
 
-    //----------------------Custome Methods----------------------
-    /**
-     * Returns the looked for UserDTO based on it's username.
-     *
-     * @param loginName the looked for model's LoginName
-     * @return the looked for UserDTO
-     */
-    public Optional<UserDTO> findByLoginName(String loginName){
-        return userRepo.findByLoginInformationLoginName(loginName)
-                    .map(m -> convertModelIntoDTO(m));
-    }
-
-    /**
-     * Returns the looked for UserDTO based on it's username and password.
-     *
-     * @param loginName the looked for model's LoginName
-     * @param password the looked for model's Password
-     * @return the looked for UserDTO
-     */
-    public Optional<UserDTO> findByLoginNamePassword(String loginName, String password){
-        Optional<User> found = Optional.of(
-                            loginInformationRepo.findByLoginName(loginName)
-                                .orElseThrow( () -> new IllegalArgumentException("No User found with given LoginName"))
-                                .getUser());
-        if(found.isEmpty()){
-            return found.map(m -> convertModelIntoDTO(m));
-        }
-        if(encoder.matches(password, found.get().getLoginInformation().getPassword())){
-            return found.map(m -> convertModelIntoDTO(m));
-        }
-        throw new IllegalArgumentException("Passwords don't match");
-    }
-
-
-
-
-
-
 
 
 
     //----------------------Relationship Handling Methods----------------------
-
 }

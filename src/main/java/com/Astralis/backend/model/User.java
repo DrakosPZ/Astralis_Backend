@@ -1,15 +1,12 @@
 package com.Astralis.backend.model;
 
-import com.Astralis.backend.dto.LoginInformationDTO;
+import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.dto.UserDTO;
+import com.Astralis.backend.dto.UserGameStateDTO;
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import java.util.Optional;
-import java.util.UUID;
+import javax.persistence.*;
+import java.util.*;
 
 @Getter
 @Setter
@@ -32,6 +29,9 @@ public class User extends AbstractModel{
                 orphanRemoval = true)
     private LoginInformation loginInformation;
 
+    @OneToMany(mappedBy = "gameState")
+    private List<UserGameState> userGameStates = new ArrayList<>();
+
     //DTO Constructor
     public User(UserDTO userDTO){
         this.identifier = Optional.ofNullable(userDTO.getIdentifier())
@@ -45,6 +45,11 @@ public class User extends AbstractModel{
         } else {
             setLoginInformation(new LoginInformation());
         }
+
+        (userDTO.getUserGameStates() == null ? new ArrayList<GameStateDTO>() : userDTO.getUserGameStates())
+                .stream()
+                .map(x -> new UserGameState((UserGameStateDTO) x))
+                .forEach(this::addUserGameState);
     }
 
 
@@ -72,7 +77,21 @@ public class User extends AbstractModel{
 
 
     //----------------------1:N Relationship Methods----------------------
+    public void addUserGameState(UserGameState userGameState) {
+        if (userGameStates.contains(userGameState)) {
+            return;
+        }
+        userGameStates.add(userGameState);
+        userGameState.setUser(this);
+    }
 
+    public void removeUserGameState(UserGameState userGameState) {
+        if (!userGameStates.contains(userGameState)) {
+            return;
+        }
+        userGameState.setUser(null);
+        userGameStates.remove(userGameState);
+    }
 
 
 
@@ -81,6 +100,7 @@ public class User extends AbstractModel{
 
 
     //----------------------N:1 Relationship Methods----------------------
+
 
 
 
