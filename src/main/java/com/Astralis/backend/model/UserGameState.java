@@ -18,12 +18,16 @@ public class UserGameState {
     @EmbeddedId
     private User_GameState_PK id;
 
-    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @MapsId("user_id")
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @MapsId("gameState_id")
     @JoinColumn(name = "GAMESTATE_ID")
     private GameState gameState;

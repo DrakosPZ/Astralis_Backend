@@ -5,7 +5,9 @@ import com.Astralis.backend.dto.UserDTO;
 import com.Astralis.backend.dto.UserGameStateDTO;
 import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.*;
 
@@ -22,7 +24,9 @@ public class GameState extends AbstractModel{
     private String description;
     private String image;
 
-    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserGameState> userGameStates = new ArrayList<>();
 
     //DTO Constructor

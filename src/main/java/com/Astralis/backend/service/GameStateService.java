@@ -1,9 +1,7 @@
 package com.Astralis.backend.service;
 
 import com.Astralis.backend.dto.GameStateDTO;
-import com.Astralis.backend.dto.UserDTO;
 import com.Astralis.backend.model.GameState;
-import com.Astralis.backend.model.User;
 import com.Astralis.backend.persistence.GameStateRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

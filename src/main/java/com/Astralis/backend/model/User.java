@@ -23,13 +23,12 @@ public class User extends AbstractModel{
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(cascade = CascadeType.ALL,
-                fetch = FetchType.LAZY,
-                mappedBy = "user",
-                orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
     private LoginInformation loginInformation;
 
-    @OneToMany(mappedBy = "gameState")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "gameState")
     private List<UserGameState> userGameStates = new ArrayList<>();
 
     //DTO Constructor

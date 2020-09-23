@@ -1,19 +1,12 @@
 package com.Astralis.backend.controller;
 
 import com.Astralis.backend.dto.GameStateDTO;
-import com.Astralis.backend.dto.UserDTO;
-import com.Astralis.backend.model.GameState;
-import com.Astralis.backend.service.AbstractService;
 import com.Astralis.backend.service.GameStateService;
-import com.Astralis.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
