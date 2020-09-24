@@ -2,7 +2,12 @@ package com.Astralis.backend.service;
 
 import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.model.GameState;
+import com.Astralis.backend.model.User;
+import com.Astralis.backend.model.UserGameState;
+import com.Astralis.backend.model.User_GameState_PK;
 import com.Astralis.backend.persistence.GameStateRepo;
+import com.Astralis.backend.persistence.UserGameStateRepo;
+import com.Astralis.backend.persistence.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,8 @@ public class GameStateService
         extends AbstractService<GameStateDTO, GameState> {
 
     private final GameStateRepo gameStateRepo;
+    private final UserRepo userRepo;
+    private final UserGameStateRepo userGameStateRepo;
 
     /**
      * Convert a given Model into a respective DTO
@@ -186,4 +193,34 @@ public class GameStateService
 
 
     //----------------------Relationship Handling Methods----------------------
+    public Optional<GameStateDTO> addUserToGameState(String identifierGS, String identifierU) {
+        GameState gameState = gameStateRepo.findByIdentifier(identifierGS)
+                .orElseThrow(() -> new IllegalArgumentException("GameState ID has no according GameState."));
+        User user = userRepo.findByIdentifier(identifierU)
+                .orElseThrow(() -> new IllegalArgumentException("User ID has no according User."));
+
+        //Custom N:M Connection Part
+        UserGameState connection = new UserGameState(user, gameState);
+        userGameStateRepo.save(connection);
+
+        //gameState.addUserGameState(connection);
+        return Optional.of(gameState)
+                .map(m -> convertModelIntoDTO(m));
+    }
+
+    public Optional<GameStateDTO> removeUserFromGameState(String identifierGS, String identifierU) {
+        GameState gameState = gameStateRepo.findByIdentifier(identifierGS)
+                .orElseThrow(() -> new IllegalArgumentException("GameState ID has no according GameState."));
+        User user = userRepo.findByIdentifier(identifierU)
+                .orElseThrow(() -> new IllegalArgumentException("User ID has no according User."));
+
+        //Custom N:M Connection Part
+        UserGameState connection =
+                new UserGameState(user, gameState);
+
+        gameState.removeUserGameState(connection);
+        return Optional
+                .of(gameState)
+                .map(this::convertModelIntoDTO);
+    }
 }

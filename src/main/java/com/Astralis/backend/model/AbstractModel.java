@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public abstract class AbstractModel {
     @Id
     @GeneratedValue
-    private Long id;
+    protected Long id;
 
     @NotNull
     protected String identifier;

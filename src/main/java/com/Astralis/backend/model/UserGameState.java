@@ -2,6 +2,8 @@ package com.Astralis.backend.model;
 
 import com.Astralis.backend.dto.UserGameStateDTO;
 import lombok.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,30 +12,36 @@ import java.util.Objects;
 @Setter
 @Entity
 @Builder
-@ToString(callSuper = true)
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserGameState {
+@EqualsAndHashCode
+public class UserGameState{
 
     @EmbeddedId
     private User_GameState_PK id;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     @MapsId("user_id")
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USER_ID", insertable = false, updatable = false)
     private User user;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     @MapsId("gameState_id")
-    @JoinColumn(name = "GAMESTATE_ID")
+    @JoinColumn(name = "GAMESTATE_ID", insertable = false, updatable = false)
     private GameState gameState;
 
     //add Role later
 
+    public UserGameState(User u, GameState gs) {
+        // create primary key
+        this.id = new User_GameState_PK(u.getId(), gs.getId());
+
+        // initialize attributes
+        setUser(u);
+        setGameState(gs);
+
+    }
 
 
     public UserGameState(UserGameStateDTO userGameStateDTO){

@@ -4,6 +4,8 @@ import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.dto.UserDTO;
 import com.Astralis.backend.dto.UserGameStateDTO;
 import lombok.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,9 +17,9 @@ import java.util.*;
 @Setter
 @Entity
 @Builder
-@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class GameState extends AbstractModel{
     private String name;
@@ -26,7 +28,7 @@ public class GameState extends AbstractModel{
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserGameState> userGameStates = new ArrayList<>();
 
     //DTO Constructor
