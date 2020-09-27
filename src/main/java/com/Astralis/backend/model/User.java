@@ -31,7 +31,7 @@ public class User extends AbstractModel{
     @OneToMany(
             cascade = {CascadeType.PERSIST},
             fetch = FetchType.LAZY,
-            mappedBy = "user",//that was it
+            mappedBy = "user",
             orphanRemoval = true
     )
     private List<UserGameState> userGameStates = new ArrayList<>();

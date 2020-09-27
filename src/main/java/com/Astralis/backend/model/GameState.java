@@ -30,7 +30,7 @@ public class GameState extends AbstractModel{
     @EqualsAndHashCode.Exclude
     @OneToMany(cascade = {CascadeType.PERSIST},
             fetch = FetchType.LAZY,
-            mappedBy = "gameState",//that was it
+            mappedBy = "gameState",
             orphanRemoval = true)
     private List<UserGameState> userGameStates = new ArrayList<>();
 

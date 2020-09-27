@@ -25,14 +25,12 @@ public class UserGameState{
             cascade = {CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @MapsId("user_id")
-    //@JoinColumn(name = "USER_ID", insertable = false, updatable = false) //this one removed
     private User user;
 
     @ManyToOne(
             cascade = {CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @MapsId("gameState_id")
-    //@JoinColumn(name = "GAMESTATE_ID", insertable = false, updatable = false) //this one removed
     private GameState gameState;
 
     //add Role later
@@ -49,9 +47,16 @@ public class UserGameState{
 
 
     public UserGameState(UserGameStateDTO userGameStateDTO){
-        //this.id =
         this.user = null;
         this.gameState = null;
+    }
+
+    /**
+     * Method used to clean all related Connections, required before deleting it.
+     */
+    public void cleanConnection(){
+        setUser(null);
+        setGameState(null);
     }
 
 
@@ -103,7 +108,7 @@ public class UserGameState{
             oldGameState.removeUserGameState(this);
         }
 
-        if (gameState != null) {//copy paste error
+        if (gameState != null) {
             gameState.addUserGameState(this);
         }
     }

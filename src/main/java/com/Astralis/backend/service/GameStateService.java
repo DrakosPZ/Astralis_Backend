@@ -201,7 +201,6 @@ public class GameStateService
 
         //Custom N:M Connection Part
         UserGameState connection = new UserGameState(user, gameState);
-        //gameState.addUser(user);
 
         return Optional.of(gameState)
                 .map(m -> convertModelIntoDTO(m));
@@ -214,10 +213,14 @@ public class GameStateService
                 .orElseThrow(() -> new IllegalArgumentException("User ID has no according User."));
 
         //Custom N:M Connection Part
-        UserGameState connection =
-                new UserGameState(user, gameState);
+        User_GameState_PK connectionID =
+                new User_GameState_PK(user.getId(), gameState.getId());
+        UserGameState connection = userGameStateRepo.findById(connectionID)
+                .orElseThrow(() -> new IllegalArgumentException("Connection ID has no according UserGameState Connection."));
+        connection.cleanConnection();
+        userGameStateRepo.deleteById(connectionID);
 
-        gameState.removeUserGameState(connection);
+
         return Optional
                 .of(gameState)
                 .map(this::convertModelIntoDTO);
