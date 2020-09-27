@@ -29,7 +29,7 @@ public class BuildTestData implements ApplicationRunner {
             //Startup Data
             UserDTO user = UserDTO.builder()
                     .nickName("DrakoD")
-                    .role("ADMIN")
+                    .role("MASTER_ADMIN")
                     .build();
             LoginInformationDTO login = new LoginInformationDTO("Drako","Drako","");
             user.setLoginInformation(login);
@@ -37,7 +37,7 @@ public class BuildTestData implements ApplicationRunner {
 
             user = UserDTO.builder()
                     .nickName("KuroK")
-                    .role("USER")
+                    .role("ADMIN")
                     .build();
             login = new LoginInformationDTO("Kuro","Kuro","");
             user.setLoginInformation(login);

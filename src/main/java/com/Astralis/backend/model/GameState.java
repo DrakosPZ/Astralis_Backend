@@ -48,12 +48,6 @@ public class GameState extends AbstractModel{
                 .forEach(this::addUserGameState);
     }
 
-    public void addUser(User user){
-        UserGameState userGameState = new UserGameState(user,this);
-        userGameStates.add(userGameState);
-        user.getUserGameStates().add(userGameState);
-    }
-
 
 
 

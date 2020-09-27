@@ -1,5 +1,6 @@
 package com.Astralis.backend.controller;
 
+import com.Astralis.backend.DataHolders.GameUserRoleSet;
 import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.service.GameStateService;
 import lombok.RequiredArgsConstructor;
@@ -85,7 +86,7 @@ public class GameStateController extends AbstractController<GameStateDTO>{
      * Post route to add a User to an existing Game
      *
      * @param holder holds the identifier of the gamestate object, and the user object to be added
-     * @return
+     * @return the changed GameStateDTO
      */
     @PostMapping(path = "/addUser", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<GameStateDTO> addUser(
@@ -110,10 +111,10 @@ public class GameStateController extends AbstractController<GameStateDTO>{
      * Delete route to remove a User from a Game
      *
      * @param holder holds the identifier of the gamestate object, and the user object to be added
-     * @return
+     * @return the changed GameStateDTO, if it was deleted in the process, the identifier is empty
      */
     @DeleteMapping(path = "/removeUser", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<GameStateDTO> removeFromTeam(
+    public ResponseEntity<GameStateDTO> removeUser(
             @RequestBody Map<String, String> holder) {
         String identifierGS = holder.keySet().stream()
                 .map(key -> key)
@@ -129,10 +130,27 @@ public class GameStateController extends AbstractController<GameStateDTO>{
                         .orElseThrow(IllegalArgumentException::new)
         );
     }
-    //Add to Game (With roles if joining player is Master_Admin, set game  Role to Master-Admin, if admin set to Admin)
-    //Remove from Game - if no players left, delete game
-    //create new Game (with user to be set Master Role)
 
-    //Edit Delete Behaviour to emtpy list
-    //Route to change Role of a User to a wanted one (Cannot change MasterAdmin Role)
+
+    /**
+     * Put route to change the Role of a User in a given Game
+     *
+     * @param holder holds a Map with a GameState, User Identifier Map and a String for the Role to be changed to
+     * @return the changed GameStateDTO
+     */
+    @PutMapping(path = "/changeGameUserRole", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<GameStateDTO> changeRoleFromUserInGameState(
+            @RequestBody GameUserRoleSet holder) {
+        String identifierGS = holder.getIdentifierGameState();
+        String identifierU = holder.getIdentifierUser();
+        String role = holder.getRole();
+        return ResponseEntity.ok(
+                service.changeRoleOfGamePlayer(
+                        identifierGS,
+                        identifierU,
+                        role )
+                        .map(this::addSelfLink)
+                        .orElseThrow(IllegalArgumentException::new)
+        );
+    }
 }

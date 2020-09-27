@@ -33,11 +33,12 @@ public class UserGameState{
     @MapsId("gameState_id")
     private GameState gameState;
 
-    //add Role later
+    private GameRole gameRole;
 
-    public UserGameState(User u, GameState gs) {
+    public UserGameState(User u, GameState gs, GameRole gameRole) {
         // create primary key
         this.id = new User_GameState_PK(u.getId(), gs.getId());
+        this.gameRole = gameRole;
 
         // initialize attributes
         setUser(u);
@@ -49,6 +50,7 @@ public class UserGameState{
     public UserGameState(UserGameStateDTO userGameStateDTO){
         this.user = null;
         this.gameState = null;
+        this.gameRole = GameRole.PLAYER;
     }
 
     /**

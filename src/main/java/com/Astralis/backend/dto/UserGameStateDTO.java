@@ -13,11 +13,13 @@ public class UserGameStateDTO{
 
     private String user;
     private String gameState;
+    private String gameRole;
 
     //O Constructor
     public UserGameStateDTO(UserGameState userGameState){
         //this.id = userGameState.getId();
         this.user = userGameState.getUser() == null ? "": userGameState.getUser().getIdentifier();
+        this.gameRole = userGameState.getGameRole().toString();
         this.gameState = userGameState.getGameState()  == null ? "": userGameState.getGameState().getIdentifier();
     }
 

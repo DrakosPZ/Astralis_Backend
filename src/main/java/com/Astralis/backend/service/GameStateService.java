@@ -1,10 +1,8 @@
 package com.Astralis.backend.service;
 
 import com.Astralis.backend.dto.GameStateDTO;
-import com.Astralis.backend.model.GameState;
-import com.Astralis.backend.model.User;
-import com.Astralis.backend.model.UserGameState;
-import com.Astralis.backend.model.User_GameState_PK;
+import com.Astralis.backend.dto.UserGameStateDTO;
+import com.Astralis.backend.model.*;
 import com.Astralis.backend.persistence.GameStateRepo;
 import com.Astralis.backend.persistence.UserGameStateRepo;
 import com.Astralis.backend.persistence.UserRepo;
@@ -13,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -184,6 +183,79 @@ public class GameStateService
     void preDeleteCleanUp(String identifier) {
     }
 
+    //-----------------------------Custom Methods------------------------------
+    public Optional<GameStateDTO> changeRoleOfGamePlayer(String identifierGS, String identifierU, String role) {
+        GameState gameState = gameStateRepo.findByIdentifier(identifierGS)
+                .orElseThrow(() -> new IllegalArgumentException("GameState ID has no according GameState."));
+        User user = userRepo.findByIdentifier(identifierU)
+                .orElseThrow(() -> new IllegalArgumentException("User ID has no according User."));
+        GameRole gameRole = GameRole.valueOf(role);
+
+        //Get Connection
+        User_GameState_PK connectionID =
+                new User_GameState_PK(user.getId(), gameState.getId());
+        UserGameState connection = userGameStateRepo.findById(connectionID)
+                .orElseThrow(() -> new IllegalArgumentException("Connection ID has no according UserGameState Connection."));
+
+        checkForGameRoleChange(connection, gameRole);
+
+        //#! possibly change to UserGameState with it's own service further down the line
+        return Optional.of(gameState)
+                .map(m -> convertModelIntoDTO(m));
+    }
+
+
+
+
+
+
+
+
+    //----------------------N:M Connection Change Checks-----------------------
+    /**
+     * Checks if there are no players left in a game, if there are none, the game is deleted,
+     * signalled by the returned DTO identifier being empty.
+     *
+     * @param gameState the to be checked GameState
+     * @return the DTO of the checked GameState
+     */
+    private GameStateDTO checkForLastPlayerDeleted(GameState gameState){
+        GameStateDTO returnedGameState =new GameStateDTO(gameState);
+
+        if(gameState.getUserGameStates().size() <= 0){
+            deleteByIdentifier(gameState.getIdentifier());
+            returnedGameState.setIdentifier("");
+        }
+
+        return returnedGameState;
+    }
+
+    private GameRole checkForGameRole(GameState gameState, User user){
+        if(user.getRole() == UserRole.MASTER_ADMIN){
+            return GameRole.MASTER_ADMIN;
+        } else if(gameState.getUserGameStates().size() <= 0){
+            return GameRole.GAME_ADMIN;
+        } else {
+            return GameRole.PLAYER;
+        }
+    }
+
+    private void checkForGameRoleChange(UserGameState connection, GameRole gameRole){
+        switch (gameRole){
+            case MASTER_ADMIN:
+                return;
+            case GAME_ADMIN:
+                return;
+        }
+        switch (connection.getGameRole()){
+            case MASTER_ADMIN:
+                return;
+            case GAME_ADMIN:
+                return;
+        }
+        connection.setGameRole(gameRole);
+    }
+
 
 
 
@@ -198,9 +270,10 @@ public class GameStateService
                 .orElseThrow(() -> new IllegalArgumentException("GameState ID has no according GameState."));
         User user = userRepo.findByIdentifier(identifierU)
                 .orElseThrow(() -> new IllegalArgumentException("User ID has no according User."));
+        GameRole setGameRole = checkForGameRole(gameState, user);
 
         //Custom N:M Connection Part
-        UserGameState connection = new UserGameState(user, gameState);
+        UserGameState connection = new UserGameState(user, gameState, setGameRole);
 
         return Optional.of(gameState)
                 .map(m -> convertModelIntoDTO(m));
@@ -220,9 +293,9 @@ public class GameStateService
         connection.cleanConnection();
         userGameStateRepo.deleteById(connectionID);
 
+        //Extra behaviour
+        GameStateDTO returnedGameState = checkForLastPlayerDeleted(gameState);
 
-        return Optional
-                .of(gameState)
-                .map(this::convertModelIntoDTO);
+        return Optional.of(returnedGameState);
     }
 }
