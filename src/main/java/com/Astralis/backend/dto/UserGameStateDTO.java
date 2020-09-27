@@ -9,15 +9,14 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class UserGameStateDTO{
-    private User_GameState_PK id;
+    //private User_GameState_PK id;
 
-    private String identifier;
     private String user;
     private String gameState;
 
     //O Constructor
     public UserGameStateDTO(UserGameState userGameState){
-        this.id = userGameState.getId();
+        //this.id = userGameState.getId();
         this.user = userGameState.getUser() == null ? "": userGameState.getUser().getIdentifier();
         this.gameState = userGameState.getGameState()  == null ? "": userGameState.getGameState().getIdentifier();
     }

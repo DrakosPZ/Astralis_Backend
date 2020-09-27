@@ -201,9 +201,8 @@ public class GameStateService
 
         //Custom N:M Connection Part
         UserGameState connection = new UserGameState(user, gameState);
-        userGameStateRepo.save(connection);
+        //gameState.addUser(user);
 
-        //gameState.addUserGameState(connection);
         return Optional.of(gameState)
                 .map(m -> convertModelIntoDTO(m));
     }

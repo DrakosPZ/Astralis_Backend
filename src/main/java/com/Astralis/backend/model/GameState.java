@@ -28,7 +28,10 @@ public class GameState extends AbstractModel{
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.PERSIST},
+            fetch = FetchType.LAZY,
+            mappedBy = "gameState",//that was it
+            orphanRemoval = true)
     private List<UserGameState> userGameStates = new ArrayList<>();
 
     //DTO Constructor
@@ -45,6 +48,11 @@ public class GameState extends AbstractModel{
                 .forEach(this::addUserGameState);
     }
 
+    public void addUser(User user){
+        UserGameState userGameState = new UserGameState(user,this);
+        userGameStates.add(userGameState);
+        user.getUserGameStates().add(userGameState);
+    }
 
 
 
