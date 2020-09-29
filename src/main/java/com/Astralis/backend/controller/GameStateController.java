@@ -1,5 +1,6 @@
 package com.Astralis.backend.controller;
 
+import com.Astralis.backend.DataHolders.GameUserIDSet;
 import com.Astralis.backend.DataHolders.GameUserRoleSet;
 import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.service.GameStateService;
@@ -82,6 +83,30 @@ public class GameStateController extends AbstractController<GameStateDTO>{
 
 
     //----------------------Custom Route Methods----------------------
+    /**
+     * Post route to create a new game and add the User to it.
+     *
+     * @param holder holds the identifier of the gamestate object, and the user object to be added
+     * @return the changed GameStateDTO
+     */
+    @PostMapping(path = "/createNewGame", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<GameStateDTO> createNewGame(
+            @RequestBody GameUserIDSet holder) {
+        GameStateDTO gameStateDTO = holder.getGameState();
+        gameStateDTO = saveDTO(Optional.of(gameStateDTO))
+                .orElseThrow(() -> new IllegalArgumentException("Error when creating new Game"));
+
+        String identifierGS = gameStateDTO.getIdentifier();
+        String identifierU = holder.getUserIdentifier();
+        return ResponseEntity.ok(
+                service.addUserToGameState(
+                        identifierGS,
+                        identifierU)
+                        .map(this::addSelfLink)
+                        .orElseThrow(IllegalArgumentException::new)
+        );
+    }
+
     /**
      * Post route to add a User to an existing Game
      *
