@@ -2,14 +2,20 @@ package com.Astralis.backend.controller;
 
 import com.Astralis.backend.DataHolders.GameUserIDSet;
 import com.Astralis.backend.DataHolders.GameUserRoleSet;
+import com.Astralis.backend.dto.CustomeDetailDTOs.DetailGameStateDTO;
+import com.Astralis.backend.dto.CustomeDetailDTOs.DetailUserGameStateDTO;
 import com.Astralis.backend.dto.GameStateDTO;
+import com.Astralis.backend.dto.UserGameStateDTO;
 import com.Astralis.backend.service.GameStateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -83,6 +89,79 @@ public class GameStateController extends AbstractController<GameStateDTO>{
 
 
     //----------------------Custom Route Methods----------------------
+    /**
+     * Get route to return all Games a given User has joined
+     *
+     * @param identifier the id of the to be checked User
+     * @return a List of Joined Games
+     */
+    @GetMapping(path = "/joinedGame", params = "identifier")
+    public ResponseEntity<CollectionModel<GameStateDTO>> findAllJoinedGames(@RequestParam String identifier) {
+        return ResponseEntity.ok(
+                new CollectionModel<>(
+                        service.findAllJoinedGames(identifier)
+                                .stream()
+                                .map(this::addSelfLink)
+                                .collect(Collectors.toList())
+                )
+        );
+    }
+
+    /**
+     * Get route to return a Detail View of the searched for GameState Object
+     *
+     * @param identifier of the searched gameState
+     * @return the detail GameStateDTO
+     */
+    @GetMapping(path = "/detailsFor", params = "identifier")
+    public ResponseEntity<DetailGameStateDTO> findGameStateAsDetail(@RequestParam String identifier) {
+        Optional<GameStateDTO> find = findByIdentifierDTO(identifier);
+        if(find.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.of(
+                service.findGameStateAsDetail(identifier)
+        );
+    }
+
+
+    /**
+     * Get route to return all Games containing a given identifier
+     *
+     * @param identifier of the searched gameState
+     * @return a List of filtered gameStates
+     */
+    @GetMapping(path = "/searchFor", params = "identifier")
+    public ResponseEntity<CollectionModel<GameStateDTO>> findAllGamesContainingIdentifier(@RequestParam String identifier) {
+        return ResponseEntity.ok(
+                new CollectionModel<>(
+                        service.findAllGamesContainIdentifier(identifier)
+                                .stream()
+                                .map(this::addSelfLink)
+                                .collect(Collectors.toList())
+                )
+        );
+    }
+
+    /**
+     * Get route to return all Games containing a given name
+     *
+     * @param name of the searched gameState
+     * @return a List of filtered gameStates
+     */
+    @GetMapping(path = "/searchFor", params = "name")
+    public ResponseEntity<CollectionModel<GameStateDTO>> findAllGamesContainingName(@RequestParam String name) {
+        return ResponseEntity.ok(
+                new CollectionModel<>(
+                        service.findAllGamesContainName(name)
+                                .stream()
+                                .map(this::addSelfLink)
+                                .collect(Collectors.toList())
+                )
+        );
+    }
+
     /**
      * Post route to create a new game and add the User to it.
      *

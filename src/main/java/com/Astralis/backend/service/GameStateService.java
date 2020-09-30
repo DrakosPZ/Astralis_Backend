@@ -1,6 +1,9 @@
 package com.Astralis.backend.service;
 
+import com.Astralis.backend.dto.CustomeDetailDTOs.DetailGameStateDTO;
+import com.Astralis.backend.dto.CustomeDetailDTOs.DetailUserGameStateDTO;
 import com.Astralis.backend.dto.GameStateDTO;
+import com.Astralis.backend.dto.UserDTO;
 import com.Astralis.backend.dto.UserGameStateDTO;
 import com.Astralis.backend.model.*;
 import com.Astralis.backend.persistence.GameStateRepo;
@@ -13,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -184,6 +189,16 @@ public class GameStateService
     }
 
     //-----------------------------Custom Methods------------------------------
+
+    /**
+     * Retrieves the connection of the given GameState and User combination,
+     * and changes the role of the user in that connection to the given role.
+     *
+     * @param identifierGS GameState Identifier
+     * @param identifierU User Identifier
+     * @param role To be changed to role
+     * @return the adjusted GameState
+     */
     public Optional<GameStateDTO> changeRoleOfGamePlayer(String identifierGS, String identifierU, String role) {
         GameState gameState = gameStateRepo.findByIdentifier(identifierGS)
                 .orElseThrow(() -> new IllegalArgumentException("GameState ID has no according GameState."));
@@ -202,6 +217,75 @@ public class GameStateService
         //#! possibly change to UserGameState with it's own service further down the line
         return Optional.of(gameState)
                 .map(m -> convertModelIntoDTO(m));
+    }
+
+    /**
+     * Calls the find all Joined Games of the personRepo.
+     *
+     * @param identifier of the given user.
+     * @return a List of all Games that the given User has joined.
+     */
+    public List<GameStateDTO> findAllJoinedGames(String identifier) {
+        return gameStateRepo.findByUserGameStatesUserIdentifier(identifier)
+                .stream()
+                .map(item -> convertModelIntoDTO(item))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Calls the find all Games containing the given name of the personRepo.
+     *
+     * @param name of the searched GameStates.
+     * @return a List of all Games that contain the given Name
+     */
+    public List<GameStateDTO> findAllGamesContainName(String name) {
+        return gameStateRepo.findByNameContains(name)
+                .stream()
+                .map(item -> convertModelIntoDTO(item))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Calls the find all Games containing the given identifier of the personRepo.
+     *
+     * @param identifier of the given Game's identifier.
+     * @return a List of all Games that contain the given identifier
+     */
+    public List<GameStateDTO> findAllGamesContainIdentifier(String identifier) {
+        return gameStateRepo.findByIdentifierContains(identifier)
+                .stream()
+                .map(item -> convertModelIntoDTO(item))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Calls the standard find by Identifier, and then maps it to a DetailGameStateDTO.
+     * Continues to resolve all relationship through custome Detail RelationshipDTOs.
+     *
+     * @param identifier of the searched gameState
+     * @return the optional of detail GameStateDTO
+     */
+    public Optional<DetailGameStateDTO> findGameStateAsDetail(String identifier){
+        GameState found = gameStateRepo.findByIdentifier(identifier).get();
+
+        DetailGameStateDTO detailGameStateDTO = new DetailGameStateDTO();
+        detailGameStateDTO.setIdentifier(found.getIdentifier());
+        detailGameStateDTO.setName(found.getName());
+        detailGameStateDTO.setDescription(found.getDescription());
+        detailGameStateDTO.setImage(found.getImage());
+        List<DetailUserGameStateDTO> connectedList = new ArrayList<>();
+        found.getUserGameStates().forEach(connection -> {
+            connectedList.add(
+                    new DetailUserGameStateDTO(
+                            new UserDTO(connection.getUser()),
+                            connection.getGameRole().toString(),
+                            detailGameStateDTO.getIdentifier()
+                    )
+            );
+        });
+        detailGameStateDTO.setUserGameStates(connectedList);
+
+        return Optional.of(detailGameStateDTO);
     }
 
 
@@ -230,6 +314,16 @@ public class GameStateService
         return returnedGameState;
     }
 
+    /**
+     * Checks the given Gamestate if the user who joins a game is a Master Admin or the first person to join.
+     * The first person is declared Game_Admin.
+     * A Master_Admin is declared Master_Admin.
+     * If none of the two applies the User will get the Player role
+     *
+     * @param gameState The to be added Gamestate.
+     * @param user The newly added user.
+     * @return the picked GameRole.
+     */
     private GameRole checkForGameRole(GameState gameState, User user){
         if(user.getRole() == UserRole.MASTER_ADMIN){
             return GameRole.MASTER_ADMIN;
@@ -240,6 +334,16 @@ public class GameStateService
         }
     }
 
+    /**
+     * Checks the to be changed to gameRole if it is a Master Admin or Game Admin.
+     * These roles can not be changed to with the normal change, therefore they just break.
+     * Then checks the connection if the user is supposed to be changed from a Game Admin or Master Admin.
+     * Same applies therefore breaks.
+     * If none of the above is the case the method goses through with changing the role.
+     *
+     * @param connection to be edited connection.
+     * @param gameRole to be changed to GameRole.
+     */
     private void checkForGameRoleChange(UserGameState connection, GameRole gameRole){
         switch (gameRole){
             case MASTER_ADMIN:

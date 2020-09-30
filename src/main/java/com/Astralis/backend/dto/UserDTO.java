@@ -26,6 +26,7 @@ public class UserDTO extends AbstractModelDto{
         this.nickName = user.getNickName() == null ? "": user.getNickName();
         this.role = user.getRole().toString();
         this.loginInformation = user.getLoginInformation() == null ? new LoginInformationDTO(): new LoginInformationDTO(user.getLoginInformation());
+        //this.loginInformation = null;
 
         this.userGameStates = user.getUserGameStates() == null ? new ArrayList<>() : user.getUserGameStates()
                 .stream().map(element -> new UserGameStateDTO(element))
