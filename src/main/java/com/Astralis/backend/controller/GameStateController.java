@@ -217,7 +217,7 @@ public class GameStateController extends AbstractController<GameStateDTO>{
      * @param holder holds the identifier of the gamestate object, and the user object to be added
      * @return the changed GameStateDTO, if it was deleted in the process, the identifier is empty
      */
-    @DeleteMapping(path = "/removeUser", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(path = "/removeUser", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<GameStateDTO> removeUser(
             @RequestBody Map<String, String> holder) {
         String identifierGS = holder.keySet().stream()
