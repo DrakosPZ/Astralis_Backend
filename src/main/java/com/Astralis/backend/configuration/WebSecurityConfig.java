@@ -66,7 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, tokenProperties.getLoginPath()).permitAll()
                 .antMatchers(HttpMethod.POST, tokenProperties.getRegistrationPath()).permitAll()
-                .antMatchers("/**").authenticated();
+                .antMatchers("/**").permitAll(); // TODO: replacing with authentication required
+                //.antMatchers("/**").authenticated();
     }
 
     private HttpSecurity applyCors(HttpSecurity httpSecurity) throws Exception {

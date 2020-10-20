@@ -3,9 +3,9 @@ package com.Astralis.backend.model;
 import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.dto.UserDTO;
 import com.Astralis.backend.dto.UserGameStateDTO;
+import com.Astralis.logic.model.GameMap;
+import com.Astralis.logic.model.LogicGameState;
 import lombok.*;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -33,6 +33,13 @@ public class GameState extends AbstractModel{
             mappedBy = "gameState",
             orphanRemoval = true)
     private List<UserGameState> userGameStates = new ArrayList<>();
+
+    //game Logic
+    private String rules;
+    private GameMap map;
+    private LogicGameState masterState;
+    //onDTO
+    private String currentState;
 
     //DTO Constructor
     public GameState(GameStateDTO gameStateDTO){
