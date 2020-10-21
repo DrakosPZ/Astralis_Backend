@@ -14,6 +14,6 @@ import javax.persistence.Entity;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class Position extends AbstractModel {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 }

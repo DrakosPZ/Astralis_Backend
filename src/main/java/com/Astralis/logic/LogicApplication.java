@@ -13,7 +13,7 @@ public class LogicApplication {
 
 	public static void main(String[] args) {
 		GameLoop gameLoop = new GameLoop();
-		LogicGameState logicGameState = new LogicGameState(0, 1, 1, 0, new ArrayList<>());
+		LogicGameState logicGameState = new LogicGameState(4000, 1, 1, 0, new ArrayList<>());
 		gameLoop.startLoop(logicGameState);
 	}
 

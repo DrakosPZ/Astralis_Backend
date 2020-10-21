@@ -16,7 +16,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class LogicGameState extends AbstractModel {
-    //#possibly put into own method ffs
+    //#possibly put into own class ffs
     private int year;
     private int month;
     private int day;
