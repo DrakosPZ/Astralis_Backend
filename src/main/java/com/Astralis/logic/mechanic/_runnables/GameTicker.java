@@ -1,14 +1,19 @@
 package com.Astralis.logic.mechanic._runnables;
 
+import com.Astralis.logic.helperModels.GameVector;
+import com.Astralis.logic.mechanic.MovementManager;
 import com.Astralis.logic.model.LogicGameState;
-import com.Astralis.logic.model.Position;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class GameTicker implements Runnable {
     LogicGameState activeState;
+    @Autowired
+    private MovementManager movementManager;
 
     // Todo: Add Commentary
     public GameTicker(LogicGameState activeState) {
         this.activeState = activeState;
+        this.movementManager = new MovementManager(); //TODO: Implement with Dependency Injection
     }
 
     // Todo: Add Commentary
@@ -19,35 +24,28 @@ public class GameTicker implements Runnable {
 
     // Todo: Add Commentary, Ship/Troop Movements, Combat
     private void hourTick(){
+        System.out.println("Hour Tick");
         activeState.getCountries().forEach(country -> {
-
-            Position currentPos = country.getShip().getCurrentPosition();
-            Position targetPos = country.getShip().getTargetPosition();
-            if(currentPos.getX() != targetPos.getX() || currentPos.getY() != targetPos.getY()){
-                //TODO: Put into own Vector class
-                Position vector = new Position(targetPos.getX() - currentPos.getX(), targetPos.getY() - currentPos.getY());
-                double length = Math.sqrt(Math.pow(vector.getX(),2) + Math.pow(vector.getY(),2));
-                Position unitVector = new Position(vector.getX()/length, vector.getY()/length);
-
-                currentPos.setX(currentPos.getX() + unitVector.getX() * country.getShip().getMovementSpeed());
-                currentPos.setY(currentPos.getY() + unitVector.getY() * country.getShip().getMovementSpeed());
-                country.getShip().setCurrentPosition(currentPos);
-            }
+            System.out.println("Country: " + country.getName());
+            movementManager.moveShip(country.getShip());
         });
     }
 
     // Todo: Add Commentary
     private void dayTick(){
+        System.out.println("Day Tick");
 
     }
 
     // Todo: Add Commentary
     private void monthTick(){
+        System.out.println("Month Tick");
 
     }
 
     // Todo: Add Commentary
     private void yearTick(){
+        System.out.println("Year Tick");
 
     }
 

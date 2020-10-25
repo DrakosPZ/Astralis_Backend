@@ -18,8 +18,8 @@ public class GameLoop {
 
     // Todo: Add Commentary
     public void startLoop(LogicGameState activeGameState){
-        GameTicker obj = new GameTicker(activeGameState);
-        executorService.scheduleAtFixedRate(obj, 0, 10, TimeUnit.MILLISECONDS);
+        GameTicker tickingLoop = new GameTicker(activeGameState);
+        executorService.scheduleAtFixedRate(tickingLoop, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
     // Todo: Add Commentary

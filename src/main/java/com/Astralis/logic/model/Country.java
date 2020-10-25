@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class Country extends AbstractModel {
+    private String name;
     private User leadingUser;
     private Ship ship;
     private String colour;

@@ -16,5 +16,5 @@ import javax.persistence.Entity;
 public class Ship extends AbstractModel {
     private Position targetPosition;
     private Position currentPosition;
-    private double movementSpeed = 100;
+    private double movementSpeed;
 }
