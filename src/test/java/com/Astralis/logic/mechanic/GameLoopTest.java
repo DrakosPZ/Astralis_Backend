@@ -9,7 +9,7 @@ class GameLoopTest {
 
     @Test
     void testGameLoop() {
-        gameLoop.startLoop(null);
+        gameLoop.startLoop(null, null);
     }
 
 }

@@ -4,22 +4,35 @@ import com.Astralis.logic.helperModels.GameVector;
 import com.Astralis.logic.mechanic.MovementManager;
 import com.Astralis.logic.model.LogicGameState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 public class GameTicker implements Runnable {
     LogicGameState activeState;
     @Autowired
     private MovementManager movementManager;
+    private SseEmitter emitter;
 
     // Todo: Add Commentary
-    public GameTicker(LogicGameState activeState) {
+    public GameTicker(LogicGameState activeState, SseEmitter emitter) {
         this.activeState = activeState;
+        this.emitter = emitter;
         this.movementManager = new MovementManager(); //TODO: Implement with Dependency Injection
     }
 
     // Todo: Add Commentary
     public void run() {
         increaseTime();
+        sendOutEvents();
         System.out.println("TimeStamp: " + activeState.getDay() + "." + activeState.getMonth() +"." + activeState.getYear() + " : " + activeState.getHour());
+    }
+
+    // Todo: Add Commentary
+    private void sendOutEvents(){
+        try {
+            emitter.send(activeState);
+        } catch (Exception ex) {
+            emitter.completeWithError(ex);
+        }
     }
 
     // Todo: Add Commentary, Ship/Troop Movements, Combat

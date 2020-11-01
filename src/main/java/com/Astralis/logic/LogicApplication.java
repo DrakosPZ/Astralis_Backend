@@ -8,6 +8,7 @@ import com.Astralis.logic.model.Position;
 import com.Astralis.logic.model.Ship;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class LogicApplication {
 
 		LogicGameState logicGameState = new LogicGameState(4000, 1, 1, 0, countries);
 
-		gameLoop.startLoop(logicGameState);
+		gameLoop.startLoop(logicGameState, new SseEmitter());
 	}
 
 }

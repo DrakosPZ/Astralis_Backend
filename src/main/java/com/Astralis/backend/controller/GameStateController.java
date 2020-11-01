@@ -7,6 +7,11 @@ import com.Astralis.backend.dto.CustomeDetailDTOs.DetailUserGameStateDTO;
 import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.dto.UserGameStateDTO;
 import com.Astralis.backend.service.GameStateService;
+import com.Astralis.logic.mechanic.GameLoop;
+import com.Astralis.logic.model.Country;
+import com.Astralis.logic.model.LogicGameState;
+import com.Astralis.logic.model.Position;
+import com.Astralis.logic.model.Ship;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -265,6 +270,7 @@ public class GameStateController extends AbstractController<GameStateDTO>{
         );
     }
 
+    // Todo: Commentary
     @GetMapping("/sse")
     public SseEmitter streamSseMvc() {
         SseEmitter emitter = new SseEmitter();
@@ -283,6 +289,37 @@ public class GameStateController extends AbstractController<GameStateDTO>{
                 emitter.completeWithError(ex);
             }
         });
+        return emitter;
+    }
+
+    // Todo: Commentary
+    @GetMapping(path = "/startGame", params = "identifier")
+    public SseEmitter streamSseMvc(@RequestParam String identifier) {
+        SseEmitter emitter = new SseEmitter();
+
+        GameLoop gameLoop = new GameLoop();
+        List<Country> countries = new ArrayList<>();
+        countries.add(Country.builder()
+                .name("Player1")
+                .ship(Ship.builder()
+                        .currentPosition(new Position(0, 0))
+                        .targetPosition(new Position(100, 100))
+                        .movementSpeed(100)
+                        .build())
+                .build());
+        countries.add(Country.builder()
+                .name("Player2")
+                .ship(Ship.builder()
+                        .currentPosition(new Position(0, 0))
+                        .targetPosition(new Position(-100, -100))
+                        .movementSpeed(10)
+                        .build())
+                .build());
+
+        LogicGameState logicGameState = new LogicGameState(4000, 1, 1, 0, countries);
+
+        gameLoop.startLoop(logicGameState, emitter);
+
         return emitter;
     }
 }

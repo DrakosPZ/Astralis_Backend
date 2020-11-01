@@ -36,8 +36,8 @@ public class GameState extends AbstractModel{
 
     //game Logic
     private String rules;
-    private GameMap map;
-    private LogicGameState masterState;
+    //private GameMap map;
+    //private LogicGameState masterState;
     //onDTO
     private String currentState;
 
