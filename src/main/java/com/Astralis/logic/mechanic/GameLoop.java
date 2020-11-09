@@ -16,16 +16,33 @@ import java.util.concurrent.TimeUnit;
 public class GameLoop {
 
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
+    GameTicker activeLoop;
 
     // Todo: Add Commentary
     public void startLoop(LogicGameState activeGameState, SseEmitter emitter){
-        GameTicker tickingLoop = new GameTicker(activeGameState, emitter);
-        executorService.scheduleAtFixedRate(tickingLoop, 0, 1000, TimeUnit.MILLISECONDS);
+        activeLoop = new GameTicker(activeGameState, emitter);
+        executorService.scheduleAtFixedRate(activeLoop, 0, 1000, TimeUnit.MILLISECONDS);
+    }
+
+    // Todo: Add Commentary
+    public String getID(){
+        return activeLoop.getActiveState().getIdentifier();
+    }
+
+    // Todo: Add Commentary
+    public void joinGame(SseEmitter emitter){
+        activeLoop.addEmitter(emitter);
+    }
+
+    // Todo: Add Commentary
+    public void leaveGame(SseEmitter emitter){
+        activeLoop.removeEmitter(emitter);
     }
 
     // Todo: Add Commentary
     public void endLoop(){
         executorService.shutdown();
+        activeLoop.cleanUpEmitters("Game closed");
     }
 
 }

@@ -6,16 +6,19 @@ import com.Astralis.logic.model.LogicGameState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameTicker implements Runnable {
-    LogicGameState activeState;
+    private LogicGameState activeState;
     @Autowired
     private MovementManager movementManager;
-    private SseEmitter emitter;
+    private List<SseEmitter> emitters = new ArrayList<>();
 
     // Todo: Add Commentary
     public GameTicker(LogicGameState activeState, SseEmitter emitter) {
         this.activeState = activeState;
-        this.emitter = emitter;
+        addEmitter(emitter);
         this.movementManager = new MovementManager(); //TODO: Implement with Dependency Injection
     }
 
@@ -27,11 +30,45 @@ public class GameTicker implements Runnable {
     }
 
     // Todo: Add Commentary
+    public LogicGameState getActiveState(){
+        return activeState;
+    }
+
+    // Todo: Add Commentary
+    public void addEmitter(SseEmitter emitter){
+        emitters.add(emitter);
+    }
+
+    // Todo: Add Commentary
+    public void removeEmitter(SseEmitter emitter){
+        emitters.remove(emitter);
+    }
+
+    // Todo: Add Commentary
+    public void cleanUpEmitters(String message){
+        for (int index = 0; index < emitters.size(); index++) {
+            SseEmitter emitter = emitters.get(index);
+            try {
+                emitter.send(message);
+            } catch (Exception ex) {
+                throw new IllegalArgumentException("Game Ticker: Error when cleanup Message");
+            }
+            emitter.complete();
+            removeEmitter(emitter);
+            index--;
+        }
+        System.out.println("Size after Cleanup: "+emitters.size());
+    }
+
+    // Todo: Add Commentary
     private void sendOutEvents(){
         try {
-            emitter.send(activeState);
+            for (SseEmitter emitter: emitters) {
+                    emitter.send(activeState);
+            }
         } catch (Exception ex) {
-            emitter.completeWithError(ex);
+            cleanUpEmitters("Error occurred, Closing Sessions");
+            throw new IllegalArgumentException("GameTickError");
         }
     }
 

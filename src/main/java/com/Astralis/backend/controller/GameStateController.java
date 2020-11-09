@@ -3,9 +3,7 @@ package com.Astralis.backend.controller;
 import com.Astralis.backend.DataHolders.GameUserIDSet;
 import com.Astralis.backend.DataHolders.GameUserRoleSet;
 import com.Astralis.backend.dto.CustomeDetailDTOs.DetailGameStateDTO;
-import com.Astralis.backend.dto.CustomeDetailDTOs.DetailUserGameStateDTO;
 import com.Astralis.backend.dto.GameStateDTO;
-import com.Astralis.backend.dto.UserGameStateDTO;
 import com.Astralis.backend.service.GameStateService;
 import com.Astralis.logic.mechanic.GameLoop;
 import com.Astralis.logic.model.Country;
@@ -22,8 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter.*;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +34,10 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/gamestate")
 public class GameStateController extends AbstractController<GameStateDTO>{
     private final GameStateService service;
+
+    //TODO: possibly own cache structure
+    private List<GameLoop> gameLoops = new ArrayList<>();
+    private final long timeoutMillis = 0; // 0 = no Timeout
 
     /**
      * calls the find all method of the appropriate service.
@@ -273,7 +273,7 @@ public class GameStateController extends AbstractController<GameStateDTO>{
     // Todo: Commentary
     @GetMapping("/sse")
     public SseEmitter streamSseMvc() {
-        SseEmitter emitter = new SseEmitter();
+        SseEmitter emitter = new SseEmitter(timeoutMillis);
         ExecutorService sseMvcExecutor = Executors.newSingleThreadExecutor();
         sseMvcExecutor.execute(() -> {
             try {
@@ -294,8 +294,8 @@ public class GameStateController extends AbstractController<GameStateDTO>{
 
     // Todo: Commentary
     @GetMapping(path = "/startGame", params = "identifier")
-    public SseEmitter streamSseMvc(@RequestParam String identifier) {
-        SseEmitter emitter = new SseEmitter();
+    public SseEmitter startGame(@RequestParam String identifier) {
+        SseEmitter emitter = new SseEmitter(timeoutMillis);
 
         GameLoop gameLoop = new GameLoop();
         List<Country> countries = new ArrayList<>();
@@ -317,9 +317,64 @@ public class GameStateController extends AbstractController<GameStateDTO>{
                 .build());
 
         LogicGameState logicGameState = new LogicGameState(4000, 1, 1, 0, countries);
+        logicGameState.setIdentifier(identifier);
+        System.out.println(logicGameState.getIdentifier());
 
+        gameLoops.add(gameLoop);
         gameLoop.startLoop(logicGameState, emitter);
 
         return emitter;
+    }
+
+    // Todo: Commentary
+    @GetMapping(path = "/joinGame", params = "identifier")
+    public SseEmitter joinGame(@RequestParam String identifier) {
+        SseEmitter emitter = new SseEmitter(timeoutMillis);
+
+        GameLoop gameLoop = gameLoops.stream()
+                                .filter(loop -> identifier.equals(loop.getID()))
+                                .findAny()
+                                .orElse(null);
+        if(gameLoop == null){
+            throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
+        }
+
+        gameLoop.joinGame(emitter);
+        return emitter;
+    }
+
+    // Todo: Commentary
+    @GetMapping(path = "/leaveGame", params = "identifier")
+    public SseEmitter leaveGame(
+            @RequestParam String identifier, @RequestBody SseEmitter emitter) {
+
+        GameLoop gameLoop = gameLoops.stream()
+                .filter(loop -> identifier.equals(loop.getID()))
+                .findAny()
+                .orElse(null);
+        if(gameLoop == null){
+            throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
+        }
+
+        gameLoop.leaveGame(emitter);
+        return emitter;
+    }
+
+    // Todo: Commentary
+    @GetMapping(path = "/stopGame", params = "identifier")
+    public boolean stopGame(@RequestParam String identifier) {
+
+        GameLoop gameLoop = gameLoops.stream()
+                .filter(loop -> identifier.equals(loop.getID()))
+                .findAny()
+                .orElse(null);
+        if(gameLoop == null){
+            throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
+        }
+
+        //TODO: possibly put list and this part into own Gameloop Manager
+        gameLoop.endLoop();
+        gameLoops.remove(gameLoop);
+        return true;
     }
 }
