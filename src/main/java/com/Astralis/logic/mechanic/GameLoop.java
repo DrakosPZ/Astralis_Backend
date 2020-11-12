@@ -17,16 +17,18 @@ public class GameLoop {
 
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
     GameTicker activeLoop;
+    String activeID;
 
     // Todo: Add Commentary
-    public void startLoop(LogicGameState activeGameState, SseEmitter emitter){
+    public void startLoop(String gameStateID, LogicGameState activeGameState, SseEmitter emitter){
         activeLoop = new GameTicker(activeGameState, emitter);
+        activeID = gameStateID;
         executorService.scheduleAtFixedRate(activeLoop, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
     // Todo: Add Commentary
     public String getID(){
-        return activeLoop.getActiveState().getIdentifier();
+        return activeID;
     }
 
     // Todo: Add Commentary

@@ -4,17 +4,17 @@ import com.Astralis.backend.dto.CustomeDetailDTOs.DetailGameStateDTO;
 import com.Astralis.backend.dto.CustomeDetailDTOs.DetailUserGameStateDTO;
 import com.Astralis.backend.dto.GameStateDTO;
 import com.Astralis.backend.dto.UserDTO;
-import com.Astralis.backend.dto.UserGameStateDTO;
 import com.Astralis.backend.model.*;
 import com.Astralis.backend.persistence.GameStateRepo;
 import com.Astralis.backend.persistence.UserGameStateRepo;
 import com.Astralis.backend.persistence.UserRepo;
+import com.Astralis.logic.mechanic.GameLoopManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +31,7 @@ public class GameStateService
     private final GameStateRepo gameStateRepo;
     private final UserRepo userRepo;
     private final UserGameStateRepo userGameStateRepo;
+    private final GameLoopManager gameLoopManager;
 
     /**
      * Convert a given Model into a respective DTO
@@ -288,6 +289,12 @@ public class GameStateService
         return Optional.of(detailGameStateDTO);
     }
 
+    //Todo: Add Commentary
+    public void startGame(String identifier, SseEmitter emitter){
+        GameState gameState = findByIdentifier(identifier)
+                .orElseThrow(() -> new IllegalArgumentException("No Game State of Identifier Found"));
+        gameLoopManager.addGameLoop(identifier, gameState.getCurrentState(), emitter);
+    }
 
 
 

@@ -4,12 +4,10 @@ import com.Astralis.backend.DataHolders.GameUserIDSet;
 import com.Astralis.backend.DataHolders.GameUserRoleSet;
 import com.Astralis.backend.dto.CustomeDetailDTOs.DetailGameStateDTO;
 import com.Astralis.backend.dto.GameStateDTO;
+import com.Astralis.backend.model.GameState;
 import com.Astralis.backend.service.GameStateService;
 import com.Astralis.logic.mechanic.GameLoop;
-import com.Astralis.logic.model.Country;
-import com.Astralis.logic.model.LogicGameState;
-import com.Astralis.logic.model.Position;
-import com.Astralis.logic.model.Ship;
+import com.Astralis.logic.mechanic.GameLoopManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -18,15 +16,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter.*;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,10 +27,7 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/gamestate")
 public class GameStateController extends AbstractController<GameStateDTO>{
     private final GameStateService service;
-
-    //TODO: possibly own cache structure
-    private List<GameLoop> gameLoops = new ArrayList<>();
-    private final long timeoutMillis = 0; // 0 = no Timeout
+    private final GameLoopManager gameLoopManager;
 
     /**
      * calls the find all method of the appropriate service.
@@ -271,70 +261,19 @@ public class GameStateController extends AbstractController<GameStateDTO>{
     }
 
     // Todo: Commentary
-    @GetMapping("/sse")
-    public SseEmitter streamSseMvc() {
-        SseEmitter emitter = new SseEmitter(timeoutMillis);
-        ExecutorService sseMvcExecutor = Executors.newSingleThreadExecutor();
-        sseMvcExecutor.execute(() -> {
-            try {
-                for (int i = 0; true; i++) {
-                    SseEventBuilder event = SseEmitter.event()
-                            .data("SSE MVC - " + LocalTime.now().toString())
-                            .id(String.valueOf(i))
-                            .name("sse event - mvc");
-                    emitter.send(event);
-                    Thread.sleep(1000);
-                }
-            } catch (Exception ex) {
-                emitter.completeWithError(ex);
-            }
-        });
-        return emitter;
-    }
-
-    // Todo: Commentary
     @GetMapping(path = "/startGame", params = "identifier")
     public SseEmitter startGame(@RequestParam String identifier) {
-        SseEmitter emitter = new SseEmitter(timeoutMillis);
-
-        GameLoop gameLoop = new GameLoop();
-        List<Country> countries = new ArrayList<>();
-        countries.add(Country.builder()
-                .name("Player1")
-                .ship(Ship.builder()
-                        .currentPosition(new Position(0, 0))
-                        .targetPosition(new Position(100, 100))
-                        .movementSpeed(100)
-                        .build())
-                .build());
-        countries.add(Country.builder()
-                .name("Player2")
-                .ship(Ship.builder()
-                        .currentPosition(new Position(0, 0))
-                        .targetPosition(new Position(-100, -100))
-                        .movementSpeed(10)
-                        .build())
-                .build());
-
-        LogicGameState logicGameState = new LogicGameState(4000, 1, 1, 0, countries);
-        logicGameState.setIdentifier(identifier);
-        System.out.println(logicGameState.getIdentifier());
-
-        gameLoops.add(gameLoop);
-        gameLoop.startLoop(logicGameState, emitter);
-
+        SseEmitter emitter = new SseEmitter(gameLoopManager.getTimeoutMillis());
+        service.startGame(identifier, emitter);
         return emitter;
     }
 
     // Todo: Commentary
     @GetMapping(path = "/joinGame", params = "identifier")
     public SseEmitter joinGame(@RequestParam String identifier) {
-        SseEmitter emitter = new SseEmitter(timeoutMillis);
+        SseEmitter emitter = new SseEmitter(gameLoopManager.getTimeoutMillis());
+        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
 
-        GameLoop gameLoop = gameLoops.stream()
-                                .filter(loop -> identifier.equals(loop.getID()))
-                                .findAny()
-                                .orElse(null);
         if(gameLoop == null){
             throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
         }
@@ -348,10 +287,8 @@ public class GameStateController extends AbstractController<GameStateDTO>{
     public SseEmitter leaveGame(
             @RequestParam String identifier, @RequestBody SseEmitter emitter) {
 
-        GameLoop gameLoop = gameLoops.stream()
-                .filter(loop -> identifier.equals(loop.getID()))
-                .findAny()
-                .orElse(null);
+        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
+
         if(gameLoop == null){
             throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
         }
@@ -364,17 +301,13 @@ public class GameStateController extends AbstractController<GameStateDTO>{
     @GetMapping(path = "/stopGame", params = "identifier")
     public boolean stopGame(@RequestParam String identifier) {
 
-        GameLoop gameLoop = gameLoops.stream()
-                .filter(loop -> identifier.equals(loop.getID()))
-                .findAny()
-                .orElse(null);
+        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
+
         if(gameLoop == null){
             throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
         }
 
-        //TODO: possibly put list and this part into own Gameloop Manager
-        gameLoop.endLoop();
-        gameLoops.remove(gameLoop);
+        gameLoopManager.removeGameLoop(gameLoop);
         return true;
     }
 }

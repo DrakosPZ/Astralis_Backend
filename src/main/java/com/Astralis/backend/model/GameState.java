@@ -7,10 +7,7 @@ import com.Astralis.logic.model.GameMap;
 import com.Astralis.logic.model.LogicGameState;
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 
 @Getter
@@ -35,11 +32,9 @@ public class GameState extends AbstractModel{
     private List<UserGameState> userGameStates = new ArrayList<>();
 
     //game Logic
-    private String rules;
-    //private GameMap map;
-    //private LogicGameState masterState;
-    //onDTO
-    private String currentState;
+    //private RuleSet rules;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    private LogicGameState currentState;
 
     //DTO Constructor
     public GameState(GameStateDTO gameStateDTO){
@@ -62,7 +57,15 @@ public class GameState extends AbstractModel{
 
 
     //----------------------1:1 Relationship Methods----------------------
-
+    public void setCurrentState(LogicGameState logicGameState){
+        if(this.currentState != null) {
+            if (this.currentState.equals(logicGameState)) {
+                return;
+            }
+        }
+        this.currentState = logicGameState;
+        logicGameState.setGameState(this);
+    }
 
 
 
