@@ -1,8 +1,10 @@
-package com.Astralis.backend.accountManagement.utils;
+package com.Astralis.backend.setUps;
 
-import com.Astralis.backend.accountManagement.service.UserService;
+import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.LoginInformationDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
+import com.Astralis.backend.accountManagement.model.GameState;
+import com.Astralis.backend.accountManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,12 +19,13 @@ public class BuildTestData implements ApplicationRunner {
     private UserService userService;
 
     //StartUp Settings
-    private static boolean START_UP_DATA_INJECTION = true;
+    private static boolean START_UP_ACCOUNT_DATA_INJECTION = true;
+    private static boolean START_UP_GAMES_DATA_INJECTION = false;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if(START_UP_DATA_INJECTION){
-            //Startup Data
+        if(START_UP_ACCOUNT_DATA_INJECTION){
+            //Startup Data for Account Management
             UserDTO user = UserDTO.builder()
                     .nickName("DrakoD")
                     .role("MASTER_ADMIN")
@@ -46,6 +49,10 @@ public class BuildTestData implements ApplicationRunner {
             login = new LoginInformationDTO("Zuignap","Zuignap","");
             user.setLoginInformation(login);
             userService.save(Optional.of(user));
+
+            if(START_UP_GAMES_DATA_INJECTION){
+            }
+
         }
     }
 }

@@ -1,18 +1,23 @@
-package com.Astralis.backend.gameLogic.model;
+package com.Astralis.backend.gameDatabase.model;
 
+import com.Astralis.backend.accountManagement.model.AbstractModel;
 import com.Astralis.backend.accountManagement.model.GameState;
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
 @Setter
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class LogicGameState extends AbstractMemoryModel {
+public class LogicGameState extends AbstractGameModel {
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name="currentState")
     private GameState gameState;
 
     //#possibly put into own class ffs
@@ -21,6 +26,14 @@ public class LogicGameState extends AbstractMemoryModel {
     private int day;
     private int hour;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(
+            cascade = {CascadeType.PERSIST},
+            fetch = FetchType.LAZY,
+            mappedBy = "logicGameState",
+            orphanRemoval = true
+    )
     private List<Country> countries;
     //private GameMap map;
 

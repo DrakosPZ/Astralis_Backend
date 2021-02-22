@@ -1,7 +1,6 @@
 package com.Astralis.backend.accountManagement.model;
 
 import com.Astralis.backend.accountManagement.dto.LoginInformationDTO;
-import com.Astralis.backend.accountManagement.model.AbstractModel;
 import lombok.*;
 
 import javax.persistence.*;

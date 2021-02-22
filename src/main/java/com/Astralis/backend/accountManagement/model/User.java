@@ -3,7 +3,6 @@ package com.Astralis.backend.accountManagement.model;
 import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
 import com.Astralis.backend.accountManagement.dto.UserGameStateDTO;
-import com.Astralis.backend.accountManagement.model.AbstractModel;
 import lombok.*;
 
 import javax.persistence.*;

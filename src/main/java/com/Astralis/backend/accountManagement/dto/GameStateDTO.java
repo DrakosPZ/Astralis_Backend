@@ -17,6 +17,7 @@ public class GameStateDTO extends AbstractModelDto {
     private String name;
     private String description;
     private String image;
+    private String status;
 
     private List<UserGameStateDTO> userGameStates = new ArrayList<>();
     //TODO Replace with DTO
@@ -28,6 +29,7 @@ public class GameStateDTO extends AbstractModelDto {
         this.name = gameState.getName() == null ? "": gameState.getName();
         this.description = gameState.getDescription() == null ? "": gameState.getDescription();
         this.image = gameState.getImage() == null ? "": gameState.getImage();
+        this.status = gameState.getStatus().toString();
 
         this.userGameStates = gameState.getUserGameStates() == null ? new ArrayList<>() : gameState.getUserGameStates()
                 .stream().map(element -> new UserGameStateDTO(element))

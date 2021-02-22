@@ -9,6 +9,10 @@ import com.Astralis.backend.accountManagement.dto.CustomeDetailDTOs.DetailUserGa
 import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
 import com.Astralis.backend.gameLogic.mechanic.GameLoopManager;
+import com.Astralis.backend.gameDatabase.model.Country;
+import com.Astralis.backend.gameDatabase.model.LogicGameState;
+import com.Astralis.backend.gameDatabase.model.Position;
+import com.Astralis.backend.gameDatabase.model.Ship;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -272,6 +276,7 @@ public class GameStateService
         detailGameStateDTO.setName(found.getName());
         detailGameStateDTO.setDescription(found.getDescription());
         detailGameStateDTO.setImage(found.getImage());
+        detailGameStateDTO.setStatus(found.getStatus().toString());
         List<DetailUserGameStateDTO> connectedList = new ArrayList<>();
         found.getUserGameStates().forEach(connection -> {
             connectedList.add(
@@ -287,11 +292,44 @@ public class GameStateService
         return Optional.of(detailGameStateDTO);
     }
 
-    //Todo: Add Commentary
-    public void startGame(String identifier, SseEmitter emitter){
+    /**
+     * Change Status from Paused to Running, if not already initialized it first initialize Logic Game State
+     *
+     * @param identifier
+     */
+    public void startGame(String identifier){
         GameState gameState = findByIdentifier(identifier)
-                .orElseThrow(() -> new IllegalArgumentException("No Game State of Identifier Found"));
-        gameLoopManager.addGameLoop(identifier, gameState.getCurrentState(), emitter);
+                .orElseThrow(() -> new IllegalArgumentException("No GameState Present"));
+        LogicGameState logicGameState;
+        if(gameState.getCurrentState() == null){
+            //Initialize Logic Game State if not already done
+            //Test Data
+            List<Country> countries = new ArrayList<>();
+            countries.add(Country.builder()
+                    .name("Player1")
+                    .ship(Ship.builder()
+                            .currentPosition(new Position(0, 0))
+                            .targetPosition(new Position(100, 100))
+                            .movementSpeed(100)
+                            .build())
+                    .build());
+            countries.add(Country.builder()
+                    .name("Player2")
+                    .ship(Ship.builder()
+                            .currentPosition(new Position(0, 0))
+                            .targetPosition(new Position(-100, -100))
+                            .movementSpeed(10)
+                            .build())
+                    .build());
+            logicGameState = new LogicGameState(null,4000, 1, 1, 0, countries);
+
+
+            gameState.setCurrentState(logicGameState);
+        }else {
+            logicGameState = gameState.getCurrentState();
+        }
+
+        //gameLoopManager.addGameLoop(identifier, logicGameState, new SseEmitter(gameLoopManager.getTimeoutMillis()));
     }
 
 

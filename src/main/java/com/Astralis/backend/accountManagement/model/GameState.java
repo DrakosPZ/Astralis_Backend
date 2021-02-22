@@ -3,7 +3,7 @@ package com.Astralis.backend.accountManagement.model;
 import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
 import com.Astralis.backend.accountManagement.dto.UserGameStateDTO;
-import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameDatabase.model.LogicGameState;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +23,7 @@ import java.util.UUID;
 public class GameState extends AbstractModel {
     private String name;
     private String description;
+    private GameStatus status;
     private String image;
 
     @ToString.Exclude
@@ -45,6 +46,7 @@ public class GameState extends AbstractModel {
         this.name = gameStateDTO.getName() == null ? "": gameStateDTO.getName();
         this.description = gameStateDTO.getDescription() == null ? "": gameStateDTO.getDescription();
         this.image = gameStateDTO.getImage() == null ? "": gameStateDTO.getImage();
+        this.status = GameStatus.valueOf(gameStateDTO.getStatus());
 
         (gameStateDTO.getUserGameStates() == null ? new ArrayList<UserDTO>() : gameStateDTO.getUserGameStates())
                 .stream()

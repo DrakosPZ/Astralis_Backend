@@ -259,12 +259,22 @@ public class GameStateController extends AbstractController<GameStateDTO> {
         );
     }
 
-    // Todo: Commentary
+
+
+
+
+    /**
+     * Get Route to start the given Game. If the Game hasn't been initialized yet it is first initialized and then started.
+     *
+     * @param identifier the given Game State Identifier which should be started
+     * @return updated Detail Game with new Status
+     */
     @GetMapping(path = "/startGame", params = "identifier")
-    public SseEmitter startGame(@RequestParam String identifier) {
-        SseEmitter emitter = new SseEmitter(gameLoopManager.getTimeoutMillis());
-        service.startGame(identifier, emitter);
-        return emitter;
+    public ResponseEntity<DetailGameStateDTO> startGame(@RequestParam String identifier) {
+        service.startGame(identifier);
+
+
+        return findGameStateAsDetail(identifier);
     }
 
     // Todo: Commentary

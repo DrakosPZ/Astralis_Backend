@@ -15,5 +15,6 @@ public class DetailGameStateDTO extends AbstractModelDto {
     private String name;
     private String description;
     private String image;
+    private String status;
     private List<DetailUserGameStateDTO> userGameStates = new ArrayList<>();
 }

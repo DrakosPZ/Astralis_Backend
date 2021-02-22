@@ -1,9 +1,11 @@
-package com.Astralis.backend.gameLogic.model;
+package com.Astralis.backend.gameDatabase.model;
 
 import lombok.*;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
+@Embeddable
 @Getter
 @Setter
 @NoArgsConstructor

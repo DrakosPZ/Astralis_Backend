@@ -1,5 +1,6 @@
-package com.Astralis.backend.gameLogic.model;
+package com.Astralis.backend.gameDatabase.model;
 
+import com.Astralis.backend.accountManagement.model.AbstractModel;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,12 +8,13 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Country extends AbstractMemoryModel {
+public class Country extends AbstractGameModel {
     private String name;
     //private User leadingUser;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "belongsTo", orphanRemoval = true)
