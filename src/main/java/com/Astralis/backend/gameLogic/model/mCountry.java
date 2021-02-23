@@ -12,11 +12,11 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Country extends AbstractMemoryModel {
+public class mCountry extends AbstractMemoryModel {
     private String name;
     //private User leadingUser;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "belongsTo", orphanRemoval = true)
-    private Ship ship;
+    private mShip mShip;
     private String colour;
 
     //ReverseMapping
@@ -24,7 +24,7 @@ public class Country extends AbstractMemoryModel {
             cascade = {CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
-    private LogicGameState logicGameState;
+    private mLogicGameState mLogicGameState;
 
 
 
@@ -32,14 +32,14 @@ public class Country extends AbstractMemoryModel {
 
 
     //----------------------1:1 Relationship Methods----------------------
-    public void setShip(Ship ship){
-        if(this.ship != null) {
-            if (this.ship.equals(ship)) {
+    public void setMShip(mShip mShip){
+        if(this.mShip != null) {
+            if (this.mShip.equals(mShip)) {
                 return;
             }
         }
-        this.ship = ship;
-        ship.setCurrentOwner(this);
+        this.mShip = mShip;
+        mShip.setCurrentOwner(this);
     }
 
 
@@ -56,20 +56,20 @@ public class Country extends AbstractMemoryModel {
 
 
     //----------------------N:1 Relationship Methods----------------------
-    public void setLogicGameState(LogicGameState logicGameState) {
-        if (Objects.equals(this.logicGameState, logicGameState)) {
+    public void setMLogicGameState(mLogicGameState mLogicGameState) {
+        if (Objects.equals(this.mLogicGameState, mLogicGameState)) {
             return;
         }
 
-        LogicGameState oldLogicGameState = this.logicGameState;
-        this.logicGameState = logicGameState;
+        mLogicGameState oldMLogicGameState = this.mLogicGameState;
+        this.mLogicGameState = mLogicGameState;
 
-        if (oldLogicGameState != null) {
-            oldLogicGameState.removeCountry(this);
+        if (oldMLogicGameState != null) {
+            oldMLogicGameState.removeCountry(this);
         }
 
-        if (logicGameState != null) {
-            logicGameState.addCountry(this);
+        if (mLogicGameState != null) {
+            mLogicGameState.addCountry(this);
         }
     }
 

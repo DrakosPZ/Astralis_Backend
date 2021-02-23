@@ -1,11 +1,9 @@
 package com.Astralis.backend.gameDatabase.persistence;
 
-import com.Astralis.backend.accountManagement.model.LoginInformation;
-import com.Astralis.backend.accountManagement.persistence.AbstractRepo;
-import com.Astralis.backend.gameLogic.model.Country;
+import com.Astralis.backend.gameDatabase.model.LogicGameState;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LogicGameStateRepo extends AbstractRepo<Country>, CrudRepository<Country, Long> {
+public interface LogicGameStateRepo extends AbstractRepo<LogicGameState>, CrudRepository<LogicGameState, Long> {
 }

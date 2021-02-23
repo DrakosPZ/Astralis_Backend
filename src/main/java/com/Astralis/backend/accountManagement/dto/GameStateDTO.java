@@ -1,7 +1,7 @@
 package com.Astralis.backend.accountManagement.dto;
 
 import com.Astralis.backend.accountManagement.model.GameState;
-import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameLogic.model.mLogicGameState;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class GameStateDTO extends AbstractModelDto {
 
     private List<UserGameStateDTO> userGameStates = new ArrayList<>();
     //TODO Replace with DTO
-    private LogicGameState currentState;
+    private mLogicGameState currentState;
 
     //O Constructor
     public GameStateDTO(GameState gameState){

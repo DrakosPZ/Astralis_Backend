@@ -1,4 +1,4 @@
-package com.Astralis.backend.gameDatabase.services;
+package com.Astralis.backend.gameDatabase.service;
 
 import com.Astralis.backend.gameDatabase.model.AbstractGameModel;
 import com.Astralis.backend.gameLogic.model.AbstractMemoryModel;

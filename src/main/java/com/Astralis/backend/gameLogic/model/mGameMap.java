@@ -10,6 +10,6 @@ import lombok.*;
 //@AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class GameMap extends AbstractMemoryModel {
+public class mGameMap extends AbstractMemoryModel {
     //private Galaxy galaxy;
 }

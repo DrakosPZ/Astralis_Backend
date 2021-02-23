@@ -1,17 +1,17 @@
 package com.Astralis.backend.gameLogic.mechanic;
 
 import com.Astralis.backend.gameLogic.helperModels.GameVector;
-import com.Astralis.backend.gameLogic.model.Position;
-import com.Astralis.backend.gameLogic.model.Ship;
+import com.Astralis.backend.gameLogic.model.mPosition;
+import com.Astralis.backend.gameLogic.model.mShip;
 
 public class MovementManager {
 
     //TODO: Add documentation
-    public void moveShip(Ship ship){
+    public void moveShip(mShip mShip){
         System.out.println("Move Ship: ");
-        Position currentPos = ship.getCurrentPosition();
-        Position targetPos = ship.getTargetPosition();
-        double movementSpeed = ship.getMovementSpeed();
+        mPosition currentPos = mShip.getCurrentMPosition();
+        mPosition targetPos = mShip.getTargetMPosition();
+        double movementSpeed = mShip.getMovementSpeed();
 
         if(currentPos.getX() != targetPos.getX() || currentPos.getY() != targetPos.getY()){
             System.out.println("Old Pos: " + currentPos.toString());
@@ -42,7 +42,7 @@ public class MovementManager {
                     currentPos.setY(targetPos.getY());
                 }
             }
-            ship.setCurrentPosition(currentPos);
+            mShip.setCurrentMPosition(currentPos);
 
             System.out.println("New Pos: " + currentPos.toString());
         }

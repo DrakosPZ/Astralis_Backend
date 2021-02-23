@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class LogicGameState extends AbstractMemoryModel {
+public class mLogicGameState extends AbstractMemoryModel {
     private GameState gameState;
 
     //#possibly put into own class ffs
@@ -21,7 +21,7 @@ public class LogicGameState extends AbstractMemoryModel {
     private int day;
     private int hour;
 
-    private List<Country> countries;
+    private List<mCountry> countries;
     //private GameMap map;
 
 
@@ -47,20 +47,20 @@ public class LogicGameState extends AbstractMemoryModel {
 
 
     //----------------------1:N Relationship Methods----------------------
-    public void addCountry(Country country) {
-        if (countries.contains(country)) {
+    public void addCountry(mCountry mCountry) {
+        if (countries.contains(mCountry)) {
             return;
         }
-        countries.add(country);
-        country.setLogicGameState(this);
+        countries.add(mCountry);
+        mCountry.setMLogicGameState(this);
     }
 
-    public void removeCountry(Country country) {
-        if (!countries.contains(country)) {
+    public void removeCountry(mCountry mCountry) {
+        if (!countries.contains(mCountry)) {
             return;
         }
-        country.setLogicGameState(null);
-        countries.remove(country);
+        mCountry.setMLogicGameState(null);
+        countries.remove(mCountry);
     }
 
 

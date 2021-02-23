@@ -10,15 +10,15 @@ import lombok.*;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Ship extends AbstractMemoryModel {
+public class mShip extends AbstractMemoryModel {
 
-    private Position targetPosition;
-    private Position currentPosition;
+    private mPosition targetMPosition;
+    private mPosition currentMPosition;
 
     private double movementSpeed;
 
     //ReverseMapping
-    private Country belongsTo;
+    private mCountry belongsTo;
 
 
 
@@ -27,14 +27,14 @@ public class Ship extends AbstractMemoryModel {
 
 
     //----------------------1:1 Relationship Methods----------------------
-    public void setCurrentOwner(Country country){
+    public void setCurrentOwner(mCountry mCountry){
         if(this.belongsTo != null) {
-            if (this.belongsTo.equals(country)) {
+            if (this.belongsTo.equals(mCountry)) {
                 return;
             }
         }
-        this.belongsTo = country;
-        country.setShip(this);
+        this.belongsTo = mCountry;
+        mCountry.setMShip(this);
     }
 
 

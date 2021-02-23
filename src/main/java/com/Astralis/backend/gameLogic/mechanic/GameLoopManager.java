@@ -1,6 +1,6 @@
 package com.Astralis.backend.gameLogic.mechanic;
 
-import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameLogic.model.mLogicGameState;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,10 +16,10 @@ public class GameLoopManager {
     private List<GameLoop> gameLoops = new ArrayList<>();
     private final long timeoutMillis = 0; // 0 = no Timeout
 
-    public void addGameLoop(String gameStateID, LogicGameState logicGameState, SseEmitter emitter){
+    public void addGameLoop(String gameStateID, mLogicGameState mLogicGameState, SseEmitter emitter){
         GameLoop gameLoop = new GameLoop();
         gameLoops.add(gameLoop);
-        gameLoop.startLoop(gameStateID, logicGameState, emitter);
+        gameLoop.startLoop(gameStateID, mLogicGameState, emitter);
     }
 
     public void removeGameLoop(GameLoop gameLoop){

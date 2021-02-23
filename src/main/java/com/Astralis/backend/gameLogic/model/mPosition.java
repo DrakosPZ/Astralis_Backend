@@ -9,7 +9,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Position implements Serializable {
+public class mPosition implements Serializable {
     private double x;
     private double y;
 }
