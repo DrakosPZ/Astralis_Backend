@@ -1,6 +1,6 @@
 package com.Astralis.backend.gameDatabase.model;
 
-import com.Astralis.backend.accountManagement.model.AbstractModel;
+import com.Astralis.backend.gameLogic.model.mCountry;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +27,16 @@ public class Country extends AbstractGameModel {
             fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
     private LogicGameState logicGameState;
+
+    public Country(mCountry memory){
+        super();
+        this.id = memory.getId() < 0 ?  0 : memory.getId();
+
+        this.name = memory.getName() == null ?  "" : memory.getName();
+        this.colour = memory.getColour() == null ?  "" : memory.getColour();
+
+        setShip(new Ship(memory.getMShip()));
+    }
 
 
 

@@ -1,7 +1,8 @@
 package com.Astralis.backend.gameDatabase.model;
 
-import com.Astralis.backend.accountManagement.model.AbstractModel;
+import com.Astralis.backend.gameLogic.model.mPosition;
 import lombok.*;
+import com.Astralis.backend.gameLogic.model.mShip;
 
 import javax.persistence.*;
 
@@ -33,6 +34,14 @@ public class Ship extends AbstractGameModel {
     @JoinColumn(name="ship")
     private Country belongsTo;
 
+    public Ship(mShip memory){
+        super();
+        this.id = memory.getId() < 0 ?  0 : memory.getId();
+
+        this.targetPosition = new Position(memory.getTargetMPosition());
+        this.currentPosition = new Position(memory.getCurrentMPosition());
+        this.movementSpeed = memory.getMovementSpeed() < 0 ?  0 : memory.getMovementSpeed();
+    }
 
 
 

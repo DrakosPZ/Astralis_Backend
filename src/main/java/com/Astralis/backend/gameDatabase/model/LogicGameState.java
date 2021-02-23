@@ -1,10 +1,12 @@
 package com.Astralis.backend.gameDatabase.model;
 
-import com.Astralis.backend.accountManagement.model.AbstractModel;
 import com.Astralis.backend.accountManagement.model.GameState;
+import com.Astralis.backend.gameLogic.model.mLogicGameState;
+import com.Astralis.backend.gameLogic.model.mCountry;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -37,6 +39,22 @@ public class LogicGameState extends AbstractGameModel {
     private List<Country> countries;
     //private GameMap map;
 
+
+    public LogicGameState(mLogicGameState memory){
+        super();
+        this.id = memory.getId() < 0 ?  0 : memory.getId();
+
+        this.gameState = null; //#Todo: Think of either putting this as an id, or DTO
+        this.year = memory.getYear() < 0 ?  0 : memory.getYear();
+        this.month = memory.getYear() < 0 ?  0 : memory.getMonth();
+        this.day = memory.getYear() < 0 ?  0 : memory.getDay();
+        this.hour = memory.getYear() < 0 ?  0 : memory.getHour();
+
+        (memory.getCountries() == null ? new ArrayList<Country>() : memory.getCountries())
+                .stream()
+                .map(x -> new Country((mCountry) x))
+                .forEach(this::addCountry);
+    }
 
 
 

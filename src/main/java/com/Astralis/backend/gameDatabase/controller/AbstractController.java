@@ -1,6 +1,5 @@
 package com.Astralis.backend.gameDatabase.controller;
 
-import com.Astralis.backend.accountManagement.dto.AbstractModelDto;
 import com.Astralis.backend.gameLogic.model.AbstractMemoryModel;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
@@ -25,32 +24,28 @@ public abstract class AbstractController<D extends AbstractMemoryModel> {
     public ResponseEntity<CollectionModel<D>> findAll() {
         return ResponseEntity.ok(
                 new CollectionModel<>(
-                        findAllDTO()
-                                .stream()
-                                .map(this::addSelfLink)
-                                .collect(Collectors.toList())
+                        findAllModel()
                 )
         );
     }
 
 
     /**
-     * Get route to return a single object by it's identifier.
+     * Get route to return a single object by it's id.
      *
-     * @param identifier the looked for object's identifier.
+     * @param id the looked for object's id.
      * @return a ResponseEntity of the DTO that is looked for.
      */
-    @GetMapping(params = "identifier")
-    public ResponseEntity<D> findByIdentifier(@RequestParam String identifier)
+    @GetMapping(params = "id")
+    public ResponseEntity<D> findById(@RequestParam long id)
     {
-        Optional<D> find = findByIdentifierDTO(identifier);
+        Optional<D> find = findByIdModel(id);
         if(find.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.of(
-                findByIdentifierDTO(identifier)
-                        .map(this::addSelfLink)
+                findByIdModel(id)
         );
     }
 
@@ -63,10 +58,9 @@ public abstract class AbstractController<D extends AbstractMemoryModel> {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<D> create(
             @RequestBody D dto) {
-        dto.setIdentifier(null);
+        dto.setId(null);
         return ResponseEntity.ok(
-                saveDTO(Optional.of(dto))
-                        .map(this::addSelfLink)
+                saveModel(Optional.of(dto))
                         .orElseThrow(IllegalArgumentException::new)
         );
     }
@@ -81,54 +75,36 @@ public abstract class AbstractController<D extends AbstractMemoryModel> {
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<D> update(
             @RequestBody D dto) {
-        var updated = updateDTO(Optional.of(dto));
+        var updated = updateModel(Optional.of(dto));
         if(updated.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(
-                updated.map(this::addSelfLink)
-                        .orElseThrow(IllegalArgumentException::new)
+                updated.orElseThrow(IllegalArgumentException::new)
         );
     }
 
     /**
-     * Delete route to delete an object based on the given identifier
+     * Delete route to delete an object based on the given id
      *
-     * @param identifier of the to be deleted object
+     * @param id of the to be deleted object
      * @return the deleted object, encased in a ResponseEntity.
      */
-    @DeleteMapping(params = "identifier")
-    public Optional<D> delete(@RequestParam String identifier)
+    @DeleteMapping(params = "id")
+    public Optional<D> delete(@RequestParam long id)
     {
-        return deleteByIdentifierDTO(identifier);
+        return deleteByIdModel(id);
     }
 
-    /**
-     * This method is supposed to add a self Link to every response Entity.
-     * It is currently not in use, as the frontend isn't constructed to work with it.
-     *
-     * @param dto the to be referenced DTO.
-     * @return the DTO with the self reference.
-     */
-    D addSelfLink(D dto) {
-        /*dto.add(
-                linkTo(
-                        ControllerLinkBuilder.methodOn(this.getClass())
-                                .findByIdentifier(dto.getIdentifier())
-                ).withSelfRel()
-        );*/
-        return dto;
-    }
+    abstract List<D> findAllModel();
 
-    abstract List<D> findAllDTO();
+    abstract Optional<D> findByIdModel(long id);
 
-    abstract Optional<D> findByIdentifierDTO(String identifier);
+    abstract Optional<D> saveModel(Optional<D> optionaldto);
 
-    abstract Optional<D> saveDTO(Optional<D> optionaldto);
+    abstract Optional<D> updateModel(Optional<D> optionaldto);
 
-    abstract Optional<D> updateDTO(Optional<D> optionaldto);
-
-    abstract Optional<D> deleteByIdentifierDTO(String identifier);
+    abstract Optional<D> deleteByIdModel(long id);
 }
 

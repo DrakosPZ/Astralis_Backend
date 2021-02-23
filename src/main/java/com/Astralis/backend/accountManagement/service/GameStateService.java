@@ -291,6 +291,7 @@ public class GameStateService
         return Optional.of(detailGameStateDTO);
     }
 
+    //TODO: #Adjust to new storing and loading architecture
     /**
      * Change Status from Paused to Running, if not already initialized it first initialize Logic Game State
      *

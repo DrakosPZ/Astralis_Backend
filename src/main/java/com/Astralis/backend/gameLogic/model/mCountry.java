@@ -1,9 +1,7 @@
 package com.Astralis.backend.gameLogic.model;
 
+import com.Astralis.backend.gameDatabase.model.Country;
 import lombok.*;
-
-import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -15,71 +13,15 @@ import java.util.Objects;
 public class mCountry extends AbstractMemoryModel {
     private String name;
     //private User leadingUser;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "belongsTo", orphanRemoval = true)
     private mShip mShip;
     private String colour;
 
-    //ReverseMapping
-    @ManyToOne(
-            cascade = {CascadeType.PERSIST},
-            fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id")
-    private mLogicGameState mLogicGameState;
+    public mCountry(Country model){
+        super();
+        this.id = model.getId() < 0 ?  0 : model.getId();
 
-
-
-
-
-
-    //----------------------1:1 Relationship Methods----------------------
-    public void setMShip(mShip mShip){
-        if(this.mShip != null) {
-            if (this.mShip.equals(mShip)) {
-                return;
-            }
-        }
-        this.mShip = mShip;
-        mShip.setCurrentOwner(this);
+        this.name = model.getName() == null ?  "" : model.getName();
+        this.mShip = new mShip(model.getShip());
+        this.colour = model.getColour() == null ?  "" : model.getColour();
     }
-
-
-
-
-
-
-    //----------------------1:N Relationship Methods----------------------
-
-
-
-
-
-
-
-    //----------------------N:1 Relationship Methods----------------------
-    public void setMLogicGameState(mLogicGameState mLogicGameState) {
-        if (Objects.equals(this.mLogicGameState, mLogicGameState)) {
-            return;
-        }
-
-        mLogicGameState oldMLogicGameState = this.mLogicGameState;
-        this.mLogicGameState = mLogicGameState;
-
-        if (oldMLogicGameState != null) {
-            oldMLogicGameState.removeCountry(this);
-        }
-
-        if (mLogicGameState != null) {
-            mLogicGameState.addCountry(this);
-        }
-    }
-
-
-
-
-
-
-
-
-
-    //----------------------N:M Relationship Methods----------------------
 }

@@ -29,13 +29,13 @@ public abstract class AbstractService
     }
 
     /**
-     * Returns a searched for object by the given identifier.
+     * Returns a searched for object by the given id.
      *
-     * @param identifier of the to find object
+     * @param id of the to find object
      * @return the looked for object
      */
-    public Optional<D> findModelByIdentifier(String identifier) {
-        return findByIdentifier(identifier)
+    public Optional<D> findModelById(long id) {
+        return findById(id)
                 .map(m -> convertModelIntoDTO(m));
     }
 
@@ -54,7 +54,7 @@ public abstract class AbstractService
         // generated on relation fields, which I don't know yet on how to solve)
         M saved = saveRep(model);
         M listModel = setStandardData(dto.map(d -> convertDTOIntoModel(d)).get());
-        listModel.setIdentifier(saved.getIdentifier());
+        listModel.setId(saved.getId());
         saved = storeListChanges(
                 saved, convertModelIntoDTO(listModel)
         );
@@ -78,7 +78,7 @@ public abstract class AbstractService
      * @return the newly updated object.
      */
     public Optional<D> update (Optional<D> dto) {
-        Optional<M> old = findByIdentifier(dto.get().getIdentifier());
+        Optional<M> old = findById(dto.get().getId());
         if(old.isEmpty())
         {
             return Optional.empty();
@@ -97,13 +97,13 @@ public abstract class AbstractService
     /**
      * Deletes and returns a given object afterwards.
      *
-     * @param identifier of the to be deleted object
+     * @param id of the to be deleted object
      * @return true if successful
      */
-    public boolean deleteModelByIdentifier(String identifier) {
-        preDeleteCleanUp(identifier);
-        deleteByIdentifier(identifier);
-        return findModelByIdentifier(identifier).isEmpty();
+    public boolean deleteModelById(long id) {
+        preDeleteCleanUp(id);
+        deleteById(id);
+        return findModelById(id).isEmpty();
     }
 
 
@@ -114,7 +114,7 @@ public abstract class AbstractService
 
     abstract  M setStandardData(M model);
 
-    abstract void preDeleteCleanUp(String identifier);
+    abstract void preDeleteCleanUp(long id);
 
     abstract D convertModelIntoDTO(M model);
 
@@ -130,8 +130,8 @@ public abstract class AbstractService
 
     abstract M updateRep(M model);
 
-    abstract Optional<M> findByIdentifier(String identifier);
+    abstract Optional<M> findById(long id);
 
-    abstract void deleteByIdentifier(String identifier);
+    abstract void deleteById(long id);
 
 }

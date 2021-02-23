@@ -1,9 +1,16 @@
 package com.Astralis.backend.gameLogic.model;
 
+import com.Astralis.backend.accountManagement.dto.UserDTO;
+import com.Astralis.backend.accountManagement.dto.UserGameStateDTO;
 import com.Astralis.backend.accountManagement.model.GameState;
+import com.Astralis.backend.accountManagement.model.UserGameState;
+import com.Astralis.backend.gameDatabase.model.Country;
+import com.Astralis.backend.gameDatabase.model.LogicGameState;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -25,59 +32,18 @@ public class mLogicGameState extends AbstractMemoryModel {
     //private GameMap map;
 
 
+    public mLogicGameState(LogicGameState model){
+        super();
+        this.id = model.getId() < 0 ?  0 : model.getId();
 
+        this.gameState = null; //#Todo: Think of either putting this as an id, or DTO
+        this.year = model.getYear() < 0 ?  0 : model.getYear();
+        this.month = model.getYear() < 0 ?  0 : model.getMonth();
+        this.day = model.getYear() < 0 ?  0 : model.getDay();
+        this.hour = model.getYear() < 0 ?  0 : model.getHour();
 
-
-
-
-    //----------------------1:1 Relationship Methods----------------------
-    public void setGameState(GameState gameState){
-        if(this.gameState != null) {
-            if (this.gameState.equals(gameState)) {
-                return;
-            }
-        }
-        this.gameState = gameState;
-        gameState.setCurrentState(this);
+        (model.getCountries() == null ? new ArrayList<mCountry>() : model.getCountries())
+                .stream().map(x -> new mCountry((Country) x))
+                .collect(Collectors.toList());
     }
-
-
-
-
-
-
-    //----------------------1:N Relationship Methods----------------------
-    public void addCountry(mCountry mCountry) {
-        if (countries.contains(mCountry)) {
-            return;
-        }
-        countries.add(mCountry);
-        mCountry.setMLogicGameState(this);
-    }
-
-    public void removeCountry(mCountry mCountry) {
-        if (!countries.contains(mCountry)) {
-            return;
-        }
-        mCountry.setMLogicGameState(null);
-        countries.remove(mCountry);
-    }
-
-
-
-
-
-
-
-    //----------------------N:1 Relationship Methods----------------------
-
-
-
-
-
-
-
-
-
-    //----------------------N:M Relationship Methods----------------------
 }

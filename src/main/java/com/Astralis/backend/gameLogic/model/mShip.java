@@ -1,5 +1,6 @@
 package com.Astralis.backend.gameLogic.model;
 
+import com.Astralis.backend.gameDatabase.model.Ship;
 import lombok.*;
 
 
@@ -17,48 +18,12 @@ public class mShip extends AbstractMemoryModel {
 
     private double movementSpeed;
 
-    //ReverseMapping
-    private mCountry belongsTo;
+    public mShip(Ship model){
+        super();
+        this.id = model.getId() < 0 ?  0 : model.getId();
 
-
-
-
-
-
-
-    //----------------------1:1 Relationship Methods----------------------
-    public void setCurrentOwner(mCountry mCountry){
-        if(this.belongsTo != null) {
-            if (this.belongsTo.equals(mCountry)) {
-                return;
-            }
-        }
-        this.belongsTo = mCountry;
-        mCountry.setMShip(this);
+        this.targetMPosition = new mPosition(model.getTargetPosition());
+        this.currentMPosition = new mPosition(model.getCurrentPosition());
+        this.movementSpeed = model.getMovementSpeed() < 0 ?  0 : model.getMovementSpeed();
     }
-
-
-
-
-
-
-    //----------------------1:N Relationship Methods----------------------
-
-
-
-
-
-
-
-    //----------------------N:1 Relationship Methods----------------------
-
-
-
-
-
-
-
-
-
-    //----------------------N:M Relationship Methods----------------------
 }
