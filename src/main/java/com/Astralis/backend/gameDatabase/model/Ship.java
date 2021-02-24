@@ -35,8 +35,7 @@ public class Ship extends AbstractGameModel {
     private Country belongsTo;
 
     public Ship(mShip memory){
-        super();
-        this.id = memory.getId() < 0 ?  0 : memory.getId();
+        super(memory.getId());
 
         this.targetPosition = new Position(memory.getTargetMPosition());
         this.currentPosition = new Position(memory.getCurrentMPosition());

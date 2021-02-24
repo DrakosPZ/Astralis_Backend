@@ -29,8 +29,7 @@ public class Country extends AbstractGameModel {
     private LogicGameState logicGameState;
 
     public Country(mCountry memory){
-        super();
-        this.id = memory.getId() < 0 ?  0 : memory.getId();
+        super(memory.getId());
 
         this.name = memory.getName() == null ?  "" : memory.getName();
         this.colour = memory.getColour() == null ?  "" : memory.getColour();
