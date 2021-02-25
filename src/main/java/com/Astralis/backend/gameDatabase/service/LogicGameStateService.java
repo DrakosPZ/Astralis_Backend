@@ -112,6 +112,7 @@ public class LogicGameStateService
                 newListCountry.remove(country);
             }
         }
+        //TODO: ADD DOWNWARD SAVING BEFORE THIS POINT
         newListCountry.forEach(country -> addCountryToLogicGameState(model.getId(), Optional.of(new mCountry(country))));
 
         //TODO: Check for GameState Relations

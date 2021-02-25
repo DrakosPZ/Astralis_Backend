@@ -36,7 +36,7 @@ public class LogicGameState extends AbstractGameModel {
             mappedBy = "logicGameState",
             orphanRemoval = true
     )
-    private List<Country> countries;
+    private List<Country> countries = new ArrayList<>();
     //private GameMap map;
 
 
@@ -45,9 +45,9 @@ public class LogicGameState extends AbstractGameModel {
 
         this.gameState = null; //#Todo: Think of either putting this as an id, or DTO
         this.year = memory.getYear() < 0 ?  0 : memory.getYear();
-        this.month = memory.getYear() < 0 ?  0 : memory.getMonth();
-        this.day = memory.getYear() < 0 ?  0 : memory.getDay();
-        this.hour = memory.getYear() < 0 ?  0 : memory.getHour();
+        this.month = memory.getMonth() < 0 ?  0 : memory.getMonth();
+        this.day = memory.getDay() < 0 ?  0 : memory.getDay();
+        this.hour = memory.getHour() < 0 ?  0 : memory.getHour();
 
         (memory.getCountries() == null ? new ArrayList<Country>() : memory.getCountries())
                 .stream()

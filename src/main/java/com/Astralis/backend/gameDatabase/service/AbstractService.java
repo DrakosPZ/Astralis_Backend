@@ -53,10 +53,10 @@ public abstract class AbstractService
         //use save Rep to store only field methods (currently practically upadeteRep, because otherwhise duplicates are
         // generated on relation fields, which I don't know yet on how to solve)
         M saved = saveRep(model);
-        M listModel = setStandardData(dto.map(d -> convertDTOIntoModel(d)).get());
+        D listModel = dto.get();
         listModel.setId(saved.getId());
         saved = storeListChanges(
-                saved, convertModelIntoDTO(listModel)
+                saved, listModel
         );
         return Optional.of(saved)
                 .map(m -> convertModelIntoDTO(m));

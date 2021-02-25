@@ -28,7 +28,7 @@ public class mLogicGameState extends AbstractMemoryModel {
     private int day;
     private int hour;
 
-    private List<mCountry> countries;
+    private List<mCountry> countries = new ArrayList<>();
     //private GameMap map;
 
 

@@ -11,26 +11,10 @@ import java.util.Optional;
 public interface AbstractRepo<T extends AbstractGameModel> {
 
     /**
-     * finds an Object by it's given identifier
-     *
-     * @param identifier of the searched for object
-     * @return the searched for object
-     */
-    Optional<T> findByIdentifier(String identifier);
-
-    /**
      * returns all objects of a table
      *
      * @return List of all objects in a table
      */
     List<T> findAll();
-
-
-    /**
-     * deletes an objects based on the given identifier
-     *
-     * @param identifier of the to be deleted Object.
-     */
-    void deleteByIdentifier(String identifier);
 
 }

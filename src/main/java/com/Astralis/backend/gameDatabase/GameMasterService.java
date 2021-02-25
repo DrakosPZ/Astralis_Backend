@@ -62,8 +62,8 @@ public class GameMasterService {
      * @return true if successful
      */
     public boolean deleteModelById(long id) {
-        preDeleteCleanUp(id);
-        deleteByIdentifier(id);
+        //preDeleteCleanUp(id);
+        //deleteByIdentifier(id);
         return findModelById(id).isEmpty();
     }
 
@@ -82,9 +82,10 @@ public class GameMasterService {
     }
 
     public Optional<mLogicGameState> storeGameStateToDatabase(mLogicGameState mLogicGameState){
-        LogicGameState logicGameState = convertDTOIntoModel(mLogicGameState);
+        //LogicGameState logicGameState = convertDTOIntoModel(mLogicGameState);
 
         //#TODO: Add the actual translating, checking and then storing part here.
+        logicGameStateService.save(Optional.of(mLogicGameState));
 
         return Optional.of(mLogicGameState);
     }

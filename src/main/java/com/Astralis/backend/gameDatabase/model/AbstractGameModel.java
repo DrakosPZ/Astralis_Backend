@@ -12,13 +12,9 @@ import javax.persistence.MappedSuperclass;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public abstract class AbstractGameModel {
     @Id
     @GeneratedValue
     protected Long id;
-
-    public AbstractGameModel(Long id) {
-        super();
-        this.id = id < 0 ?  0 : id;
-    }
 }
