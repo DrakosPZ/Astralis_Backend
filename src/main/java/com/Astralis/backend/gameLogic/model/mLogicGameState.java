@@ -34,7 +34,8 @@ public class mLogicGameState extends AbstractMemoryModel {
 
     public mLogicGameState(LogicGameState model){
         super();
-        this.id = model.getId() < 0 ?  0 : model.getId();
+        //this.id = model.getId() == null ?  -1 : model.getId();
+        this.id = model.getId();
 
         this.gameState = null; //#Todo: Think of either putting this as an id, or DTO
         this.year = model.getYear() < 0 ?  0 : model.getYear();

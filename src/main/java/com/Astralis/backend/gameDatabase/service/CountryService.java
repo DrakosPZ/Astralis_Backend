@@ -22,6 +22,7 @@ public class CountryService
         extends AbstractService<mCountry, Country> {
 
     private final CountryRepo countryRepo;
+    private final ShipService shipService;
 
     //#TODO: Add Documentation
     @Override
@@ -65,9 +66,6 @@ public class CountryService
         if(!old.getColour().equals(model.getColour())){
             old.setColour(model.getColour());
         }
-        if(!old.getShip().equals(model.getShip())){
-            old.setShip(model.getShip());
-        }
         return old;
     }
 
@@ -93,6 +91,28 @@ public class CountryService
     @Override
     Country storeListChanges(Country old, mCountry dto) {
         //TODO: Check for these model
+        //Ship
+        Ship updatedShip = new Ship(dto.getMShip());
+        if(dto.getMShip().getId() == null){
+            shipService.downwardSave(Optional.of(new mShip(updatedShip)));
+        }
+        if(!old.getShip().equals(updatedShip)){
+            old.setShip(updatedShip);
+        }
+        return old;
+    }
+
+    @Override
+    Country storeListChanges(Country old, Country model) {
+        //Ship
+        if(model.getShip() != null){
+            if(model.getShip().getId() == null){
+                shipService.downwardSave(Optional.of(new mShip(model.getShip())));
+            }
+            if(!old.getShip().equals(model.getShip())){
+                old.setShip(model.getShip());
+            }
+        }
         return old;
     }
 
@@ -106,6 +126,9 @@ public class CountryService
     @Override
     Country saveRep(Country model) {
         //clean Relations
+        model.setShip(null);
+        model.setLogicGameState(null);
+
         return countryRepo.save(model);
     }
 

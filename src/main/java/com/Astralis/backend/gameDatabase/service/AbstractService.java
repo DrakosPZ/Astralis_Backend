@@ -1,6 +1,7 @@
 package com.Astralis.backend.gameDatabase.service;
 
 import com.Astralis.backend.gameDatabase.model.AbstractGameModel;
+import com.Astralis.backend.gameDatabase.model.Country;
 import com.Astralis.backend.gameLogic.model.AbstractMemoryModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,6 @@ public abstract class AbstractService
         );
         return Optional.of(saved)
                 .map(m -> convertModelIntoDTO(m));
-        /*return Optional.of(saveRep(model))
-                .map(m -> convertModelIntoDTO(m));*/
 
     }
 
@@ -107,6 +106,40 @@ public abstract class AbstractService
     }
 
 
+    public Optional<M> downwardSave(Optional<D> newD){
+        if(newD.get().getId() != null){
+            //ID set - update
+            Optional<M> old = findById(newD.get().getId());
+            if(old.isEmpty())
+            {
+                return Optional.empty();
+            }
+            M model = newD.map(d -> convertDTOIntoModel(d)).get();
+            M toSave = compareUpdate(old.get(), model);
+
+            //store changed Fields
+            M saved = updateRep(toSave);
+            //Store changed Relations
+            saved = storeListChanges(toSave, newD.get());
+
+            return Optional.of(saved);
+
+        } else {
+            // ID empty - save
+            M model = newD.map(d -> convertDTOIntoModel(d)).get();
+            //possibly set Standard data if model
+            model = setStandardData(model);
+            M saved = saveRep(model);
+            model = setStandardData(model);
+            D listModel = newD.get();
+            listModel.setId(saved.getId());
+            saved = storeListChanges(
+                    saved, listModel
+            );
+            return Optional.of(saved);
+        }
+    }
+
 
 
 
@@ -123,6 +156,8 @@ public abstract class AbstractService
     abstract M compareUpdate(M old, M model);
 
     abstract M storeListChanges(M old, D dto);
+
+    abstract M storeListChanges(M old, M model);
 
     abstract List<M> findall();
 

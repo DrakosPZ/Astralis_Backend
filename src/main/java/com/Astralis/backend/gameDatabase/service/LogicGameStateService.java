@@ -21,6 +21,8 @@ import java.util.Optional;
 public class LogicGameStateService
         extends AbstractService<mLogicGameState, LogicGameState> {
 
+    private final CountryService countryService;
+
     private final LogicGameStateRepo logicGameStateRepo;
     private final CountryRepo countryRepo;
 
@@ -112,10 +114,36 @@ public class LogicGameStateService
                 newListCountry.remove(country);
             }
         }
-        //TODO: ADD DOWNWARD SAVING BEFORE THIS POINT
-        newListCountry.forEach(country -> addCountryToLogicGameState(model.getId(), Optional.of(new mCountry(country))));
+        newListCountry.forEach(country -> {
+            //TODO: Check if safe is needed
+            countryService.downwardSave(Optional.of(new mCountry(country)));
+            addCountryToLogicGameState(model.getId(), Optional.of(new mCountry(country)));
+        });
 
-        //TODO: Check for GameState Relations
+        return old;
+    }
+
+    //TODO: Documentation
+    @Override
+    LogicGameState storeListChanges(LogicGameState old, LogicGameState model) {
+        //Countries
+        List<Country> newListCountry = model.getCountries();
+        List<Country> oldListCountry = old.getCountries();
+        for (int index = 0; index < oldListCountry.size(); index++) {
+            Country country = oldListCountry.get(index);
+            if(!newListCountry.contains(country)){
+                removeCountryFromLogicGameState(model.getId(), country.getId());
+                newListCountry.remove(country);
+            } else if(newListCountry.contains(country)) {
+                newListCountry.remove(country);
+            }
+        }
+        newListCountry.forEach(country -> {
+            //TODO: Check if safe is needed
+            countryService.downwardSave(Optional.of(new mCountry(country)));
+            addCountryToLogicGameState(model.getId(), Optional.of(new mCountry(country)));
+        });
+
         return old;
     }
 

@@ -42,6 +42,7 @@ public class LogicGameState extends AbstractGameModel {
 
     public LogicGameState(mLogicGameState memory){
         super(memory.getId());
+        //this.id = memory.getId() == -1 ?  null : memory.getId();
 
         this.gameState = null; //#Todo: Think of either putting this as an id, or DTO
         this.year = memory.getYear() < 0 ?  0 : memory.getYear();

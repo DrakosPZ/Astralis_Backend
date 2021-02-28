@@ -20,7 +20,8 @@ public class mShip extends AbstractMemoryModel {
 
     public mShip(Ship model){
         super();
-        this.id = model.getId() < 0 ?  0 : model.getId();
+        //this.id = model.getId() == null ?  -1 : model.getId();
+        this.id = model.getId();
 
         this.targetMPosition = new mPosition(model.getTargetPosition());
         this.currentMPosition = new mPosition(model.getCurrentPosition());

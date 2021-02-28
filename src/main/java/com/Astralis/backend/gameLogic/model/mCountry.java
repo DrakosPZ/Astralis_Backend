@@ -18,7 +18,8 @@ public class mCountry extends AbstractMemoryModel {
 
     public mCountry(Country model){
         super();
-        this.id = model.getId() < 0 ?  0 : model.getId();
+        //this.id = model.getId() == null ?  -1 : model.getId();
+        this.id = model.getId();
 
         this.name = model.getName() == null ?  "" : model.getName();
         this.mShip = new mShip(model.getShip());

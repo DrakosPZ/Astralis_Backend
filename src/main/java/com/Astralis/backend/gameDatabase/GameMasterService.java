@@ -85,8 +85,15 @@ public class GameMasterService {
         //LogicGameState logicGameState = convertDTOIntoModel(mLogicGameState);
 
         //#TODO: Add the actual translating, checking and then storing part here.
-        logicGameStateService.save(Optional.of(mLogicGameState));
+        if(mLogicGameState.getId() != null){
+            //ID set - update
+            logicGameStateService.update(Optional.of(mLogicGameState));
+        } else {
+            // ID empty - save
+            logicGameStateService.save(Optional.of(mLogicGameState));
+        }
 
         return Optional.of(mLogicGameState);
     }
+
 }

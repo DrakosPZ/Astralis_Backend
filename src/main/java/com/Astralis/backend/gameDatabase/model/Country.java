@@ -30,6 +30,7 @@ public class Country extends AbstractGameModel {
 
     public Country(mCountry memory){
         super(memory.getId());
+        //this.id = memory.getId() == -1 ?  null : memory.getId();
 
         this.name = memory.getName() == null ?  "" : memory.getName();
         this.colour = memory.getColour() == null ?  "" : memory.getColour();
@@ -50,7 +51,9 @@ public class Country extends AbstractGameModel {
             }
         }
         this.ship = ship;
-        ship.setCurrentOwner(this);
+        if(ship != null){
+            ship.setCurrentOwner(this);
+        }
     }
 
 

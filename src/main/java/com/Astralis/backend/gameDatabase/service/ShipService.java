@@ -95,6 +95,11 @@ public class ShipService
         return old;
     }
 
+    @Override
+    Ship storeListChanges(Ship old, Ship model) {
+        return old;
+    }
+
     //#TODO: Add Documentation
     @Override
     List<Ship> findall() {
