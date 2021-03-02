@@ -50,6 +50,13 @@ public class LogicGameStateService
         return new LogicGameState(dto);
     }
 
+    //#TODO: Add Documentation
+    @Override
+    LogicGameState cleanRelations(LogicGameState model) {
+        model.setCountries(new ArrayList<>());
+        return model;
+    }
+
 
     /**
      * Step 1. update simple fields
@@ -90,6 +97,13 @@ public class LogicGameStateService
      *
      * Finally all remaining elements of the new list are added according relationship method.
      *
+     * In Parallel it has to be checked with every object of the lists if
+     *      1. it is completely removed from the list => object is removed and thrown into the garbage collector
+     *      2. it is new in the list and a new object => object is created and stored in the DB and added to the list
+     *      3. it is new in the list, but not a new object => object is retrieved from the DB, changes adjusted
+     *          and added to the List the Garbage Collector has to be called to check if it would be removed otherwise
+     *      4. the object is already in the List and is just being changed => object is called from the DB and changed
+     *
      * As every got model at this point is a hibernate instance the changes are edited on the database.
      * So to commit the changes the model is called from the database.
      * The returned model is handed forward.
@@ -108,39 +122,32 @@ public class LogicGameStateService
         for (int index = 0; index < oldListCountry.size(); index++) {
             Country country = oldListCountry.get(index);
             if(!newListCountry.contains(country)){
+                //1. Removed from List
+                //#TODO: add to Garbage Collector country;
                 removeCountryFromLogicGameState(model.getId(), country.getId());
                 newListCountry.remove(country);
             } else if(newListCountry.contains(country)) {
+                //unchanged doesn't have to be added. only covers completely unchanged objects
                 newListCountry.remove(country);
             }
         }
+        //added to Logic Gamestate
         newListCountry.forEach(country -> {
             //TODO: Check if safe is needed
-            countryService.downwardSave(Optional.of(new mCountry(country)));
-            addCountryToLogicGameState(model.getId(), Optional.of(new mCountry(country)));
-        });
-
-        return old;
-    }
-
-    //TODO: Documentation
-    @Override
-    LogicGameState storeListChanges(LogicGameState old, LogicGameState model) {
-        //Countries
-        List<Country> newListCountry = model.getCountries();
-        List<Country> oldListCountry = old.getCountries();
-        for (int index = 0; index < oldListCountry.size(); index++) {
-            Country country = oldListCountry.get(index);
-            if(!newListCountry.contains(country)){
+            //2.New In List and Object & changes to be updated
+            country = countryService.downwardSave(Optional.of(new mCountry(country))).get();
+            //4.Change in Object in List
+            boolean alreadyPresent = false;
+            //#TODO: Check if already present in List
+            List.foreach(Country c => {
+                if(c.getId() == country.getId())
+                    alreadyPresent = true;
+                    //TODO Find out how to call of Streams
+            })
+            if(alreadyPresent){
                 removeCountryFromLogicGameState(model.getId(), country.getId());
-                newListCountry.remove(country);
-            } else if(newListCountry.contains(country)) {
-                newListCountry.remove(country);
             }
-        }
-        newListCountry.forEach(country -> {
-            //TODO: Check if safe is needed
-            countryService.downwardSave(Optional.of(new mCountry(country)));
+            //4., 2. & 3.New In List, not new Object => Just Adding whatever is left at the end
             addCountryToLogicGameState(model.getId(), Optional.of(new mCountry(country)));
         });
 
@@ -157,8 +164,7 @@ public class LogicGameStateService
     @Override
     LogicGameState saveRep(LogicGameState model) {
         //clean Relations
-        model.setCountries(new ArrayList<>());
-
+        model = cleanRelations(model);
         return logicGameStateRepo.save(model);
     }
 
@@ -166,8 +172,7 @@ public class LogicGameStateService
     @Override
     LogicGameState updateRep(LogicGameState model) {
         //clean Relations
-        model.setCountries(new ArrayList<>());
-
+        model = cleanRelations(model);
         return logicGameStateRepo.save(model);
     }
 

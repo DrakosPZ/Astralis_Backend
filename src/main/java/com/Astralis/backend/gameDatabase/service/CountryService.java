@@ -48,6 +48,14 @@ public class CountryService
         return new Country(dto);
     }
 
+    //#TODO: Add Documentation
+    @Override
+    Country cleanRelations(Country model) {
+        model.setShip(null);
+        model.setLogicGameState(null);
+        return model;
+    }
+
     /**
      * Step 1. update simple fields
      * Compares the old to the new Country model.
@@ -80,6 +88,13 @@ public class CountryService
      *
      * Finally all remaining elements of the new list are added according relationship method.
      *
+     * In Parallel it has to be checked with every object of the lists if
+     *      1. it is completely removed from the list => object is removed and thrown into the garbage collector
+     *      2. it is new in the list and a new object => object is created and stored in the DB and added to the list
+     *      3. it is new in the list, but not a new object => object is retrieved from the DB, changes adjusted
+     *          and added to the List the Garbage Collector has to be called to check if it would be removed otherwise
+     *      4. the object is already in the List and is just being changed => object is called from the DB and changed
+     *
      * As every got model at this point is a hibernate instance the changes are edited on the database.
      * So to commit the changes the model is called from the database.
      * The returned model is handed forward.
@@ -90,28 +105,22 @@ public class CountryService
      */
     @Override
     Country storeListChanges(Country old, mCountry dto) {
-        //TODO: Check for these model
         //Ship
-        Ship updatedShip = new Ship(dto.getMShip());
-        if(dto.getMShip().getId() == null){
-            shipService.downwardSave(Optional.of(new mShip(updatedShip)));
-        }
-        if(!old.getShip().equals(updatedShip)){
-            old.setShip(updatedShip);
-        }
-        return old;
-    }
+        //1.Remove From List
+        if(dto.getMShip() != null){
+            Ship updatedShip = new Ship(dto.getMShip());
+            //2.New In List and Object or a Changed Object to be updated
+            updatedShip = shipService.downwardSave(Optional.of(new mShip(updatedShip))).get();
 
-    @Override
-    Country storeListChanges(Country old, Country model) {
-        //Ship
-        if(model.getShip() != null){
-            if(model.getShip().getId() == null){
-                shipService.downwardSave(Optional.of(new mShip(model.getShip())));
+            //3.New In List, not new Object & 4.Change in Object in List
+            if(old.getShip() == null || !old.getShip().equals(updatedShip)){
+                //#TODO: Change the got Object from the Database to what has been given over the DAO
+                //#TODO: Add to added Garbage Collector List so it isn't deleted later
+                old.setShip(updatedShip);
             }
-            if(!old.getShip().equals(model.getShip())){
-                old.setShip(model.getShip());
-            }
+        } else {
+            //#TODO: add to Garbage Collector old.getShip();
+            old.setShip(null);
         }
         return old;
     }
@@ -126,9 +135,7 @@ public class CountryService
     @Override
     Country saveRep(Country model) {
         //clean Relations
-        model.setShip(null);
-        model.setLogicGameState(null);
-
+        model = cleanRelations(model);
         return countryRepo.save(model);
     }
 
@@ -136,6 +143,7 @@ public class CountryService
     @Override
     Country updateRep(Country model) {
         //clean Relations
+        model = cleanRelations(model);
         return countryRepo.save(model);
     }
 

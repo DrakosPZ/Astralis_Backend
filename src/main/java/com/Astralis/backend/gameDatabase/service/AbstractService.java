@@ -105,7 +105,7 @@ public abstract class AbstractService
         return findModelById(id).isEmpty();
     }
 
-
+    //#TODO: Documentation
     public Optional<M> downwardSave(Optional<D> newD){
         if(newD.get().getId() != null){
             //ID set - update
@@ -113,6 +113,9 @@ public abstract class AbstractService
             if(old.isEmpty())
             {
                 return Optional.empty();
+            }
+            if(old.get().equals(newD.get())){
+                return old;
             }
             M model = newD.map(d -> convertDTOIntoModel(d)).get();
             M toSave = compareUpdate(old.get(), model);
@@ -130,7 +133,6 @@ public abstract class AbstractService
             //possibly set Standard data if model
             model = setStandardData(model);
             M saved = saveRep(model);
-            model = setStandardData(model);
             D listModel = newD.get();
             listModel.setId(saved.getId());
             saved = storeListChanges(
@@ -153,11 +155,11 @@ public abstract class AbstractService
 
     abstract M convertDTOIntoModel(D dto);
 
+    abstract M cleanRelations(M model);
+
     abstract M compareUpdate(M old, M model);
 
     abstract M storeListChanges(M old, D dto);
-
-    abstract M storeListChanges(M old, M model);
 
     abstract List<M> findall();
 
