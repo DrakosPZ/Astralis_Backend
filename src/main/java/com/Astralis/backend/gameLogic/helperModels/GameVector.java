@@ -1,6 +1,6 @@
 package com.Astralis.backend.gameLogic.helperModels;
 
-import com.Astralis.backend.gameLogic.model.mPosition;
+import com.Astralis.backend.gameLogic.model.Position;
 import lombok.*;
 
 @Getter
@@ -11,20 +11,20 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class GameVector {
-    private mPosition vector;
+    private Position vector;
     private double length;
-    private mPosition unitVector;
+    private Position unitVector;
 
     //TODO: Add documentation
-    public GameVector(mPosition target, mPosition start){
+    public GameVector(Position target, Position start){
         setVector(target, start);
     }
 
     //TODO: Add documentation
-    public void setVector(mPosition target, mPosition start){
-        vector = new mPosition(target.getX() - start.getX(), target.getY() - start.getY());
+    public void setVector(Position target, Position start){
+        vector = new Position(target.getX() - start.getX(), target.getY() - start.getY());
         length = Math.sqrt(Math.pow(vector.getX(),2) + Math.pow(vector.getY(),2));
-        unitVector = new mPosition(vector.getX()/length, vector.getY()/length);
+        unitVector = new Position(vector.getX()/length, vector.getY()/length);
     }
 
     //TODO: Add documentation

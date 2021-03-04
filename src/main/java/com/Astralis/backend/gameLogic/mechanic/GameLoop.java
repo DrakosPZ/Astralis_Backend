@@ -2,7 +2,7 @@ package com.Astralis.backend.gameLogic.mechanic;
 
 
 import com.Astralis.backend.gameLogic.mechanic._runnables.GameTicker;
-import com.Astralis.backend.gameLogic.model.mLogicGameState;
+import com.Astralis.backend.gameLogic.model.LogicGameState;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -20,7 +20,7 @@ public class GameLoop {
     String activeID;
 
     // Todo: Add Commentary
-    public void startLoop(String gameStateID, mLogicGameState activeGameState, SseEmitter emitter){
+    public void startLoop(String gameStateID, LogicGameState activeGameState, SseEmitter emitter){
         activeLoop = new GameTicker(activeGameState, emitter);
         activeID = gameStateID;
         executorService.scheduleAtFixedRate(activeLoop, 0, 1000, TimeUnit.MILLISECONDS);

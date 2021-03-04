@@ -9,10 +9,10 @@ import com.Astralis.backend.accountManagement.dto.CustomeDetailDTOs.DetailUserGa
 import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
 import com.Astralis.backend.gameLogic.mechanic.GameLoopManager;
-import com.Astralis.backend.gameDatabase.model.Country;
-import com.Astralis.backend.gameDatabase.model.LogicGameState;
-import com.Astralis.backend.gameDatabase.model.Position;
-import com.Astralis.backend.gameDatabase.model.Ship;
+import com.Astralis.backend.gameLogic.model.Country;
+import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameLogic.model.Position;
+import com.Astralis.backend.gameLogic.model.Ship;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -301,7 +301,7 @@ public class GameStateService
         GameState gameState = findByIdentifier(identifier)
                 .orElseThrow(() -> new IllegalArgumentException("No GameState Present"));
         LogicGameState logicGameState;
-        if(gameState.getCurrentState() == null){
+        if(gameState.getGameStorageLink() == null){
             //Initialize Logic Game State if not already done
             //Test Data
             List<Country> countries = new ArrayList<>();
@@ -324,9 +324,9 @@ public class GameStateService
             logicGameState = new LogicGameState(null,4000, 1, 1, 0, countries);
 
 
-            gameState.setCurrentState(logicGameState);
+            //gameState.setGameStorageLink(logicGameState);
         }else {
-            logicGameState = gameState.getCurrentState();
+            //logicGameState = gameState.getGameStorageLink();
         }
 
         //gameLoopManager.addGameLoop(identifier, logicGameState, new SseEmitter(gameLoopManager.getTimeoutMillis()));

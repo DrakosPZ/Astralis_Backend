@@ -1,10 +1,10 @@
 package com.Astralis.backend.gameLogic;
 
 import com.Astralis.backend.gameLogic.mechanic.GameLoop;
-import com.Astralis.backend.gameLogic.model.mCountry;
-import com.Astralis.backend.gameLogic.model.mLogicGameState;
-import com.Astralis.backend.gameLogic.model.mPosition;
-import com.Astralis.backend.gameLogic.model.mShip;
+import com.Astralis.backend.gameLogic.model.Country;
+import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameLogic.model.Position;
+import com.Astralis.backend.gameLogic.model.Ship;
 import com.Astralis.backend.accountManagement.model.GameState;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,20 +23,20 @@ public class LogicApplication {
 
 		GameLoop gameLoop = new GameLoop();
 
-		List<mCountry> countries = new ArrayList<>();
-		countries.add(mCountry.builder()
+		List<Country> countries = new ArrayList<>();
+		countries.add(Country.builder()
 						.name("Player1")
-						.mShip(mShip.builder()
-								.currentMPosition(new mPosition(0, 0))
-								.targetMPosition(new mPosition(100, 100))
+						.ship(Ship.builder()
+								.currentPosition(new Position(0, 0))
+								.targetPosition(new Position(100, 100))
 								.movementSpeed(100)
 								.build())
 						.build());
-		countries.add(mCountry.builder()
+		countries.add(Country.builder()
 				.name("Player2")
-				.mShip(mShip.builder()
-						.currentMPosition(new mPosition(0, 0))
-						.targetMPosition(new mPosition(-100, -100))
+				.ship(Ship.builder()
+						.currentPosition(new Position(0, 0))
+						.targetPosition(new Position(-100, -100))
 						.movementSpeed(10)
 						.build())
 				.build());
@@ -44,9 +44,9 @@ public class LogicApplication {
 		GameState gameState = new GameState();
 		gameState.setIdentifier("GID0");
 
-		mLogicGameState mLogicGameState = new mLogicGameState(gameState, 4000, 1, 1, 0, countries);
+		LogicGameState LogicGameState = new LogicGameState(gameState, 4000, 1, 1, 0, countries);
 
-		gameLoop.startLoop("GID0", mLogicGameState, new SseEmitter());
+		gameLoop.startLoop("GID0", LogicGameState, new SseEmitter());
 	}
 
 }

@@ -3,7 +3,6 @@ package com.Astralis.backend.accountManagement.model;
 import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
 import com.Astralis.backend.accountManagement.dto.UserGameStateDTO;
-import com.Astralis.backend.gameDatabase.model.LogicGameState;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,8 +35,7 @@ public class GameState extends AbstractModel {
 
     //game Logic
     //private RuleSet rules;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "gameState", orphanRemoval = true)
-    private LogicGameState currentState;
+    private String gameStorageLink;
 
     //DTO Constructor
     public GameState(GameStateDTO gameStateDTO){
@@ -61,15 +59,6 @@ public class GameState extends AbstractModel {
 
 
     //----------------------1:1 Relationship Methods----------------------
-    public void setCurrentState(LogicGameState logicGameState){
-        if(this.currentState != null) {
-            if (this.currentState.equals(logicGameState)) {
-                return;
-            }
-        }
-        this.currentState = logicGameState;
-        logicGameState.setGameState(this);
-    }
 
 
 

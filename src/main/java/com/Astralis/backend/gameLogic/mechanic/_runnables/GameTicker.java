@@ -1,7 +1,7 @@
 package com.Astralis.backend.gameLogic.mechanic._runnables;
 
 import com.Astralis.backend.gameLogic.mechanic.MovementManager;
-import com.Astralis.backend.gameLogic.model.mLogicGameState;
+import com.Astralis.backend.gameLogic.model.LogicGameState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameTicker implements Runnable {
-    private mLogicGameState activeState;
+    private LogicGameState activeState;
     @Autowired
     private MovementManager movementManager;
     private List<SseEmitter> emitters = new ArrayList<>();
 
     // Todo: Add Commentary
-    public GameTicker(mLogicGameState activeState, SseEmitter emitter) {
+    public GameTicker(LogicGameState activeState, SseEmitter emitter) {
         this.activeState = activeState;
         addEmitter(emitter);
         this.movementManager = new MovementManager(); //TODO: Implement with Dependency Injection
@@ -29,7 +29,7 @@ public class GameTicker implements Runnable {
     }
 
     // Todo: Add Commentary
-    public mLogicGameState getActiveState(){
+    public LogicGameState getActiveState(){
         return activeState;
     }
 
@@ -76,7 +76,7 @@ public class GameTicker implements Runnable {
         System.out.println("Hour Tick");
         activeState.getCountries().forEach(country -> {
             System.out.println("Country: " + country.getName());
-            movementManager.moveShip(country.getMShip());
+            movementManager.moveShip(country.getShip());
         });
     }
 
