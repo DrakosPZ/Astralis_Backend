@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.*;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,8 @@ public class GameMasterService {
     private final LogicGameStateService logicGameStateService;
     private final CountryService countryService;
     private final ShipService shipService;
+
+    private final
 
     /**
      * Convert a given Model into a respective Memory
@@ -78,20 +81,54 @@ public class GameMasterService {
 
 
     public Optional<mLogicGameState> loadGameStateFromDatabase(long id){
-        return findModelById(id);
+        mLogicGameState mLogicGameState = null;
+
+        try{
+
+            FileInputStream fi = new FileInputStream(new File("obj.txt"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            mLogicGameState = (mLogicGameState) oi.readObject();
+            oi.close();
+            fi.close();
+
+        }catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return Optional.of(mLogicGameState);
     }
 
     public Optional<mLogicGameState> storeGameStateToDatabase(mLogicGameState mLogicGameState){
         //LogicGameState logicGameState = convertDTOIntoModel(mLogicGameState);
 
         //#TODO: Add the actual translating, checking and then storing part here.
-        if(mLogicGameState.getId() != null){
+        /*if(mLogicGameState.getId() != null){
             //ID set - update
             logicGameStateService.update(Optional.of(mLogicGameState));
         } else {
             // ID empty - save
             logicGameStateService.save(Optional.of(mLogicGameState));
+        }*/
+
+        try {
+
+            FileOutputStream fileOut = new FileOutputStream(new File("obj.txt"));
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(mLogicGameState);
+            objectOut.close();
+            fileOut.close();
+            System.out.println("The Object  was succesfully written to a file");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+
 
         return Optional.of(mLogicGameState);
     }

@@ -3,6 +3,8 @@ package com.Astralis.backend.gameLogic.model;
 import com.Astralis.backend.gameDatabase.model.Ship;
 import lombok.*;
 
+import java.io.Serializable;
+
 
 @Getter
 @Setter
@@ -11,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class mShip extends AbstractMemoryModel {
+public class mShip extends AbstractMemoryModel implements Serializable {
 
     private mPosition targetMPosition;
     private mPosition currentMPosition;

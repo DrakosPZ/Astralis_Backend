@@ -3,6 +3,8 @@ package com.Astralis.backend.gameLogic.model;
 import com.Astralis.backend.gameDatabase.model.Country;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Builder
@@ -10,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class mCountry extends AbstractMemoryModel {
+public class mCountry extends AbstractMemoryModel implements Serializable {
     private String name;
     //private User leadingUser;
     private mShip mShip;

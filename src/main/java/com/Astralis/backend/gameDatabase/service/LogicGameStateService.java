@@ -139,11 +139,11 @@ public class LogicGameStateService
             //4.Change in Object in List
             boolean alreadyPresent = false;
             //#TODO: Check if already present in List
-            List.foreach(Country c => {
+            /*List.foreach(Country c => {
                 if(c.getId() == country.getId())
                     alreadyPresent = true;
                     //TODO Find out how to call of Streams
-            })
+            })*/
             if(alreadyPresent){
                 removeCountryFromLogicGameState(model.getId(), country.getId());
             }

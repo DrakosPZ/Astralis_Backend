@@ -1,4 +1,6 @@
 package com.Astralis.backend.gameLogic.model;
 
-public class mGalaxy {
+import java.io.Serializable;
+
+public class mGalaxy implements Serializable {
 }

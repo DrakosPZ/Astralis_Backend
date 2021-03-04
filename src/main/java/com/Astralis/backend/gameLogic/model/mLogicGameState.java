@@ -8,6 +8,7 @@ import com.Astralis.backend.gameDatabase.model.Country;
 import com.Astralis.backend.gameDatabase.model.LogicGameState;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class mLogicGameState extends AbstractMemoryModel {
+public class mLogicGameState extends AbstractMemoryModel implements Serializable {
     private GameState gameState;
 
     //#possibly put into own class ffs

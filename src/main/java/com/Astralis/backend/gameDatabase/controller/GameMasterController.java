@@ -30,11 +30,11 @@ public class GameMasterController{
     //----------------------Custom Route Methods----------------------
     @GetMapping(path = "/storedLogicGameState", params = "id")
     public ResponseEntity<mLogicGameState> getStoredLogicGameState(@RequestParam long id) {
-        Optional<mLogicGameState> find = findByIdModel(id);
+        /*Optional<mLogicGameState> find = findByIdModel(id);
         if(find.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+        }*/
         return ResponseEntity.of(
                 service.loadGameStateFromDatabase(id)
         );
