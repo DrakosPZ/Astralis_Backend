@@ -13,6 +13,7 @@ import com.Astralis.backend.gameLogic.model.Country;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameLogic.model.Position;
 import com.Astralis.backend.gameLogic.model.Ship;
+import com.Astralis.backend.gameStateStoring.GameMasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class GameStateService
     private final GameStateRepo gameStateRepo;
     private final UserRepo userRepo;
     private final UserGameStateRepo userGameStateRepo;
+    private final GameMasterService gameMasterService;
     private final GameLoopManager gameLoopManager;
 
     /**
@@ -302,26 +304,7 @@ public class GameStateService
                 .orElseThrow(() -> new IllegalArgumentException("No GameState Present"));
         LogicGameState logicGameState;
         if(gameState.getGameStorageLink() == null){
-            //Initialize Logic Game State if not already done
-            //Test Data
-            List<Country> countries = new ArrayList<>();
-            countries.add(Country.builder()
-                    .name("Player1")
-                    .ship(Ship.builder()
-                            .currentPosition(new Position(0, 0))
-                            .targetPosition(new Position(100, 100))
-                            .movementSpeed(100)
-                            .build())
-                    .build());
-            countries.add(Country.builder()
-                    .name("Player2")
-                    .ship(Ship.builder()
-                            .currentPosition(new Position(0, 0))
-                            .targetPosition(new Position(-100, -100))
-                            .movementSpeed(10)
-                            .build())
-                    .build());
-            logicGameState = new LogicGameState(null,4000, 1, 1, 0, countries);
+            gameMasterService.initializeGameState();
 
 
             //gameState.setGameStorageLink(logicGameState);
