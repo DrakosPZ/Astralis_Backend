@@ -8,6 +8,7 @@ import com.Astralis.backend.accountManagement.dto.CustomeDetailDTOs.DetailGameSt
 import com.Astralis.backend.accountManagement.dto.CustomeDetailDTOs.DetailUserGameStateDTO;
 import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
+import com.Astralis.backend.gameLogic.mechanic.GameLoop;
 import com.Astralis.backend.gameLogic.mechanic.GameLoopManager;
 import com.Astralis.backend.gameLogic.model.Country;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
@@ -17,6 +18,7 @@ import com.Astralis.backend.gameStateStoring.GameMasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -293,7 +295,6 @@ public class GameStateService
         return Optional.of(detailGameStateDTO);
     }
 
-    //TODO: #Adjust to new storing and loading architecture
     /**
      * Change Status from Paused to Running, if not already initialized it first initialize Logic Game State
      *
@@ -304,15 +305,22 @@ public class GameStateService
                 .orElseThrow(() -> new IllegalArgumentException("No GameState Present"));
         LogicGameState logicGameState;
         if(gameState.getGameStorageLink() == null){
-            gameMasterService.initializeGameState();
-
-
-            //gameState.setGameStorageLink(logicGameState);
-        }else {
-            //logicGameState = gameState.getGameStorageLink();
+            gameMasterService.initializeGameState(gameState);
         }
 
-        //gameLoopManager.addGameLoop(identifier, logicGameState, new SseEmitter(gameLoopManager.getTimeoutMillis()));
+        logicGameState = gameMasterService.loadGameStateFromDatabase(gameState.getGameStorageLink())
+                .orElseThrow(() -> new IllegalArgumentException("No GameState found."));
+
+        gameLoopManager.addGameLoop(identifier, logicGameState, new SseEmitter(gameLoopManager.getTimeoutMillis()));
+    }
+
+    //#TODO: Add Documentary
+    public void stopGame(GameLoop gameLoop){
+        GameState gameState = findByIdentifier(gameLoop.getID())
+                .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
+
+        gameLoopManager.removeGameLoop(gameLoop);
+        gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameState.getName());
     }
 
 

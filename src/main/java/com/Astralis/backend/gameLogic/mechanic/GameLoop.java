@@ -21,14 +21,19 @@ public class GameLoop {
 
     // Todo: Add Commentary
     public void startLoop(String gameStateID, LogicGameState activeGameState, SseEmitter emitter){
-        activeLoop = new GameTicker(activeGameState, emitter);
         activeID = gameStateID;
+        activeLoop = new GameTicker(activeGameState, emitter);
         executorService.scheduleAtFixedRate(activeLoop, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
     // Todo: Add Commentary
     public String getID(){
         return activeID;
+    }
+
+    // Todo: Add Commentary
+    public LogicGameState getLogicGameState(){
+        return activeLoop.getActiveState();
     }
 
     // Todo: Add Commentary

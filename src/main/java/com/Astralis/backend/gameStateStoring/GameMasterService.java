@@ -23,10 +23,10 @@ public class GameMasterService {
     private final static String FOLDER_BASE = "storage//gameState";
 
     //#TODO: Documentation
-    public Optional<LogicGameState> loadGameStateFromDatabase(GameState gameState){
+    public Optional<LogicGameState> loadGameStateFromDatabase(String gameStateStorageLink){
         LogicGameState LogicGameState = null;
         try{
-            File[] files = new File(FOLDER_BASE + "//" + gameState.getName()).listFiles();
+            File[] files = new File(gameStateStorageLink).listFiles();
 
             FileInputStream fileIn =
                     new FileInputStream(getLastStoredGameStateOfFiles(files));
@@ -50,19 +50,17 @@ public class GameMasterService {
     }
 
     //#TODO: Documentation
-    public Optional<LogicGameState> storeGameStateToDatabase(LogicGameState LogicGameState){
-        //#TODO: Figure out how to ink it abck, as the database Gamestate only stores the link to the object, maybe store the Gamestate ID or name on Logic Gamestate
-        //LogicGameState.getGameState().getName(); //for this to work the entire linking from LogicGamestate to GameSate has to work
-        checkForGamesFolder("TestGame");
+    public Optional<LogicGameState> storeGameStateToDatabase(LogicGameState logicGameState, String gameName){
+        checkForGamesFolder(gameName);
         try {
 
             FileOutputStream fileOut =
-                    new FileOutputStream(new File(FOLDER_BASE + "//" + "TestGame" + "//" +
-                            "GameState_" + LogicGameState.getYear() + "_" + LogicGameState.getMonth() + "_" + LogicGameState.getDay() +  "_" + LogicGameState.getHour() + ".txt"));
+                    new FileOutputStream(new File(getGameStorageLink(gameName) + "//" +
+                            "GameState_" + logicGameState.getYear() + "_" + logicGameState.getMonth() + "_" + logicGameState.getDay() +  "_" + logicGameState.getHour() + ".txt"));
             ObjectOutputStream objectOut =
                     new ObjectOutputStream(fileOut);
 
-            objectOut.writeObject(LogicGameState);
+            objectOut.writeObject(logicGameState);
 
             objectOut.close();
             fileOut.close();
@@ -73,11 +71,11 @@ public class GameMasterService {
             System.err.println("Error initializing stream");
         }
 
-        return Optional.of(LogicGameState);
+        return Optional.of(logicGameState);
     }
 
     //#TODO: Documentation
-    public void initializeGameState(){
+    public void initializeGameState(GameState gameState){
         //Initialize Logic Game State if not already done
         //Test Data - replace with proper galaxy initialization
         List<Country> countries = new ArrayList<>();
@@ -99,13 +97,18 @@ public class GameMasterService {
                 .build());
         LogicGameState logicGameState = new LogicGameState(null,4000, 1, 1, 0, countries);
 
-        storeGameStateToDatabase(logicGameState);
-        //#TODO: somehow the link to the files has to be stored
+        storeGameStateToDatabase(logicGameState, gameState.getName());
+        gameState.setGameStorageLink(getGameStorageLink(gameState.getName()));
+    }
+
+    //#TODO: Documentation
+    private String getGameStorageLink(String gameName){
+        return FOLDER_BASE + "//" + gameName;
     }
 
     //#TODO: Documentation
     private void checkForGamesFolder(String gameName){
-        File dir = new File(FOLDER_BASE + "//" + gameName);
+        File dir = new File(getGameStorageLink(gameName));
         if(!dir.exists()){
             dir.mkdir();
         }

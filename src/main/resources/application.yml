@@ -1,18 +1,18 @@
 #h2Database
-#spring:
-#datasource:
-#driver-class-name: org.h2.Driver
-#url: jdbc:h2:mem:localhost;DB_CLOSE_ON_EXIT=FALSE
-#username: admin
-#password:
+spring:
+datasource:
+driver-class-name: org.h2.Driver
+url: jdbc:h2:mem:localhost;DB_CLOSE_ON_EXIT=FALSE
+username: admin
+password:
 
 #MySQL Database
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create
-      #ddl-auto: update
-  datasource:
-    url: jdbc:mysql://localhost:3306/astralisdb?useLegacyDatetimeCode=false&serverTimezone=CET
-    username: root
-    password: Lilli2010!
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#      #ddl-auto: update
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/astralisdb?useLegacyDatetimeCode=false&serverTimezone=CET
+#    username: root
+#    password: Lilli2010!

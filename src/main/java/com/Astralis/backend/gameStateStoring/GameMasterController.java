@@ -4,6 +4,7 @@ import com.Astralis.backend.gameLogic.model.Country;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameLogic.model.Position;
 import com.Astralis.backend.gameLogic.model.Ship;
+import com.Astralis.backend.gameStateStoring.dataHolders.LogicGameStateGameNameSet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,19 +20,19 @@ public class GameMasterController{
     private final GameMasterService service;
 
     //----------------------Custom Route Methods----------------------
-    @GetMapping(path = "/storedLogicGameState", params = "id")
-    public ResponseEntity<LogicGameState> getStoredLogicGameState(@RequestParam long id) {
+    @GetMapping(path = "/storedLogicGameState", params = "storageFolder")
+    public ResponseEntity<LogicGameState> getStoredLogicGameState(@RequestParam String storageFolder) {
         return ResponseEntity.of(
-                service.loadGameStateFromDatabase(id)
+                service.loadGameStateFromDatabase("storage//gameState//" + storageFolder)
         );
     }
 
     @PostMapping(path = "/storeChangedLogicGameState", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<LogicGameState> storeChangedLogicGameState(
             @RequestBody
-                    LogicGameState body) {
+                    LogicGameStateGameNameSet body) {
         return ResponseEntity.of(
-                service.storeGameStateToDatabase(body)
+                service.storeGameStateToDatabase(body.getLogicGameState(), body.getGameName())
         );
     }
 
@@ -62,7 +63,12 @@ public class GameMasterController{
                 .countries(countries)
                 .build();
 
-        return ResponseEntity.of(service.storeGameStateToDatabase(testState));
+        return ResponseEntity.of(service.storeGameStateToDatabase(testState,"TestGame"));
+    }
+
+    @GetMapping(path = "/loadTestState")
+    public ResponseEntity<LogicGameState> loadTestState() {
+        return ResponseEntity.of(service.loadGameStateFromDatabase("storage//gameState//TestGame"));
     }
 
 }

@@ -273,7 +273,6 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     public ResponseEntity<DetailGameStateDTO> startGame(@RequestParam String identifier) {
         service.startGame(identifier);
 
-
         return findGameStateAsDetail(identifier);
     }
 
@@ -316,7 +315,7 @@ public class GameStateController extends AbstractController<GameStateDTO> {
             throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
         }
 
-        gameLoopManager.removeGameLoop(gameLoop);
+        service.stopGame(gameLoop);
         return true;
     }
 }
