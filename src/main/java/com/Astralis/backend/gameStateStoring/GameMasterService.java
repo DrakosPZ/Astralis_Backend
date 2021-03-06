@@ -100,6 +100,7 @@ public class GameMasterService {
         LogicGameState logicGameState = new LogicGameState(null,4000, 1, 1, 0, countries);
 
         storeGameStateToDatabase(logicGameState);
+        //#TODO: somehow the link to the files has to be stored
     }
 
     //#TODO: Documentation
