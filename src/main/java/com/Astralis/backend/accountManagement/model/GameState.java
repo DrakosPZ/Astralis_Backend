@@ -35,7 +35,7 @@ public class GameState extends AbstractModel {
 
     //game Logic
     //private RuleSet rules;
-    private String gameStorageLink;
+    private String gameStorageFolder;
 
     //DTO Constructor
     public GameState(GameStateDTO gameStateDTO){

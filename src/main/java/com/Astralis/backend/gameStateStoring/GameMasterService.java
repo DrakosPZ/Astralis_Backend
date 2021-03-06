@@ -76,7 +76,7 @@ public class GameMasterService {
 
     //#TODO: Documentation
     public void initializeGameState(GameState gameState){
-        //Initialize Logic Game State if not already done
+        //#TODO: Initialize Logic Game State if not already done
         //Test Data - replace with proper galaxy initialization
         List<Country> countries = new ArrayList<>();
         countries.add(Country.builder()
@@ -98,7 +98,7 @@ public class GameMasterService {
         LogicGameState logicGameState = new LogicGameState(null,4000, 1, 1, 0, countries);
 
         storeGameStateToDatabase(logicGameState, gameState.getName());
-        gameState.setGameStorageLink(getGameStorageLink(gameState.getName()));
+        gameState.setGameStorageFolder(getGameStorageLink(gameState.getName()));
     }
 
     //#TODO: Documentation

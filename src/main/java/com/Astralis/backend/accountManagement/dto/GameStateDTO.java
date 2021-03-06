@@ -20,8 +20,6 @@ public class GameStateDTO extends AbstractModelDto {
     private String status;
 
     private List<UserGameStateDTO> userGameStates = new ArrayList<>();
-    //TODO Replace with DTO
-    private LogicGameState currentState;
 
     //O Constructor
     public GameStateDTO(GameState gameState){

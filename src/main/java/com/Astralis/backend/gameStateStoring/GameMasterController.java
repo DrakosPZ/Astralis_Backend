@@ -20,7 +20,7 @@ public class GameMasterController{
     private final GameMasterService service;
 
     //----------------------Custom Route Methods----------------------
-    @GetMapping(path = "/storedLogicGameState", params = "storageFolder")
+    @GetMapping(path = "/loadLogicGameState", params = "storageFolder")
     public ResponseEntity<LogicGameState> getStoredLogicGameState(@RequestParam String storageFolder) {
         return ResponseEntity.of(
                 service.loadGameStateFromDatabase("storage//gameState//" + storageFolder)

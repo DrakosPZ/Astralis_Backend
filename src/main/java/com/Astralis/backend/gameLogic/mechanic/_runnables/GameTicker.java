@@ -17,7 +17,10 @@ public class GameTicker implements Runnable {
     // Todo: Add Commentary
     public GameTicker(LogicGameState activeState, SseEmitter emitter) {
         this.activeState = activeState;
-        addEmitter(emitter);
+        if(emitter != null){
+            //if it's null, the instance is just started without someone joined in yet
+            addEmitter(emitter);
+        }
         this.movementManager = new MovementManager(); //TODO: Implement with Dependency Injection
     }
 
@@ -50,7 +53,7 @@ public class GameTicker implements Runnable {
             try {
                 emitter.send(message);
             } catch (Exception ex) {
-                throw new IllegalArgumentException("Game Ticker: Error when cleanup Message");
+                throw new IllegalArgumentException("Game Ticker: Error when cleanup Message - " + ex.fillInStackTrace());
             }
             emitter.complete();
             removeEmitter(emitter);

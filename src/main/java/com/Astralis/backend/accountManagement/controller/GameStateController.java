@@ -279,6 +279,8 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     // Todo: Commentary
     @GetMapping(path = "/joinGame", params = "identifier")
     public SseEmitter joinGame(@RequestParam String identifier) {
+
+        //#TODO: Shouldn't that part be handled by a service mehtod instead of the controller
         SseEmitter emitter = new SseEmitter(gameLoopManager.getTimeoutMillis());
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
 
@@ -316,6 +318,20 @@ public class GameStateController extends AbstractController<GameStateDTO> {
         }
 
         service.stopGame(gameLoop);
+        return true;
+    }
+
+    // Todo: Commentary
+    @GetMapping(path = "/storeGame", params = "identifier")
+    public boolean storeGame(@RequestParam String identifier) {
+
+        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
+
+        if(gameLoop == null){
+            throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
+        }
+
+        service.storeGame(gameLoop);
         return true;
     }
 }

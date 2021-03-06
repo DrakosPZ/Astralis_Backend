@@ -10,10 +10,7 @@ import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
 import com.Astralis.backend.gameLogic.mechanic.GameLoop;
 import com.Astralis.backend.gameLogic.mechanic.GameLoopManager;
-import com.Astralis.backend.gameLogic.model.Country;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
-import com.Astralis.backend.gameLogic.model.Position;
-import com.Astralis.backend.gameLogic.model.Ship;
 import com.Astralis.backend.gameStateStoring.GameMasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -304,14 +301,14 @@ public class GameStateService
         GameState gameState = findByIdentifier(identifier)
                 .orElseThrow(() -> new IllegalArgumentException("No GameState Present"));
         LogicGameState logicGameState;
-        if(gameState.getGameStorageLink() == null){
+        if(gameState.getGameStorageFolder() == null){
             gameMasterService.initializeGameState(gameState);
         }
 
-        logicGameState = gameMasterService.loadGameStateFromDatabase(gameState.getGameStorageLink())
+        logicGameState = gameMasterService.loadGameStateFromDatabase(gameState.getGameStorageFolder())
                 .orElseThrow(() -> new IllegalArgumentException("No GameState found."));
 
-        gameLoopManager.addGameLoop(identifier, logicGameState, new SseEmitter(gameLoopManager.getTimeoutMillis()));
+        gameLoopManager.addGameLoop(identifier, logicGameState, null);
     }
 
     //#TODO: Add Documentary
@@ -320,6 +317,14 @@ public class GameStateService
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
 
         gameLoopManager.removeGameLoop(gameLoop);
+        gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameState.getName());
+    }
+
+    //#TODO: Add Documentary
+    public void storeGame(GameLoop gameLoop){
+        GameState gameState = findByIdentifier(gameLoop.getID())
+                .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
+
         gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameState.getName());
     }
 
