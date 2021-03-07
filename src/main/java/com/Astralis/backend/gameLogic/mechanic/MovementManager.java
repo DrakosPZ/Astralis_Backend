@@ -6,7 +6,18 @@ import com.Astralis.backend.gameLogic.model.Ship;
 
 public class MovementManager {
 
-    //TODO: Add documentation
+    /**
+     * Checks if ship's target and current position are the same,
+     * if they aren't load target and current Pos into Game Vector Object,
+     * and move ship by the following formula:
+     *      currentPos + Unit Vector * movementSpeed
+     * Afterwards check if target Pos. has been overshot, by
+     *      checking if orientation (x/y) is positive or negative,
+     *      checking if current pos is smaller (negative) or larger (positive) than target.
+     * Lastly set currentPost to actual Ship pos.
+     *
+     * @param Ship the to be moved Ship
+     */
     public void moveShip(Ship Ship){
         System.out.println("Move Ship: ");
         Position currentPos = Ship.getCurrentPosition();
