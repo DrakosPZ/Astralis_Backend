@@ -1,6 +1,7 @@
 package com.Astralis.backend.gameLogic.mechanic;
 
 import com.Astralis.backend.gameLogic.model.LogicGameState;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,17 @@ public class GameLoopManager {
         return gameLoops.stream()
                 .filter(loop -> identifier.equals(loop.getID()))
                 .findAny()
-                .orElse(null);
+                .orElseThrow(() -> {
+                    throw new IllegalArgumentException("GameLoopManager: no Active Game Loop found with given ID");
+                });
     }
+
+    public void lockGameLoop(GameLoop gameLoop){
+        gameLoop.lockLoop();
+    }
+
+    public void openGameLoop(GameLoop gameLoop){
+        gameLoop.openLoop();
+    }
+
 }

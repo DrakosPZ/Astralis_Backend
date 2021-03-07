@@ -1,5 +1,6 @@
 package com.Astralis.backend.gameLogic.mechanic._runnables;
 
+import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic.MovementManager;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,24 @@ public class GameTicker implements Runnable {
 
     // Todo: Add Commentary
     public void run() {
-        increaseTime();
-        sendOutEvents();
-        System.out.println("TimeStamp: " + activeState.getDay() + "." + activeState.getMonth() +"." + activeState.getYear() + " : " + activeState.getHour());
+        if(activeState.getGameStatus().equals(GameStatus.RUNNING)){
+            increaseTime();
+            sendOutEvents();
+            System.out.println("TimeStamp: " + activeState.getDay() + "." + activeState.getMonth() +"." + activeState.getYear() + " : " + activeState.getHour());
+        }
     }
 
     // Todo: Add Commentary
     public LogicGameState getActiveState(){
         return activeState;
+    }
+
+    public void stopGame(){
+        activeState.setGameStatus(GameStatus.STORING);
+    }
+
+    public void continueGame(){
+        activeState.setGameStatus(GameStatus.RUNNING);
     }
 
     // Todo: Add Commentary

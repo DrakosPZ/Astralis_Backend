@@ -1,6 +1,7 @@
 package com.Astralis.backend.gameLogic.model;
 
 import com.Astralis.backend.accountManagement.model.GameState;
+import com.Astralis.backend.accountManagement.model.GameStatus;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(callSuper = true)
 public class LogicGameState extends AbstractMemoryModel implements Serializable {
     private GameState gameState;
+    private GameStatus gameStatus;
 
     //#possibly put into own class ffs
     private int year;

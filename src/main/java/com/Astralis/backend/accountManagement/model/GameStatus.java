@@ -1,5 +1,5 @@
 package com.Astralis.backend.accountManagement.model;
 
 public enum GameStatus {
-    RUNNING, PAUSED
+    UNINITIALIZED, INITIALIZING, RUNNING, PAUSED, STORING
 }

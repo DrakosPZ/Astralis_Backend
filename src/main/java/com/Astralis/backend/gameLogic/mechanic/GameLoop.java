@@ -52,4 +52,14 @@ public class GameLoop {
         activeLoop.cleanUpEmitters("Game closed");
     }
 
+    // Todo: Add Commentary
+    public void lockLoop(){
+        activeLoop.stopGame();
+    }
+
+    // Todo: Add Commentary
+    public void openLoop(){
+        activeLoop.continueGame();
+    }
+
 }

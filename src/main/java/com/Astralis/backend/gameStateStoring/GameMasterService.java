@@ -1,6 +1,7 @@
 package com.Astralis.backend.gameStateStoring;
 
 import com.Astralis.backend.accountManagement.model.GameState;
+import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.model.Country;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameLogic.model.Position;
@@ -53,7 +54,6 @@ public class GameMasterService {
     public Optional<LogicGameState> storeGameStateToDatabase(LogicGameState logicGameState, String gameName){
         checkForGamesFolder(gameName);
         try {
-
             FileOutputStream fileOut =
                     new FileOutputStream(new File(getGameStorageLink(gameName) + "//" +
                             "GameState_" + logicGameState.getYear() + "_" + logicGameState.getMonth() + "_" + logicGameState.getDay() +  "_" + logicGameState.getHour() + ".txt"));
@@ -95,7 +95,7 @@ public class GameMasterService {
                         .movementSpeed(10)
                         .build())
                 .build());
-        LogicGameState logicGameState = new LogicGameState(null,4000, 1, 1, 0, countries);
+        LogicGameState logicGameState = new LogicGameState(null, GameStatus.RUNNING,4000, 1, 1, 0, countries);
 
         storeGameStateToDatabase(logicGameState, gameState.getName());
         gameState.setGameStorageFolder(getGameStorageLink(gameState.getName()));

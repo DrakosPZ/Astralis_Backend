@@ -1,5 +1,6 @@
 package com.Astralis.backend.gameLogic;
 
+import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic.GameLoop;
 import com.Astralis.backend.gameLogic.model.Country;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
@@ -44,7 +45,7 @@ public class LogicApplication {
 		GameState gameState = new GameState();
 		gameState.setIdentifier("GID0");
 
-		LogicGameState LogicGameState = new LogicGameState(gameState, 4000, 1, 1, 0, countries);
+		LogicGameState LogicGameState = new LogicGameState(gameState, GameStatus.RUNNING, 4000, 1, 1, 0, countries);
 
 		gameLoop.startLoop("GID0", LogicGameState, new SseEmitter());
 	}

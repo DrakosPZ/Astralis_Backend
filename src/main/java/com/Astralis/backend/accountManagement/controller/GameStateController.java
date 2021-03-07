@@ -327,11 +327,16 @@ public class GameStateController extends AbstractController<GameStateDTO> {
 
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
 
+        service.lockGameState(gameLoop);
+
         if(gameLoop == null){
             throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
         }
 
         service.storeGame(gameLoop);
+
+        service.openGameState(gameLoop);
+
         return true;
     }
 }

@@ -301,6 +301,7 @@ public class GameStateService
         GameState gameState = findByIdentifier(identifier)
                 .orElseThrow(() -> new IllegalArgumentException("No GameState Present"));
         LogicGameState logicGameState;
+        //#TODO: Maybe implement this check rather over the status flag, as link may beremoved later on
         if(gameState.getGameStorageFolder() == null){
             gameMasterService.initializeGameState(gameState);
         }
@@ -328,6 +329,23 @@ public class GameStateService
         gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameState.getName());
     }
 
+    //#TODO: Add Documentary
+    public void lockGameState(GameLoop gameLoop){
+        gameLoopManager.lockGameLoop(gameLoop);
+        GameState gameState = findByIdentifier(gameLoop.getID())
+                .orElseThrow(() -> new IllegalArgumentException("No GameState with ID Found"));
+        gameState.setStatus(GameStatus.STORING);
+    }
+
+    //#TODO: Add Documentary
+    public void openGameState(GameLoop gameLoop){
+        GameState gameState = findByIdentifier(gameLoop.getID())
+                .orElseThrow(() -> new IllegalArgumentException("No GameState with ID Found"));
+        if(gameState.getStatus().equals(GameStatus.STORING)){
+            gameLoopManager.openGameLoop(gameLoop);
+            gameState.setStatus(GameStatus.RUNNING);
+        }
+    }
 
 
 
