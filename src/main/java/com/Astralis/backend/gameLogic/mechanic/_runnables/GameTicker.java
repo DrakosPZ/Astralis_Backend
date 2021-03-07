@@ -3,7 +3,6 @@ package com.Astralis.backend.gameLogic.mechanic._runnables;
 import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic.MovementManager;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.ArrayList;
@@ -11,21 +10,30 @@ import java.util.List;
 
 public class GameTicker implements Runnable {
     private LogicGameState activeState;
-    @Autowired
     private MovementManager movementManager;
     private List<SseEmitter> emitters = new ArrayList<>();
 
-    // Todo: Add Commentary
+    /**
+     * Instantiates a GameTicker Thread with the activeState as the basis for the game, and an Emitter from
+     * the instantiater if already joining.
+     *
+     * @param activeState the LogicState used for the GameTick
+     * @param emitter instantiater receiver if they want to join right after instantiating
+     */
     public GameTicker(LogicGameState activeState, SseEmitter emitter) {
         this.activeState = activeState;
         if(emitter != null){
-            //if it's null, the instance is just started without someone joined in yet
+            //if it's null, the instance is just started without someone joining in yet
             addEmitter(emitter);
         }
-        this.movementManager = new MovementManager(); //TODO: Implement with Dependency Injection
+        this.movementManager = MovementManager.getMovementManager();
     }
 
-    // Todo: Add Commentary
+    /**
+     * The threads running method:
+     *      If the status flag is set to Running
+     *      the time is increased, the new GameState is send out, and a timestamp is send to the console
+     */
     public void run() {
         if(activeState.getGameStatus().equals(GameStatus.RUNNING)){
             increaseTime();
@@ -34,30 +42,52 @@ public class GameTicker implements Runnable {
         }
     }
 
-    // Todo: Add Commentary
+    /**
+     * Gets the current LogicsGameState
+     *
+     * @return the used LogicGameState
+     */
     public LogicGameState getActiveState(){
         return activeState;
     }
 
+    /**
+     * Set GameStatus flag to STORING
+     */
     public void stopGame(){
         activeState.setGameStatus(GameStatus.STORING);
     }
 
+    /**
+     * Set GameStatus flag to RUNNING
+     */
     public void continueGame(){
         activeState.setGameStatus(GameStatus.RUNNING);
     }
 
-    // Todo: Add Commentary
+    /**
+     * add Emitter to receiver List
+     *
+     * @param emitter to be added SSEEmitter
+     */
     public void addEmitter(SseEmitter emitter){
         emitters.add(emitter);
     }
 
-    // Todo: Add Commentary
+    /**
+     * remove Emitter fro receiver List
+     *
+     * @param emitter to be removed SSEEmitter
+     */
     public void removeEmitter(SseEmitter emitter){
         emitters.remove(emitter);
     }
 
-    // Todo: Add Commentary
+    /**
+     * Removes all Emitters from the Game and sends out the given messages
+     *
+     * @param message the to be send out message
+     */
     public void cleanUpEmitters(String message){
         for (int index = 0; index < emitters.size(); index++) {
             SseEmitter emitter = emitters.get(index);
@@ -73,7 +103,11 @@ public class GameTicker implements Runnable {
         System.out.println("Size after Cleanup: "+emitters.size());
     }
 
-    // Todo: Add Commentary
+    /**
+     * calls all Emitters currently active in Game, and sends out the current GameState
+     *
+     * On Error it Removes all Emitters and sends a CleanUp Messages
+     */
     private void sendOutEvents(){
         try {
             for (SseEmitter emitter: emitters) {
@@ -85,7 +119,10 @@ public class GameTicker implements Runnable {
         }
     }
 
-    // Todo: Add Commentary, Ship/Troop Movements, Combat
+    /**
+     * HourTick calls:
+     *      ShipMovement
+     */
     private void hourTick(){
         System.out.println("Hour Tick");
         activeState.getCountries().forEach(country -> {
@@ -94,25 +131,40 @@ public class GameTicker implements Runnable {
         });
     }
 
-    // Todo: Add Commentary
+    /**
+     * dayTick calls:
+     *
+     */
     private void dayTick(){
         System.out.println("Day Tick");
 
     }
 
-    // Todo: Add Commentary
+    /**
+     * MonthTick calls:
+     *
+     */
     private void monthTick(){
         System.out.println("Month Tick");
 
     }
 
-    // Todo: Add Commentary
+    /**
+     * YearTick calls:
+     *
+     */
     private void yearTick(){
         System.out.println("Year Tick");
 
     }
 
-    // Todo: Add Commentary and split ticks from time
+    /**
+     * increases hour by one and raises hourFlag,
+     *      if the hour counter reaches 24, it is reset to 0 and dayFlag is raised,
+     *      if the day counter reaches 31, it is reset to 1 and monthFlag is raised,
+     *      if the month counter reaches 13, it is reset to 1 and yearFlag is raised
+     * time values are set and for every flag raised the according gameTick Method is called.
+     */
     private void increaseTime(){
         int hour = activeState.getHour();
         int day = activeState.getDay();

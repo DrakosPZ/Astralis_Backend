@@ -19,45 +19,70 @@ public class GameLoop {
     GameTicker activeLoop;
     String activeID;
 
-    // Todo: Add Commentary
+    /**
+     * Instantiates a GameLoop with a connected GameStateID, the LogicGamestate used for the Game, and an Emitter to
+     *  be forwarded as messenger.
+     *
+     * @param gameStateID the Id of the GameState connected to the Game
+     * @param activeGameState the LogicalGameState used as a basis for the Game
+     * @param emitter the Emitter used as a Messenger
+     */
     public void startLoop(String gameStateID, LogicGameState activeGameState, SseEmitter emitter){
         activeID = gameStateID;
         activeLoop = new GameTicker(activeGameState, emitter);
         executorService.scheduleAtFixedRate(activeLoop, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
-    // Todo: Add Commentary
+    /**
+     * @return id of the running GameState Model
+     */
     public String getID(){
         return activeID;
     }
 
-    // Todo: Add Commentary
+    /**
+     * @return logicGameState of the running loop
+     */
     public LogicGameState getLogicGameState(){
         return activeLoop.getActiveState();
     }
 
-    // Todo: Add Commentary
+    /**
+     * Forward the emitter to the active Loop to add it to the emitter List
+     *
+     * @param emitter to be added SSEEmitter
+     */
     public void joinGame(SseEmitter emitter){
         activeLoop.addEmitter(emitter);
     }
 
-    // Todo: Add Commentary
+    /**
+     * Forward the emitter to the active Loop to remove it from the emitter List
+     *
+     * @param emitter to be removed SSEEmitter
+     */
     public void leaveGame(SseEmitter emitter){
         activeLoop.removeEmitter(emitter);
     }
 
-    // Todo: Add Commentary
+    /**
+     * Stops the Thread, and emits a game Closed Message
+     */
     public void endLoop(){
         executorService.shutdown();
         activeLoop.cleanUpEmitters("Game closed");
     }
 
-    // Todo: Add Commentary
+    /**
+     * Forward to active Loop to stop the Game
+     */
     public void lockLoop(){
         activeLoop.stopGame();
     }
 
-    // Todo: Add Commentary
+    /**
+     * Forward to active Loop to continue the Game
+     */
     public void openLoop(){
         activeLoop.continueGame();
     }

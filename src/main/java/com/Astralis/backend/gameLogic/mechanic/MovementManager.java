@@ -6,6 +6,21 @@ import com.Astralis.backend.gameLogic.model.Ship;
 
 public class MovementManager {
 
+    private static MovementManager refMovementManager;
+
+    /**
+     * MovementManager instance getter, to only instantiate MovementManager once.
+     *      If MovementManager isn't instantiated already it is automatically instantiated.
+     *
+     * @return MovementManager instance
+     */
+    public static MovementManager getMovementManager(){
+        if(refMovementManager == null){
+            refMovementManager = new MovementManager();
+        }
+        return refMovementManager;
+    }
+
     /**
      * Checks if ship's target and current position are the same,
      * if they aren't load target and current Pos into Game Vector Object,
