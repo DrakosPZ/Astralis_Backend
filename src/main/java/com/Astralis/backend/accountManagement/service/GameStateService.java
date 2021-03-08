@@ -313,6 +313,8 @@ public class GameStateService
     }
 
     //#TODO: Add Documentary
+    //I Think this should be closing the entire game, so storing it, pausing it, and removing all Emitters but unsure
+    //But if so, rework stop Game has to remove all Gameloops and not just one
     public void stopGame(GameLoop gameLoop){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
@@ -322,6 +324,7 @@ public class GameStateService
     }
 
     //#TODO: Add Documentary
+    //SAVING
     public void storeGame(GameLoop gameLoop){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
@@ -330,6 +333,7 @@ public class GameStateService
     }
 
     //#TODO: Add Documentary
+    //Sets State to STORING for saving process
     public void lockGameState(GameLoop gameLoop){
         gameLoopManager.lockGameLoop(gameLoop);
         GameState gameState = findByIdentifier(gameLoop.getID())
@@ -338,6 +342,7 @@ public class GameStateService
     }
 
     //#TODO: Add Documentary
+    //Sets State to RUNNING after finishing saving Process
     public void openGameState(GameLoop gameLoop){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No GameState with ID Found"));

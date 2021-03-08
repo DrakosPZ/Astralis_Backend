@@ -277,6 +277,7 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     }
 
     // Todo: Commentary
+    //gets a SSE for partaking in Game
     @GetMapping(path = "/joinGame", params = "identifier")
     public SseEmitter joinGame(@RequestParam String identifier) {
 
@@ -293,6 +294,7 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     }
 
     // Todo: Commentary
+    //removing own SSE From Emitter List to stop message flooding when not partaking
     @GetMapping(path = "/leaveGame", params = "identifier")
     public SseEmitter leaveGame(
             @RequestParam String identifier, @RequestBody SseEmitter emitter) {
@@ -308,8 +310,9 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     }
 
     // Todo: Commentary
+    //I Think this should be closing the entire game, so storing it, pausing it, and removing all Emitters but unsure
     @GetMapping(path = "/stopGame", params = "identifier")
-    public boolean stopGame(@RequestParam String identifier) {
+    public ResponseEntity<DetailGameStateDTO> stopGame(@RequestParam String identifier) {
 
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
 
@@ -318,12 +321,13 @@ public class GameStateController extends AbstractController<GameStateDTO> {
         }
 
         service.stopGame(gameLoop);
-        return true;
+        return findGameStateAsDetail(identifier);
     }
 
     // Todo: Commentary
+    //Storing Game to Database
     @GetMapping(path = "/storeGame", params = "identifier")
-    public boolean storeGame(@RequestParam String identifier) {
+    public ResponseEntity<DetailGameStateDTO> storeGame(@RequestParam String identifier) {
 
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
 
@@ -337,6 +341,8 @@ public class GameStateController extends AbstractController<GameStateDTO> {
 
         service.openGameState(gameLoop);
 
-        return true;
+        return findGameStateAsDetail(identifier);
     }
+
+    //TODO: Figure out which route is used for pausing the game, and which is used for closing the Game Lobby, either way rework possibly the stop route as it is not quite clear what it's purpose is
 }
