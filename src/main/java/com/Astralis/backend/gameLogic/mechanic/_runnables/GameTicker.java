@@ -42,6 +42,8 @@ public class GameTicker implements Runnable {
         }
     }
 
+
+    //Getter/Setter and Managment Methods
     /**
      * Gets the current LogicsGameState
      *
@@ -65,6 +67,18 @@ public class GameTicker implements Runnable {
         activeState.setGameStatus(GameStatus.RUNNING);
     }
 
+    /**
+     *
+     * sets the Status of the active Game State
+     * @param gameStatus to be set Status
+     */
+    public void setStatus(GameStatus gameStatus){
+        activeState.setGameStatus(gameStatus);
+    }
+
+
+
+    //Emitter Handlers
     /**
      * add Emitter to receiver List
      *
@@ -118,6 +132,9 @@ public class GameTicker implements Runnable {
             throw new IllegalArgumentException("GameTickError");
         }
     }
+
+
+    //Game Logic Methods
 
     /**
      * HourTick calls:

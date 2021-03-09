@@ -302,7 +302,7 @@ public class GameStateService
                 .orElseThrow(() -> new IllegalArgumentException("No GameState Present"));
         LogicGameState logicGameState;
         //#TODO: Maybe implement this check rather over the status flag, as link may beremoved later on
-        if(gameState.getGameStorageFolder() == null){
+        if(gameState.getStatus() == GameStatus.UNINITIALIZED){
             gameMasterService.initializeGameState(gameState);
         }
 
@@ -310,6 +310,9 @@ public class GameStateService
                 .orElseThrow(() -> new IllegalArgumentException("No GameState found."));
 
         gameLoopManager.addGameLoop(identifier, logicGameState, null);
+
+        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
+        manageStatus(gameLoop, GameStatus.RUNNING);
     }
 
     //#TODO: Add Documentary
@@ -318,6 +321,7 @@ public class GameStateService
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
 
+        manageStatus(gameLoop, GameStatus.CLOSED);
         gameLoopManager.removeGameLoop(gameLoop);
         gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameState.getName());
     }
@@ -327,28 +331,59 @@ public class GameStateService
     public void storeGame(GameLoop gameLoop){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
+        GameStatus previoues = gameState.getStatus();
 
+        manageStatus(gameLoop, GameStatus.STORING);
         gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameState.getName());
+        manageStatus(gameLoop, previoues);
+    }
+
+    //#TODO: Add Documentary
+    //Pausing/ Unpausing
+    public void pauseGame(GameLoop gameLoop){
+        GameState gameState = findByIdentifier(gameLoop.getID())
+                .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
+
+        if(gameState.getStatus() == GameStatus.PAUSED){
+            manageStatus(gameLoop, GameStatus.RUNNING);
+        } else {
+            manageStatus(gameLoop, GameStatus.PAUSED);
+        }
     }
 
     //#TODO: Add Documentary
     //Sets State to STORING for saving process
     public void lockGameState(GameLoop gameLoop){
+
+        manageStatus(gameLoop, GameStatus.STORING);
+
+        /* TODO: Remove this part
         gameLoopManager.lockGameLoop(gameLoop);
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No GameState with ID Found"));
-        gameState.setStatus(GameStatus.STORING);
+        gameState.setStatus(GameStatus.STORING);*/
     }
 
     //#TODO: Add Documentary
     //Sets State to RUNNING after finishing saving Process
     public void openGameState(GameLoop gameLoop){
+        manageStatus(gameLoop, GameStatus.RUNNING);
+        /* TODO: Remove this part
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No GameState with ID Found"));
         if(gameState.getStatus().equals(GameStatus.STORING)){
             gameLoopManager.openGameLoop(gameLoop);
             gameState.setStatus(GameStatus.RUNNING);
-        }
+        }*/
+    }
+
+    //#TODO: Add Documentary
+    //forwards Status to as well as the GameState Database entry as also the gameloop
+    private void manageStatus(GameLoop gameLoop, GameStatus gameStatus){
+        GameState gameState = findByIdentifier(gameLoop.getID())
+                .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
+        gameState.setStatus(gameStatus);
+        gameLoop.forwardStatus(gameStatus);
     }
 
 

@@ -1,6 +1,7 @@
 package com.Astralis.backend.gameLogic.mechanic;
 
 
+import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic._runnables.GameTicker;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class GameLoop {
         activeID = gameStateID;
         activeLoop = new GameTicker(activeGameState, emitter);
         executorService.scheduleAtFixedRate(activeLoop, 0, 1000, TimeUnit.MILLISECONDS);
+        forwardStatus(GameStatus.RUNNING);
     }
 
     /**
@@ -71,6 +73,15 @@ public class GameLoop {
     public void endLoop(){
         executorService.shutdown();
         activeLoop.cleanUpEmitters("Game closed");
+    }
+
+    /**
+     * Forwards the changing of the Game Status to the active Loop
+     *
+     * @param gameStatus
+     */
+    public void forwardStatus(GameStatus gameStatus){
+        activeLoop.setStatus(gameStatus);
     }
 
     /**

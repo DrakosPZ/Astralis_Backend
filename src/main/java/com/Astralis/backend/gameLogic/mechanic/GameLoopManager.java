@@ -1,5 +1,6 @@
 package com.Astralis.backend.gameLogic.mechanic;
 
+import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

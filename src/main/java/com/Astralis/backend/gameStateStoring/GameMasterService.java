@@ -99,6 +99,7 @@ public class GameMasterService {
 
         storeGameStateToDatabase(logicGameState, gameState.getName());
         gameState.setGameStorageFolder(getGameStorageLink(gameState.getName()));
+        gameState.setStatus(GameStatus.INITIALIZING);
     }
 
     //#TODO: Documentation
