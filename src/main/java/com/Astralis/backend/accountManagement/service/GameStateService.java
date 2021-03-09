@@ -313,8 +313,7 @@ public class GameStateService
     }
 
     //#TODO: Add Documentary
-    //I Think this should be closing the entire game, so storing it, pausing it, and removing all Emitters but unsure
-    //But if so, rework stop Game has to remove all Gameloops and not just one
+    //STOPS THE GAME
     public void stopGame(GameLoop gameLoop){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
