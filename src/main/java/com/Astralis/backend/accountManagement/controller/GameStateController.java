@@ -310,7 +310,7 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     }
 
     // Todo: Commentary
-    //I Think this should be closing the entire game, so storing it, pausing it, and removing all Emitters but unsure
+    //Stopping the Game
     @GetMapping(path = "/stopGame", params = "identifier")
     public ResponseEntity<DetailGameStateDTO> stopGame(@RequestParam String identifier) {
 
@@ -331,18 +331,31 @@ public class GameStateController extends AbstractController<GameStateDTO> {
 
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
 
-        service.lockGameState(gameLoop);
+        if(gameLoop == null){
+            throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
+        }
+
+        //service.lockGameState(gameLoop);
+
+        service.storeGame(gameLoop);
+
+        //service.openGameState(gameLoop);
+
+        return findGameStateAsDetail(identifier);
+    }
+
+    // Todo: Commentary
+    //Pausing Game
+    @GetMapping(path = "/pauseGame", params = "identifier")
+    public ResponseEntity<DetailGameStateDTO> pausingGame(@RequestParam String identifier) {
+
+        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
 
         if(gameLoop == null){
             throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
         }
 
-        service.storeGame(gameLoop);
-
-        service.openGameState(gameLoop);
-
+        service.pauseGame(gameLoop);
         return findGameStateAsDetail(identifier);
     }
-
-    //TODO: Figure out which route is used for pausing the game, and which is used for closing the Game Lobby, either way rework possibly the stop route as it is not quite clear what it's purpose is
 }
