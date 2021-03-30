@@ -124,6 +124,7 @@ public class GameTicker implements Runnable {
      */
     private void sendOutEvents(){
         try {
+            System.out.println("--------------EMITTERS PRESENT: " + emitters.size());
             for (SseEmitter emitter: emitters) {
                     emitter.send(activeState);
             }

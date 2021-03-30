@@ -80,16 +80,20 @@ public class GameMasterService {
         //Test Data - replace with proper galaxy initialization
         List<Country> countries = new ArrayList<>();
         countries.add(Country.builder()
+                .id(1L)
                 .name("Player1")
                 .ship(Ship.builder()
+                        .id(2L)
                         .currentPosition(new Position(0, 0))
                         .targetPosition(new Position(100, 100))
                         .movementSpeed(100)
                         .build())
                 .build());
         countries.add(Country.builder()
+                .id(3L)
                 .name("Player2")
                 .ship(Ship.builder()
+                        .id(4L)
                         .currentPosition(new Position(0, 0))
                         .targetPosition(new Position(-100, -100))
                         .movementSpeed(10)
