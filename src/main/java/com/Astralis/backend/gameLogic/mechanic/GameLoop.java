@@ -84,18 +84,4 @@ public class GameLoop {
         activeLoop.setStatus(gameStatus);
     }
 
-    /**
-     * Forward to active Loop to stop the Game
-     */
-    public void lockLoop(){
-        activeLoop.stopGame();
-    }
-
-    /**
-     * Forward to active Loop to continue the Game
-     */
-    public void openLoop(){
-        activeLoop.continueGame();
-    }
-
 }

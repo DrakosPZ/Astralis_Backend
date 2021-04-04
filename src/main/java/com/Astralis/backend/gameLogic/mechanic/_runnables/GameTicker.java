@@ -54,20 +54,6 @@ public class GameTicker implements Runnable {
     }
 
     /**
-     * Set GameStatus flag to STORING
-     */
-    public void stopGame(){
-        activeState.setGameStatus(GameStatus.STORING);
-    }
-
-    /**
-     * Set GameStatus flag to RUNNING
-     */
-    public void continueGame(){
-        activeState.setGameStatus(GameStatus.RUNNING);
-    }
-
-    /**
      *
      * sets the Status of the active Game State
      * @param gameStatus to be set Status

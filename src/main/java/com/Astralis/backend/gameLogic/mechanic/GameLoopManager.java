@@ -18,32 +18,27 @@ public class GameLoopManager {
     private List<GameLoop> gameLoops = new ArrayList<>();
     private final long timeoutMillis = 0; // 0 = no Timeout
 
+    //TODO: Add Documentation
     public void addGameLoop(String gameStateID, LogicGameState LogicGameState, SseEmitter emitter){
         GameLoop gameLoop = new GameLoop();
         gameLoops.add(gameLoop);
         gameLoop.startLoop(gameStateID, LogicGameState, emitter);
     }
 
+    //TODO: Add Documentation
     public void removeGameLoop(GameLoop gameLoop){
         gameLoop.endLoop();
         gameLoops.remove(gameLoop);
     }
 
-    public GameLoop findActiveGameLoop(String identifier){
+    //TODO: Add Documentation
+    public GameLoop findActiveGameLoop(String identifier) {
         return gameLoops.stream()
                 .filter(loop -> identifier.equals(loop.getID()))
                 .findAny()
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("GameLoopManager: no Active Game Loop found with given ID");
                 });
-    }
-
-    public void lockGameLoop(GameLoop gameLoop){
-        gameLoop.lockLoop();
-    }
-
-    public void openGameLoop(GameLoop gameLoop){
-        gameLoop.openLoop();
     }
 
 }
