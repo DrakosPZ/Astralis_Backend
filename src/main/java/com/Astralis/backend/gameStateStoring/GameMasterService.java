@@ -2,6 +2,7 @@ package com.Astralis.backend.gameStateStoring;
 
 import com.Astralis.backend.accountManagement.model.GameState;
 import com.Astralis.backend.accountManagement.model.GameStatus;
+import com.Astralis.backend.accountManagement.model.UserGameState;
 import com.Astralis.backend.gameLogic.model.Country;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameLogic.model.Position;
@@ -76,8 +77,21 @@ public class GameMasterService {
 
     //#TODO: Documentation
     public void initializeGameState(GameState gameState){
-        //#TODO: Initialize Logic Game State if not already done
         //Test Data - replace with proper galaxy initialization
+        String player1ID = "";
+        String player2ID = "";
+        List<UserGameState> list = gameState.getUserGameStates();
+        for (UserGameState userGameState: list) {
+            if(userGameState.getUser().getNickName().equals("DrakoD")){
+                player1ID = userGameState.getUser().getIdentifier();
+            }
+            if(userGameState.getUser().getNickName().equals("KuroK")){
+                player2ID = userGameState.getUser().getIdentifier();
+            }
+        }
+
+
+
         List<Country> countries = new ArrayList<>();
         countries.add(Country.builder()
                 .id(1L)
@@ -88,6 +102,7 @@ public class GameMasterService {
                         .targetPosition(new Position(100, 100))
                         .movementSpeed(100)
                         .build())
+                .owner(player1ID)
                 .build());
         countries.add(Country.builder()
                 .id(3L)
@@ -98,6 +113,7 @@ public class GameMasterService {
                         .targetPosition(new Position(-100, -100))
                         .movementSpeed(10)
                         .build())
+                .owner(player2ID)
                 .build());
         LogicGameState logicGameState = new LogicGameState(null, GameStatus.RUNNING,4000, 1, 1, 0, countries);
 

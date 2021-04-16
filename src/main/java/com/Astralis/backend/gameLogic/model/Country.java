@@ -17,5 +17,6 @@ public class Country extends AbstractMemoryModel implements Serializable {
     //private User leadingUser;
     private Ship ship;
     private String colour;
+    private String owner;
 
 }
