@@ -23,6 +23,7 @@ D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\Backend
 D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\AbstractModel.java
 D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\AbstractRepo.java
 D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\AbstractMemoryModel.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameStateStoring\dataHolders\LogicGameStateGameNameSet.java
 D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\PasswordEncoderConfig.java
 D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\LoginInformation.java
 D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Ship.java

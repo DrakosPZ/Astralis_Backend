@@ -1,7 +1,9 @@
 com\Astralis\backend\accountManagement\DataHolders\GameUserIDSet.class
 com\Astralis\backend\accountManagement\model\AbstractModel.class
+com\Astralis\backend\gameLogic\model\Ship$ShipBuilderImpl.class
 com\Astralis\backend\accountManagement\model\UserGameState.class
 com\Astralis\backend\accountManagement\service\AbstractService.class
+com\Astralis\backend\gameLogic\model\AbstractMemoryModel$AbstractMemoryModelBuilder.class
 com\Astralis\backend\accountManagement\configuration\TokenProperties.class
 com\Astralis\backend\accountManagement\filter\AuthenticationFilter.class
 com\Astralis\backend\accountManagement\model\UserRole.class
@@ -11,6 +13,7 @@ com\Astralis\backend\gameStateStoring\GameMasterController.class
 com\Astralis\backend\accountManagement\model\User_GameState_PK.class
 com\Astralis\backend\accountManagement\persistence\LoginInformationRepo.class
 com\Astralis\backend\accountManagement\model\LoginInformation.class
+com\Astralis\backend\gameLogic\model\Country$CountryBuilderImpl.class
 com\Astralis\backend\gameLogic\model\LogicGameState.class
 com\Astralis\backend\gameLogic\model\Ship$ShipBuilder.class
 com\Astralis\backend\accountManagement\dto\UserDTO$UserDTOBuilder.class
@@ -69,3 +72,4 @@ com\Astralis\backend\accountManagement\dto\CustomeDetailDTOs\DetailUserGameState
 com\Astralis\backend\gameLogic\helperModels\GameVector$GameVectorBuilder.class
 com\Astralis\backend\accountManagement\persistence\GameStateRepo.class
 com\Astralis\backend\gameLogic\model\Country$CountryBuilder.class
+com\Astralis\backend\gameStateStoring\dataHolders\LogicGameStateGameNameSet.class
