@@ -1,8 +1,6 @@
-package com.Astralis.backend.gameLogic.mechanic;
+package com.Astralis.backend.multiplayerStack.logicLoop;
 
-import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;

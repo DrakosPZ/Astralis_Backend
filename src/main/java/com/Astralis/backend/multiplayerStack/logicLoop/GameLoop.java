@@ -1,4 +1,4 @@
-package com.Astralis.backend.gameLogic.mechanic;
+package com.Astralis.backend.multiplayerStack.logicLoop;
 
 
 import com.Astralis.backend.accountManagement.model.GameStatus;

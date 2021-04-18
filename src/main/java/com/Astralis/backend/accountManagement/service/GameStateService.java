@@ -8,14 +8,13 @@ import com.Astralis.backend.accountManagement.dto.CustomeDetailDTOs.DetailGameSt
 import com.Astralis.backend.accountManagement.dto.CustomeDetailDTOs.DetailUserGameStateDTO;
 import com.Astralis.backend.accountManagement.dto.GameStateDTO;
 import com.Astralis.backend.accountManagement.dto.UserDTO;
-import com.Astralis.backend.gameLogic.mechanic.GameLoop;
-import com.Astralis.backend.gameLogic.mechanic.GameLoopManager;
+import com.Astralis.backend.multiplayerStack.logicLoop.GameLoop;
+import com.Astralis.backend.multiplayerStack.logicLoop.GameLoopManager;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameStateStoring.GameMasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.Astralis.backend.gameLogic;
 
 import com.Astralis.backend.accountManagement.model.GameStatus;
-import com.Astralis.backend.gameLogic.mechanic.GameLoop;
+import com.Astralis.backend.multiplayerStack.logicLoop.GameLoop;
 import com.Astralis.backend.gameLogic.model.Country;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameLogic.model.Position;
