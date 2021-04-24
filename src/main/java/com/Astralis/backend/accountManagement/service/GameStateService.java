@@ -308,7 +308,7 @@ public class GameStateService
         logicGameState = gameMasterService.loadGameStateFromDatabase(gameState.getGameStorageFolder())
                 .orElseThrow(() -> new IllegalArgumentException("No GameState found."));
 
-        gameLoopManager.addGameLoop(identifier, logicGameState, null);
+        gameLoopManager.addGameLoop(identifier, logicGameState);
 
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
         manageStatus(gameLoop, GameStatus.RUNNING);

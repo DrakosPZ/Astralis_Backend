@@ -17,10 +17,10 @@ public class GameLoopManager {
     private final long timeoutMillis = 0; // 0 = no Timeout
 
     //TODO: Add Documentation
-    public void addGameLoop(String gameStateID, LogicGameState LogicGameState, SseEmitter emitter){
+    public void addGameLoop(String gameStateID, LogicGameState LogicGameState){
         GameLoop gameLoop = new GameLoop();
         gameLoops.add(gameLoop);
-        gameLoop.startLoop(gameStateID, LogicGameState, emitter);
+        gameLoop.startLoop(gameStateID, LogicGameState);
     }
 
     //TODO: Add Documentation

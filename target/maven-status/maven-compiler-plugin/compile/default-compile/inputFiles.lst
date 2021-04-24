@@ -1,56 +1,58 @@
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Ship.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameStateStoring\GameMasterController.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\service\AbstractService.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\filter\AuthorizationFilter.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\TokenProperties.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\CustomeDetailDTOs\DetailGameStateDTO.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Position.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\DataHolders\GameUserRoleSet.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\mechanic\GameLoopManager.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\GameStateDTO.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\controller\GameStateController.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\AbstractModel.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\setUps\BuildTestData.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\GameStatus.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\GameStateRepo.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\mechanic\MovementManager.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\User_GameState_PK.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\UserRepo.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\BackendApplication.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Country.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\mechanic\MechanicClassManager.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\GameState.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\WebSecurityConfig.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\User.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\UserGameStateRepo.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\UserGameStateDTO.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameStateStoring\GameMasterService.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\LoginInformationDTO.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\UserDTO.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\LogicApplication.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\UserGameState.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\CustomeDetailDTOs\DetailUserGameStateDTO.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\filter\AuthenticationFilter.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\service\GameStateService.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\UserRole.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\controller\AbstractController.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\AbstractRepo.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\WebMvcConfig.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\service\UserService.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Galaxy.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\LoginInformationRepo.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\helperModels\GameVector.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\AbstractModelDto.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\GameRole.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\LogicGameState.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\controller\UserController.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\mechanic\_runnables\GameTicker.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\AbstractMemoryModel.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\PasswordEncoderConfig.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\service\CustomUserService.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\mechanic\GameLoop.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\GameMap.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameStateStoring\dataHolders\LogicGameStateGameNameSet.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\LoginInformation.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\LogoutSuccess.java
-C:\Users\Nele\Desktop\Coding stuff\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\DataHolders\GameUserIDSet.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\CustomeDetailDTOs\DetailGameStateDTO.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\User_GameState_PK.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\UserGameStateRepo.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\mechanic\_runnables\GameTicker.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\UserRepo.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\LogicGameState.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\service\UserService.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\LoginInformationRepo.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\service\CustomUserService.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\UserRole.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\controller\UserController.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\multiplayerStack\logicLoop\GameLoop.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\filter\AuthorizationFilter.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\GameStateRepo.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\mechanic\MovementManager.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\controller\GameStateController.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\UserDTO.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\TokenProperties.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\DataHolders\GameUserRoleSet.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\WebMvcConfig.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\CustomeDetailDTOs\DetailUserGameStateDTO.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\service\AbstractService.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\BackendApplication.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\AbstractModel.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\persistence\AbstractRepo.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\AbstractMemoryModel.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameStateStoring\dataHolders\LogicGameStateGameNameSet.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\PasswordEncoderConfig.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\LoginInformation.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Ship.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameStateStoring\GameMasterController.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\WebSecurityConfig.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Country.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\multiplayerStack\web\configuration\WebSocketConfig.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\DataHolders\GameUserIDSet.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\GameStateDTO.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\GameStatus.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\mechanic\MechanicClassManager.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\UserGameState.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\controller\AbstractController.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\service\GameStateService.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\User.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\multiplayerStack\web\controller\RunningGameController.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Galaxy.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\Position.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\UserGameStateDTO.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\GameRole.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\AbstractModelDto.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\model\GameState.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\dto\LoginInformationDTO.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\multiplayerStack\logicLoop\GameLoopManager.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameStateStoring\GameMasterService.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\model\GameMap.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\setUps\BuildTestData.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\configuration\LogoutSuccess.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\helperModels\GameVector.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\gameLogic\LogicApplication.java
+D:\Projects\Astralis\Astralis_Backend\src\main\java\com\Astralis\backend\accountManagement\filter\AuthenticationFilter.java

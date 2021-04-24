@@ -3,6 +3,7 @@ package com.Astralis.backend.gameLogic.mechanic._runnables;
 import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic.MovementManager;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.multiplayerStack.logicLoop.GameLoop;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.ArrayList;
@@ -11,21 +12,18 @@ import java.util.List;
 public class GameTicker implements Runnable {
     private LogicGameState activeState;
     private MovementManager movementManager;
-    private List<SseEmitter> emitters = new ArrayList<>();
+    private GameLoop loop;
 
     /**
      * Instantiates a GameTicker Thread with the activeState as the basis for the game, and an Emitter from
      * the instantiater if already joining.
      *
      * @param activeState the LogicState used for the GameTick
-     * @param emitter instantiater receiver if they want to join right after instantiating
+     * @param loop the Game Loop the Ticker is stored in, used to forward events to the clients
      */
-    public GameTicker(LogicGameState activeState, SseEmitter emitter) {
+    public GameTicker(LogicGameState activeState, GameLoop loop) {
         this.activeState = activeState;
-        if(emitter != null){
-            //if it's null, the instance is just started without someone joining in yet
-            addEmitter(emitter);
-        }
+        this.loop = loop;
         this.movementManager = MovementManager.getMovementManager();
     }
 
@@ -63,61 +61,13 @@ public class GameTicker implements Runnable {
     }
 
 
-
-    //Emitter Handlers
-    /**
-     * add Emitter to receiver List
-     *
-     * @param emitter to be added SSEEmitter
-     */
-    public void addEmitter(SseEmitter emitter){
-        emitters.add(emitter);
-    }
-
-    /**
-     * remove Emitter fro receiver List
-     *
-     * @param emitter to be removed SSEEmitter
-     */
-    public void removeEmitter(SseEmitter emitter){
-        emitters.remove(emitter);
-    }
-
-    /**
-     * Removes all Emitters from the Game and sends out the given messages
-     *
-     * @param message the to be send out message
-     */
-    public void cleanUpEmitters(String message){
-        for (int index = 0; index < emitters.size(); index++) {
-            SseEmitter emitter = emitters.get(index);
-            try {
-                emitter.send(message);
-            } catch (Exception ex) {
-                throw new IllegalArgumentException("Game Ticker: Error when cleanup Message - " + ex.fillInStackTrace());
-            }
-            emitter.complete();
-            removeEmitter(emitter);
-            index--;
-        }
-        System.out.println("Size after Cleanup: "+emitters.size());
-    }
-
     /**
      * calls all Emitters currently active in Game, and sends out the current GameState
      *
      * On Error it Removes all Emitters and sends a CleanUp Messages
      */
     private void sendOutEvents(){
-        try {
-            System.out.println("--------------EMITTERS PRESENT: " + emitters.size());
-            for (SseEmitter emitter: emitters) {
-                    emitter.send(activeState);
-            }
-        } catch (Exception ex) {
-            cleanUpEmitters("Error occurred, Closing Sessions");
-            throw new IllegalArgumentException("GameTickError");
-        }
+        loop.updateStatus();
     }
 
 

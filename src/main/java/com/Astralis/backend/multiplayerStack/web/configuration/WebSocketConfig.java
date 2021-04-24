@@ -11,10 +11,13 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private static String ENDPOINT = "/webgamesocket";
-    private static String APPLICATION_PREFIX = "/game";
 
 
-    //susbcribes to the socket
+    /**
+     * Sets the web-socket address that will be used by the clients
+     * to initialize the connection.
+     * @param registry Registry
+     */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint(ENDPOINT)
@@ -22,10 +25,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .withSockJS();
     }
 
-    //Sends messages out? or does it recieve?
+    /**
+     * Sets the web-socket connection prefix. And the destination prefix.
+     * @param registry MessageBrokerRegistry
+     */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes(APPLICATION_PREFIX)
-                .enableSimpleBroker("/message");
+        registry.enableSimpleBroker("/topic/", "/queue/");
+        registry.setApplicationDestinationPrefixes("/app");
     }
 }

@@ -47,7 +47,7 @@ public class LogicApplication {
 
 		LogicGameState LogicGameState = new LogicGameState(gameState, GameStatus.RUNNING, 4000, 1, 1, 0, countries);
 
-		gameLoop.startLoop("GID0", LogicGameState, new SseEmitter());
+		gameLoop.startLoop("GID0", LogicGameState);
 	}
 
 }

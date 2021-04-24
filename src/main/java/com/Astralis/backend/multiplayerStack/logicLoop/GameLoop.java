@@ -4,9 +4,11 @@ package com.Astralis.backend.multiplayerStack.logicLoop;
 import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic._runnables.GameTicker;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.multiplayerStack.web.service.MessageFormingService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,11 +16,14 @@ import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Configurable(preConstruction = true)
 public class GameLoop {
 
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
     GameTicker activeLoop;
     String activeID;
+
+    private MessageFormingService messageFormingService;
 
     /**
      * Instantiates a GameLoop with a connected GameStateID, the LogicGamestate used for the Game, and an Emitter to
@@ -26,11 +31,12 @@ public class GameLoop {
      *
      * @param gameStateID the Id of the GameState connected to the Game
      * @param activeGameState the LogicalGameState used as a basis for the Game
-     * @param emitter the Emitter used as a Messenger
      */
-    public void startLoop(String gameStateID, LogicGameState activeGameState, SseEmitter emitter){
+    public void startLoop(String gameStateID, LogicGameState activeGameState){
         activeID = gameStateID;
-        activeLoop = new GameTicker(activeGameState, emitter);
+        activeLoop = new GameTicker(activeGameState, this);
+
+        messageFormingService = MessageFormingService.getRefrence();
         executorService.scheduleAtFixedRate(activeLoop, 0, 1000, TimeUnit.MILLISECONDS);
         forwardStatus(GameStatus.RUNNING);
     }
@@ -50,29 +56,18 @@ public class GameLoop {
     }
 
     /**
-     * Forward the emitter to the active Loop to add it to the emitter List
-     *
-     * @param emitter to be added SSEEmitter
-     */
-    public void joinGame(SseEmitter emitter){
-        activeLoop.addEmitter(emitter);
-    }
-
-    /**
-     * Forward the emitter to the active Loop to remove it from the emitter List
-     *
-     * @param emitter to be removed SSEEmitter
-     */
-    public void leaveGame(SseEmitter emitter){
-        activeLoop.removeEmitter(emitter);
-    }
-
-    /**
      * Stops the Thread, and emits a game Closed Message
      */
     public void endLoop(){
         executorService.shutdown();
-        activeLoop.cleanUpEmitters("Game closed");
+        messageFormingService.sendClosingMessage(activeID);
+    }
+
+    /**
+     * TODO: ADD COmmentary
+     */
+    public void updateStatus(){
+        messageFormingService.sendGameState(activeID, getLogicGameState());
     }
 
     /**
