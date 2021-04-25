@@ -1,5 +1,7 @@
 package com.Astralis.backend.multiplayerStack.web.controller;
 
+import com.Astralis.backend.multiplayerStack.web.model.MessageSpecialized;
+import com.Astralis.backend.multiplayerStack.web.service.MessageDissectionService;
 import com.google.gson.Gson;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.multiplayerStack.logicLoop.GameLoop;
@@ -23,12 +25,15 @@ public class RunningGameController {
 
     private final SimpMessagingTemplate messagingTemplate;
     private final GameLoopManager gameLoopManager;
+    private final MessageDissectionService messageDissectionService;
 
     @Autowired
     public RunningGameController(SimpMessagingTemplate messagingTemplate,
-                                 GameLoopManager gameLoopManager){
+                                 GameLoopManager gameLoopManager,
+                                 MessageDissectionService messageDissectionService){
         this.messagingTemplate = messagingTemplate;
         this.gameLoopManager = gameLoopManager;
+        this.messageDissectionService = messageDissectionService;
 
         this.refrence = this;
     }
@@ -77,7 +82,12 @@ public class RunningGameController {
 
     @MessageMapping("/message/{id}")
     public void receiveGameMessage(@Payload String message, @DestinationVariable("id") String gameId){
-    //TODO: Dissect Message from Client
+        MessageSpecialized actionCall = messageDissectionService.interpreteMessage(message);
+        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(gameId);
+        if(gameLoop == null){
+            throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + gameId);
+        }
+        gameLoop.forwardAction(actionCall);
     }
 
 }

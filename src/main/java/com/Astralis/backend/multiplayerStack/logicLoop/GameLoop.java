@@ -4,6 +4,7 @@ package com.Astralis.backend.multiplayerStack.logicLoop;
 import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic._runnables.GameTicker;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.multiplayerStack.web.model.MessageSpecialized;
 import com.Astralis.backend.multiplayerStack.web.service.MessageFormingService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -79,4 +80,10 @@ public class GameLoop {
         activeLoop.setStatus(gameStatus);
     }
 
+    /**
+     * TODO: ADD COmmentary
+     */
+    public void forwardAction(MessageSpecialized action){
+
+    }
 }
