@@ -26,8 +26,7 @@ public class MessageFormingService {
     }
 
     public void sendGameState(String gameID, LogicGameState logicGameState){
-        //TODO: Actually jsonfy the logic Game State
-        String jsonfiedGameState = "";
+        String jsonfiedGameState = gson.toJson(logicGameState);;
         runningGameController.sendGameStateUpdate(jsonfiedGameState, gameID);
     }
 

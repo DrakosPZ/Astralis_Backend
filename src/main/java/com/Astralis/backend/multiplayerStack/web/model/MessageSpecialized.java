@@ -7,11 +7,21 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString()
 @EqualsAndHashCode()
 public class MessageSpecialized {
     private String gameID;
     private String userID;
     private Action action;
     private Object specializedObject;
+
+    public MessageSpecialized(Message message, Object specializedObject){
+        gameID = message.getGameID();
+        userID = message.getUserID();
+        action = message.getAction();
+        this.specializedObject = specializedObject;
+    }
+
+    public String toString(){
+        return "!--Action in Game" + getGameID() + " User: " + getUserID() + " does " + getAction() + ": " + specializedObject.toString();
+    }
 }

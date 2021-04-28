@@ -2,16 +2,15 @@ package com.Astralis.backend.gameLogic.mechanic._runnables;
 
 import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic.MovementManager;
+import com.Astralis.backend.gameLogic.mechanic.actionManager.ActionEcoSystemManager;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.multiplayerStack.logicLoop.GameLoop;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.Astralis.backend.multiplayerStack.web.model.MessageSpecialized;
 
 public class GameTicker implements Runnable {
     private LogicGameState activeState;
     private MovementManager movementManager;
+    private ActionEcoSystemManager actionEcoSystemManager;
     private GameLoop loop;
 
     /**
@@ -25,6 +24,7 @@ public class GameTicker implements Runnable {
         this.activeState = activeState;
         this.loop = loop;
         this.movementManager = MovementManager.getMovementManager();
+        this.actionEcoSystemManager = ActionEcoSystemManager.getActionEcoSystemManager();
     }
 
     /**
@@ -68,6 +68,15 @@ public class GameTicker implements Runnable {
      */
     private void sendOutEvents(){
         loop.updateStatus();
+    }
+
+    /**
+     * //TODO: Add Commentary
+     *
+     * @param action
+     */
+    public void input(MessageSpecialized action){
+        actionEcoSystemManager.recieveInput(action, activeState);
     }
 
 

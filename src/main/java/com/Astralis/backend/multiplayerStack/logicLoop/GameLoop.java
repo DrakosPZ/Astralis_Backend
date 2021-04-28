@@ -84,6 +84,6 @@ public class GameLoop {
      * TODO: ADD COmmentary
      */
     public void forwardAction(MessageSpecialized action){
-
+        activeLoop.input(action);
     }
 }
