@@ -135,7 +135,16 @@ public class GameMasterService {
         }
     }
 
-    //#TODO: Documentation
+    /**
+     * Gets a List of Game State Files and checks which of the files is the newest in therms of the in game date.
+     * It determines this by forwarding the file to the getDateOfFileName() Method, returning the date in game hours.
+     * It then checks if the currently iterated file has an older game date than the currently newest file,
+     *      if so, the it is stored as the currently newest file.
+     * which is then returned at the end.
+     *
+     * @param files a List of Game State files which have to be looked through.
+     * @return the newest Game State file out of the given List.
+     */
     private File getLastStoredGameStateOfFiles(File[] files){
         File newestFile = files[0];
         for (File file : files) {
@@ -149,7 +158,21 @@ public class GameMasterService {
     }
 
 
-    //#TODO: Documentation
+    /**
+     * The given game state file's name is read and then split into, game-years, -months, -days, and -hours,
+     * <ol>
+     *      <li>years are turned to months by x 12</li>
+     *      <li>months are turned to days by x 30</li>
+     *      <li>days are turned to hours by x 24</li>
+     *      <li>hours are the smallest amount of time unit in game and are then returned</li>
+     * </ol>
+     *
+     * In case an exception is thrown when the name is read and calculated,
+     *  -1 is returned.
+     *
+     * @param file of which the date should be retrieved.
+     * @return the date in the smallest possible game date unit (days).
+     */
     private long getDateOfFileName(File file){
         try {
             String[] name = file.getName().split("\\.")[0].split("_");
