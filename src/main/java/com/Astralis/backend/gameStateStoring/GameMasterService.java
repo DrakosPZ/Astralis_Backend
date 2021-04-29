@@ -122,12 +122,23 @@ public class GameMasterService {
         gameState.setStatus(GameStatus.INITIALIZING);
     }
 
-    //#TODO: Documentation
+    /**
+     * Formulates the link to where the gameState Files are being stored:
+     *      storage/gameState/Given_Game_Name
+     *
+     * @param gameName the given game Name
+     * @return the full link as String
+     */
     private String getGameStorageLink(String gameName){
         return FOLDER_BASE + "//" + gameName;
     }
 
-    //#TODO: Documentation
+    /**
+     * Checks the given gameName for if a folder is already present in the game storing folder.
+     * If not the folder with the game name is created to store further game states.
+     *
+     * @param gameName the game State's name to be checked
+     */
     private void checkForGamesFolder(String gameName){
         File dir = new File(getGameStorageLink(gameName));
         if(!dir.exists()){

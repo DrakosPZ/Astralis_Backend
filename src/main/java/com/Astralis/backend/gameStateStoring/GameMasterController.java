@@ -20,6 +20,7 @@ public class GameMasterController{
     private final GameMasterService service;
 
     //----------------------Custom Route Methods----------------------
+    //#TODO: Documentation
     @GetMapping(path = "/loadLogicGameState", params = "storageFolder")
     public ResponseEntity<LogicGameState> getStoredLogicGameState(@RequestParam String storageFolder) {
         return ResponseEntity.of(
@@ -27,6 +28,7 @@ public class GameMasterController{
         );
     }
 
+    //#TODO: Documentation
     @PostMapping(path = "/storeChangedLogicGameState", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<LogicGameState> storeChangedLogicGameState(
             @RequestBody
@@ -36,6 +38,7 @@ public class GameMasterController{
         );
     }
 
+    //#TODO: Documentation
     @GetMapping(path = "/storeTestState")
     public ResponseEntity<LogicGameState> getStoredTestState() {
 
@@ -66,6 +69,7 @@ public class GameMasterController{
         return ResponseEntity.of(service.storeGameStateToDatabase(testState,"TestGame"));
     }
 
+    //#TODO: Documentation
     @GetMapping(path = "/loadTestState")
     public ResponseEntity<LogicGameState> loadTestState() {
         return ResponseEntity.of(service.loadGameStateFromDatabase("storage//gameState//TestGame"));
