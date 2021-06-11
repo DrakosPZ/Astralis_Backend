@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @RequestMapping(path = "/gamestate")
+@CrossOrigin("http://localhost:4200")
 public class GameStateController extends AbstractController<GameStateDTO> {
     private final GameStateService service;
     private final GameLoopManager gameLoopManager;

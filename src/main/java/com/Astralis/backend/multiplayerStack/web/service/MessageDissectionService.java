@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor(onConstructor_ = {@Autowired})
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class MessageDissectionService {
 

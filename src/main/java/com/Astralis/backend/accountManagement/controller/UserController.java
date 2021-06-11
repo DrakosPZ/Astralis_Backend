@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @RequestMapping(path = "/user")
+@CrossOrigin("http://localhost:4200")
 public class UserController extends AbstractController<UserDTO> {
     private final UserService service;
 
