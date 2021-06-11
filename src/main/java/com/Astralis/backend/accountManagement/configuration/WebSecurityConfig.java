@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static String ALLOWED_ORIGIN_PATH = "http://localhost:4200";
     private boolean corsEnabled = true;
 
     @Autowired
@@ -36,12 +37,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutSuccess logoutSuccess;
 
+    //same as Controller annotation
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");  // TODO: lock down before deploying
+        config.addAllowedOriginPattern("*");  // TODO: lock down before deploying
         config.addAllowedHeader("*");
         config.addExposedHeader(HttpHeaders.AUTHORIZATION);
         config.addAllowedMethod("*");
@@ -51,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and()
+        applyCors(http)
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -70,11 +72,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/**").authenticated();
     }
 
-    private HttpSecurity applyCors(HttpSecurity httpSecurity) throws Exception {
+    private HttpSecurity applyCors(HttpSecurity http) throws Exception {
         if (corsEnabled) {
-            return httpSecurity.cors().and();
+            return http.cors().and();
         } else {
-            return httpSecurity;
+            return http;
         }
     }
 
