@@ -4,10 +4,12 @@ import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.multiplayerStack.web.controller.RunningGameController;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MessageFormingService {
     //TODO: Add Cry For Help Commentary
-    private static  MessageFormingService refrence;
+    private static  MessageFormingService reference;
 
     private final Gson gson;
     private final RunningGameController runningGameController;
@@ -18,11 +20,11 @@ public class MessageFormingService {
         this.runningGameController = runningGameController;
         this.gson = gson;
 
-        this.refrence = this;
+        this.reference = this;
     }
 
-    public static MessageFormingService getRefrence(){
-        return refrence;
+    public static MessageFormingService getReference(){
+        return reference;
     }
 
     public void sendGameState(String gameID, LogicGameState logicGameState){

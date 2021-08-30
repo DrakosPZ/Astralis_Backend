@@ -5,6 +5,7 @@ import com.Astralis.backend.gameLogic.mechanic.MovementManager;
 import com.Astralis.backend.gameLogic.mechanic.actionManager.ActionEcoSystemManager;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.multiplayerStack.logicLoop.GameLoop;
+import com.Astralis.backend.multiplayerStack.web.model.Message;
 import com.Astralis.backend.multiplayerStack.web.model.MessageSpecialized;
 
 public class GameTicker implements Runnable {
@@ -35,7 +36,7 @@ public class GameTicker implements Runnable {
     public void run() {
         if(activeState.getGameStatus().equals(GameStatus.RUNNING)){
             increaseTime();
-            sendOutEvents();
+            sendOutState();
             System.out.println("TimeStamp: " + activeState.getDay() + "." + activeState.getMonth() +"." + activeState.getYear() + " : " + activeState.getHour());
         }
     }
@@ -66,7 +67,7 @@ public class GameTicker implements Runnable {
      *
      * On Error it Removes all Emitters and sends a CleanUp Messages
      */
-    private void sendOutEvents(){
+    private void sendOutState(){
         loop.updateStatus();
     }
 

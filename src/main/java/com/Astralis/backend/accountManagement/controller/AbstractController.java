@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
+@CrossOrigin("http://localhost:4200")
 public abstract class AbstractController<D extends AbstractModelDto> {
 
     /**

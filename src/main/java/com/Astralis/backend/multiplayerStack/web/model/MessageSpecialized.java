@@ -1,5 +1,6 @@
 package com.Astralis.backend.multiplayerStack.web.model;
 
+import com.Astralis.backend.multiplayerStack.web.model.specialized.SpecializedMessage;
 import lombok.*;
 
 @Getter
@@ -8,13 +9,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode()
-public class MessageSpecialized {
+public class  MessageSpecialized {
     private String gameID;
     private String userID;
     private Action action;
-    private Object specializedObject;
+    private SpecializedMessage specializedObject;
 
-    public MessageSpecialized(Message message, Object specializedObject){
+    public MessageSpecialized(Message message, SpecializedMessage specializedObject){
         gameID = message.getGameID();
         userID = message.getUserID();
         action = message.getAction();

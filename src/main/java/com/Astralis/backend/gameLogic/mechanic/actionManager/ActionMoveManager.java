@@ -3,6 +3,7 @@ package com.Astralis.backend.gameLogic.mechanic.actionManager;
 import com.Astralis.backend.gameLogic.mechanic.utils.FindInGameState;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameLogic.model.Ship;
+import com.Astralis.backend.multiplayerStack.web.model.Message;
 import com.Astralis.backend.multiplayerStack.web.model.MessageSpecialized;
 import com.Astralis.backend.multiplayerStack.web.model.specialized.MoveShip;
 

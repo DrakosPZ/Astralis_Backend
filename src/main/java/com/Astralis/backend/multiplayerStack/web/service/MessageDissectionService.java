@@ -46,7 +46,7 @@ public class MessageDissectionService {
     private MessageSpecialized readPojo(Message pojo){
         MessageSpecialized read;
         switch (pojo.getAction()){
-            case Move:
+            case MOVE:
                 read = new MessageSpecialized(pojo, gson.fromJson(pojo.getSpecializedObject(), MoveShip.class));
                 break;
             default:

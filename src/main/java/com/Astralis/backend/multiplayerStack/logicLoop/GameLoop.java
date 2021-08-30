@@ -4,11 +4,11 @@ package com.Astralis.backend.multiplayerStack.logicLoop;
 import com.Astralis.backend.accountManagement.model.GameStatus;
 import com.Astralis.backend.gameLogic.mechanic._runnables.GameTicker;
 import com.Astralis.backend.gameLogic.model.LogicGameState;
+import com.Astralis.backend.multiplayerStack.web.model.Message;
 import com.Astralis.backend.multiplayerStack.web.model.MessageSpecialized;
 import com.Astralis.backend.multiplayerStack.web.service.MessageFormingService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import java.util.concurrent.Executors;
@@ -27,8 +27,7 @@ public class GameLoop {
     private MessageFormingService messageFormingService;
 
     /**
-     * Instantiates a GameLoop with a connected GameStateID, the LogicGamestate used for the Game, and an Emitter to
-     *  be forwarded as messenger.
+     * Instantiates a GameLoop with a connected GameStateID, the LogicGamestate used for the Game.
      *
      * @param gameStateID the Id of the GameState connected to the Game
      * @param activeGameState the LogicalGameState used as a basis for the Game
@@ -37,7 +36,7 @@ public class GameLoop {
         activeID = gameStateID;
         activeLoop = new GameTicker(activeGameState, this);
 
-        messageFormingService = MessageFormingService.getRefrence();
+        messageFormingService = MessageFormingService.getReference();
         executorService.scheduleAtFixedRate(activeLoop, 0, 1000, TimeUnit.MILLISECONDS);
         forwardStatus(GameStatus.RUNNING);
     }

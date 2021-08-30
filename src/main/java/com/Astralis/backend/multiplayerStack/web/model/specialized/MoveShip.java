@@ -1,6 +1,7 @@
 package com.Astralis.backend.multiplayerStack.web.model.specialized;
 
 import com.Astralis.backend.gameLogic.model.Position;
+import com.Astralis.backend.multiplayerStack.web.model.MessageSpecialized;
 import lombok.*;
 
 @Getter
@@ -9,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode()
-public class MoveShip {
+public class MoveShip implements SpecializedMessage {
     private Long shipId;
     private Position newGoal;
 

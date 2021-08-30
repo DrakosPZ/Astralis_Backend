@@ -1,17 +1,14 @@
 package com.Astralis.backend.multiplayerStack.web.controller;
 
+import com.Astralis.backend.multiplayerStack.logicLoop.GameLoop;
+import com.Astralis.backend.multiplayerStack.web.model.Message;
 import com.Astralis.backend.multiplayerStack.web.model.MessageSpecialized;
 import com.Astralis.backend.multiplayerStack.web.service.MessageDissectionService;
-import com.google.gson.Gson;
-import com.Astralis.backend.gameLogic.model.LogicGameState;
-import com.Astralis.backend.multiplayerStack.logicLoop.GameLoop;
 import com.Astralis.backend.multiplayerStack.logicLoop.GameLoopManager;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/runningGame")
 public class RunningGameController {
 
+    private final String UPDATE_ROUTE = "/topic/gameUpdates/";
+    private final String RECEIVING_ROUTE = "/message/{id}";
+
     //TODO: add Scream for help commentary
-    private static RunningGameController refrence;
+    private static RunningGameController reference;
 
     private final SimpMessagingTemplate messagingTemplate;
     private final GameLoopManager gameLoopManager;
@@ -35,53 +35,24 @@ public class RunningGameController {
         this.gameLoopManager = gameLoopManager;
         this.messageDissectionService = messageDissectionService;
 
-        this.refrence = this;
+        this.reference = this;
     }
 
-    public static RunningGameController getRefrence(){
-        return refrence;
+    public static RunningGameController getReference(){
+        return reference;
     }
 
-
-    // Todo: Commentary
-    //gets a SSE for partaking in Game
-    @GetMapping(path = "/joinGame", params = "identifier")
-    public LogicGameState joinGame(@RequestParam String identifier) {
-
-        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
-        if(gameLoop == null){
-            throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
-        }
-
-        return gameLoop.getLogicGameState();
-    }
-
-    // Todo: Commentary
-    //removing own SSE From Emitter List to stop message flooding when not partaking
-    /*@GetMapping(path = "/joinGame/{gameIdentifier}")
-    public SseEmitter leaveGame(
-            @PathVariable String gameIdentifier, @RequestBody SseEmitter emitter) {
-
-        GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
-
-        if(gameLoop == null){
-            throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
-        }
-
-        gameLoop.leaveGame(emitter);
-        return emitter;
-    }*/
-
-
-    @SendTo("/topic/reply/{id}")
+    //TODO: Commentary for Updating Method
     public String sendGameStateUpdate(String message, @DestinationVariable("id") String gameId){
         System.out.println(message);
-        //this.messagingTemplate.convertAndSend("/message",  message);
+        this.messagingTemplate.convertAndSend(UPDATE_ROUTE + gameId,  message);
         return  message;
     }
 
-    @MessageMapping("/message/{id}")
+    //TODO: Add Commentary for the receiving server Side Link
+    @MessageMapping(RECEIVING_ROUTE)
     public void receiveGameMessage(@Payload String message, @DestinationVariable("id") String gameId){
+        System.out.println("Message to: " + gameId + " - " + message);
         MessageSpecialized actionCall = messageDissectionService.interpreteMessage(message);
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(gameId);
         if(gameLoop == null){

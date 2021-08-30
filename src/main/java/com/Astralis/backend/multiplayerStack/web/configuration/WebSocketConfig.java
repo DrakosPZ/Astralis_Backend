@@ -10,7 +10,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    private static String ENDPOINT = "/webgamesocket";
+    private static String ENDPOINT = "/ws";
     private static String ALLOWED_ORIGIN_PATH = "http://localhost:4200";
 
 
@@ -22,6 +22,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint(ENDPOINT)
+                .setAllowedOrigins(ALLOWED_ORIGIN_PATH);
+        registry.addEndpoint(ENDPOINT)
                 .setAllowedOrigins(ALLOWED_ORIGIN_PATH)
                 .withSockJS();
     }
@@ -32,7 +34,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic/", "/queue/");
+        registry.enableSimpleBroker("/topic/");
         registry.setApplicationDestinationPrefixes("/app");
     }
 }
