@@ -1,0 +1,39 @@
+package com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.service;
+
+import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.controller.RunningGameController;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MessageFormingService {
+    //TODO: Add Cry For Help Commentary
+    private static  MessageFormingService reference;
+
+    private final Gson gson;
+    private final RunningGameController runningGameController;
+
+    @Autowired
+    public MessageFormingService(RunningGameController runningGameController,
+                                 Gson gson){
+        this.runningGameController = runningGameController;
+        this.gson = gson;
+
+        this.reference = this;
+    }
+
+    public static MessageFormingService getReference(){
+        return reference;
+    }
+
+    public void sendGameState(String gameID, LogicGameState logicGameState){
+        String jsonfiedGameState = gson.toJson(logicGameState);;
+        runningGameController.sendGameStateUpdate(jsonfiedGameState, gameID);
+    }
+
+    public void sendClosingMessage(String gameID){
+        //TODO: Actuall closing event send out
+    }
+
+}

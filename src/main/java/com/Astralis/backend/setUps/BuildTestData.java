@@ -1,10 +1,8 @@
 package com.Astralis.backend.setUps;
 
-import com.Astralis.backend.accountManagement.dto.GameStateDTO;
-import com.Astralis.backend.accountManagement.dto.LoginInformationDTO;
-import com.Astralis.backend.accountManagement.dto.UserDTO;
-import com.Astralis.backend.accountManagement.model.GameState;
-import com.Astralis.backend.accountManagement.service.UserService;
+import com.Astralis.backend.management.dto.LoginInformationDTO;
+import com.Astralis.backend.management.dto.UserDTO;
+import com.Astralis.backend.management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
