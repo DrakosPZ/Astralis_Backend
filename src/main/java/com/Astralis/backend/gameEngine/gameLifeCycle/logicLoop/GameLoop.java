@@ -28,8 +28,8 @@ public class GameLoop {
     /**
      * Instantiates a GameLoop with a connected GameStateID, the LogicGamestate used for the Game.
      *
-     * @param gameStateID the Id of the GameState connected to the Game
-     * @param activeGameState the LogicalGameState used as a basis for the Game
+     * @param gameStateID the Id of the GameState connected to the Game.
+     * @param activeGameState the LogicalGameState used as a basis for the Game.
      */
     public void startLoop(String gameStateID, LogicGameState activeGameState){
         activeID = gameStateID;
@@ -41,21 +41,21 @@ public class GameLoop {
     }
 
     /**
-     * @return id of the running GameState Model
+     * @return id of the running GameState Model.
      */
     public String getID(){
         return activeID;
     }
 
     /**
-     * @return logicGameState of the running loop
+     * @return logicGameState of the running loop.
      */
     public LogicGameState getLogicGameState(){
         return activeLoop.getActiveState();
     }
 
     /**
-     * Stops the Thread, and emits a game Closed Message
+     * Stops the Thread, and emits a game Closed Message.
      */
     public void endLoop(){
         executorService.shutdown();
@@ -63,23 +63,26 @@ public class GameLoop {
     }
 
     /**
-     * TODO: ADD COmmentary
-     */
-    public void updateStatus(){
-        messageFormingService.sendGameState(activeID, getLogicGameState());
-    }
-
-    /**
      * Forwards the changing of the Game Status to the active Loop
      *
-     * @param gameStatus
+     * @param gameStatus The Status that's supposed to be set on the gameState.
      */
     public void forwardStatus(GameStatus gameStatus){
         activeLoop.setStatus(gameStatus);
     }
 
     /**
-     * TODO: ADD COmmentary
+     * Method to send out the current gameState to all connected Players.
+     * (Sends out each GameTick)
+     */
+    public void updateStatus(){
+        messageFormingService.sendGameState(activeID, getLogicGameState());
+    }
+
+    /**
+     * Method to forward a player's in-Game Action to the running Loop.
+     *
+     * @param action The transmitted Message containing the Action Information.
      */
     public void forwardAction(MessageSpecialized action){
         activeLoop.input(action);

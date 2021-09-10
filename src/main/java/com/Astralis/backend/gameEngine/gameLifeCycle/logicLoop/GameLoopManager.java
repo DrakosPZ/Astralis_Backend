@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to hold and manage all the active GameLoops.
+ */
 @Component
 @Getter
 @NoArgsConstructor
@@ -15,20 +18,36 @@ public class GameLoopManager {
     private List<GameLoop> gameLoops = new ArrayList<>();
     private final long timeoutMillis = 0; // 0 = no Timeout
 
-    //TODO: Add Documentation
+    /**
+     * Method to add a gameLoop to the active list.
+     * For this it initializes a new GameLoop forwarding the needed information to the according method.
+     *
+     * @param gameStateID The ID of the started gameState.
+     * @param LogicGameState The gameState holding running game information.
+     */
     public void addGameLoop(String gameStateID, LogicGameState LogicGameState){
         GameLoop gameLoop = new GameLoop();
         gameLoops.add(gameLoop);
         gameLoop.startLoop(gameStateID, LogicGameState);
     }
 
-    //TODO: Add Documentation
+    /**
+     * Method removing the given gameLoop from the active Loop list.
+     * Before doing so, it stops the gameLoop.
+     *
+     * @param gameLoop The to be removed gameLoop.
+     */
     public void removeGameLoop(GameLoop gameLoop){
         gameLoop.endLoop();
         gameLoops.remove(gameLoop);
     }
 
-    //TODO: Add Documentation
+    /**
+     * Method to return the activeGameloop based on the given ID.
+     *
+     * @param identifier The ID of the looked for gameLoop.
+     * @return The searched for gameLoop.
+     */
     public GameLoop findActiveGameLoop(String identifier) {
         return gameLoops.stream()
                 .filter(loop -> identifier.equals(loop.getID()))
