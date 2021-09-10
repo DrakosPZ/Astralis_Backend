@@ -35,10 +35,10 @@ public class GameStateService
     private final GameLoopManager gameLoopManager;
 
     /**
-     * Convert a given Model into a respective DTO
+     * Convert a given Model into a respective DTO.
      *
-     * @param model to be transformed
-     * @return transformed DTO
+     * @param model to be transformed.
+     * @return transformed DTO.
      */
     @Override
     GameStateDTO convertModelIntoDTO(GameState model) {
@@ -46,10 +46,10 @@ public class GameStateService
     }
 
     /**
-     * Convert a given DTO into a respective Model
+     * Convert a given DTO into a respective Model.
      *
-     * @param dto to be transformed
-     * @return transformed model
+     * @param dto to be transformed.
+     * @return transformed model.
      */
     @Override
     GameState convertDTOIntoModel(GameStateDTO dto) {
@@ -58,13 +58,13 @@ public class GameStateService
     }
 
     /**
-     * Step 1. update simple fields
+     * Step 1. update simple fields:
      * Compares the old to the new User model.
      * If a field has changed, the old model's field is updated to the new version.
      * The old model is then returned with the updated fields.
      *
-     * @param old GameState model
-     * @param model new GameState model
+     * @param old GameState model.
+     * @param model new GameState model.
      * @return the old GameState model with the updated fields.
      */
     @Override
@@ -82,7 +82,7 @@ public class GameStateService
     }
 
     /**
-     * Step 2. update relationship fields
+     * Step 2. update relationship fields:
      * Transforms the DTO into a new Model.
      * Compares every single relationship list of the old and new model.
      * If an element of the old list is not contained by the new list,
@@ -162,9 +162,9 @@ public class GameStateService
     }
 
     /**
-     * Calls the find by Identifier method of the respective repo
+     * Calls the find by Identifier method of the respective repo.
      *
-     * @param identifier the looked for model's identifier
+     * @param identifier the looked for model's identifier.
      * @return the looked for model.
      */
     @Override
@@ -173,9 +173,9 @@ public class GameStateService
     }
 
     /**
-     * Calls the delete by identifier method of the respective repo
+     * Calls the delete by identifier method of the respective repo.
      *
-     * @param identifier the to be deleted model's identifier
+     * @param identifier the to be deleted model's identifier.
      */
     @Override
     void deleteByIdentifier(String identifier) {
@@ -196,10 +196,10 @@ public class GameStateService
      * Retrieves the connection of the given GameState and User combination,
      * and changes the role of the user in that connection to the given role.
      *
-     * @param identifierGS GameState Identifier
-     * @param identifierU User Identifier
-     * @param role To be changed to role
-     * @return the adjusted GameState
+     * @param identifierGS GameState Identifier.
+     * @param identifierU User Identifier.
+     * @param role To be changed to role.
+     * @return the adjusted GameState.
      */
     public Optional<GameStateDTO> changeRoleOfGamePlayer(String identifierGS, String identifierU, String role) {
         GameState gameState = gameStateRepo.findByIdentifier(identifierGS)
@@ -238,7 +238,7 @@ public class GameStateService
      * Calls the find all Games containing the given name of the personRepo.
      *
      * @param name of the searched GameStates.
-     * @return a List of all Games that contain the given Name
+     * @return a List of all Games that contain the given Name.
      */
     public List<GameStateDTO> findAllGamesContainName(String name) {
         return gameStateRepo.findByNameContains(name)
@@ -251,7 +251,7 @@ public class GameStateService
      * Calls the find all Games containing the given identifier of the personRepo.
      *
      * @param identifier of the given Game's identifier.
-     * @return a List of all Games that contain the given identifier
+     * @return a List of all Games that contain the given identifier.
      */
     public List<GameStateDTO> findAllGamesContainIdentifier(String identifier) {
         return gameStateRepo.findByIdentifierContains(identifier)
@@ -262,10 +262,10 @@ public class GameStateService
 
     /**
      * Calls the standard find by Identifier, and then maps it to a DetailGameStateDTO.
-     * Continues to resolve all relationship through custome Detail RelationshipDTOs.
+     * Continues to resolve all relationship through custom Detail RelationshipDTOs.
      *
-     * @param identifier of the searched gameState
-     * @return the optional of detail GameStateDTO
+     * @param identifier of the searched gameState.
+     * @return the optional of detail GameStateDTO.
      */
     public Optional<DetailGameStateDTO> findGameStateAsDetail(String identifier){
         GameState found = gameStateRepo.findByIdentifier(identifier).get();
@@ -292,9 +292,10 @@ public class GameStateService
     }
 
     /**
-     * Change Status from Paused to Running, if not already initialized it first initialize Logic Game State
+     * Change Status from Paused to Running, if not already initialized it first initialize Logic Game State.
+     * Also adds the gameLoop to the gameLoopManager and initializes it.
      *
-     * @param identifier
+     * @param identifier the Identifier of the to be started gameState.
      */
     public void startGame(String identifier){
         GameState gameState = findByIdentifier(identifier)
@@ -314,8 +315,17 @@ public class GameStateService
         manageStatus(gameLoop, GameStatus.RUNNING);
     }
 
-    //#TODO: Add Documentary
-    //STOPS THE GAME
+    /**
+     * Stops the given GameLoop. Stopping makes the gameLoop uninteractable for the players.
+     * First the gameLoop's status is changed to closed, stopping the gameTicker.
+     * <ol>
+     * <li> The gameLoop's status is changed to closed, stopping the gameTicker.
+     * <li> The gameLoop is removed from the gameLoopManager.
+     * <li> The gameState is stored.
+     * </ol>
+     *
+     * @param gameLoop The gameLoop which is supposed to be stored.
+     */
     public void stopGame(GameLoop gameLoop){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
@@ -325,8 +335,12 @@ public class GameStateService
         gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameState.getName());
     }
 
-    //#TODO: Add Documentary
-    //SAVING
+    /**
+     * Method to store the given GameLoop.
+     * Game is locked during storing process and unlocked once done.
+     *
+     * @param gameLoop The Gameloop supposed to be stored.
+     */
     public void storeGame(GameLoop gameLoop){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
@@ -337,8 +351,12 @@ public class GameStateService
         manageStatus(gameLoop, previoues);
     }
 
-    //#TODO: Add Documentary
-    //Pausing/ Unpausing
+    /**
+     * Method to stop the given gameLoop.
+     * If it is already stopped it is changed to running.
+     *
+     * @param gameLoop The gameLoop supposed to be paused/unpaused.
+     */
     public void pauseGame(GameLoop gameLoop){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));
@@ -350,34 +368,31 @@ public class GameStateService
         }
     }
 
-    //#TODO: Add Documentary
-    //Sets State to STORING for saving process
+    /**
+     * Method to change the given gameLoop's status to Storing.
+     *
+     * @param gameLoop The gameLoop whose status is supposed to be changed.
+     */
     public void lockGameState(GameLoop gameLoop){
-
         manageStatus(gameLoop, GameStatus.STORING);
-
-        /* TODO: Remove this part
-        gameLoopManager.lockGameLoop(gameLoop);
-        GameState gameState = findByIdentifier(gameLoop.getID())
-                .orElseThrow(() -> new IllegalArgumentException("No GameState with ID Found"));
-        gameState.setStatus(GameStatus.STORING);*/
     }
 
-    //#TODO: Add Documentary
-    //Sets State to RUNNING after finishing saving Process
+    /**
+     * Method to change the given gameLoop's status to Running.
+     *
+     * @param gameLoop The gameLoop whose status is supposed to be changed.
+     */
     public void openGameState(GameLoop gameLoop){
         manageStatus(gameLoop, GameStatus.RUNNING);
-        /* TODO: Remove this part
-        GameState gameState = findByIdentifier(gameLoop.getID())
-                .orElseThrow(() -> new IllegalArgumentException("No GameState with ID Found"));
-        if(gameState.getStatus().equals(GameStatus.STORING)){
-            gameLoopManager.openGameLoop(gameLoop);
-            gameState.setStatus(GameStatus.RUNNING);
-        }*/
     }
 
-    //#TODO: Add Documentary
-    //forwards Status to as well as the GameState Database entry as also the gameloop
+    /**
+     * Method to change Status of the gameLoop object and the status of the according gameState Object at the sametime.
+     * The gameState reference is got by searching for it with the related ID in the gameLoop.
+     *
+     * @param gameLoop The gameLoop whose status is supposed to be changed.
+     * @param gameStatus The status that it is supposed to be changed to.
+     */
     private void manageStatus(GameLoop gameLoop, GameStatus gameStatus){
         GameState gameState = findByIdentifier(gameLoop.getID())
                 .orElseThrow(() -> new IllegalArgumentException("No Connected GameStateFound"));

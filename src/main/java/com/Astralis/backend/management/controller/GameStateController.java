@@ -91,10 +91,10 @@ public class GameStateController extends AbstractController<GameStateDTO> {
 
     //----------------------Custom Route Methods----------------------
     /**
-     * Get route to return all Games a given User has joined
+     * Get route to return all Games a given User has joined.
      *
-     * @param identifier the id of the to be checked User
-     * @return a List of Joined Games
+     * @param identifier the id of the to be checked User.
+     * @return a List of Joined Games.
      */
     @GetMapping(path = "/joinedGame", params = "identifier")
     public ResponseEntity<CollectionModel<GameStateDTO>> findAllJoinedGames(@RequestParam String identifier) {
@@ -109,10 +109,10 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     }
 
     /**
-     * Get route to return a Detail View of the searched for GameState Object
+     * Get route to return a Detail View of the searched for GameState Object.
      *
-     * @param identifier of the searched gameState
-     * @return the detail GameStateDTO
+     * @param identifier of the searched gameState.
+     * @return the detail GameStateDTO.
      */
     @GetMapping(path = "/detailsFor", params = "identifier")
     public ResponseEntity<DetailGameStateDTO> findGameStateAsDetail(@RequestParam String identifier) {
@@ -128,10 +128,10 @@ public class GameStateController extends AbstractController<GameStateDTO> {
 
 
     /**
-     * Get route to return all Games containing a given identifier
+     * Get route to return all Games containing a given identifier.
      *
-     * @param identifier of the searched gameState
-     * @return a List of filtered gameStates
+     * @param identifier of the searched gameState.
+     * @return a List of filtered gameStates.
      */
     @GetMapping(path = "/searchFor", params = "identifier")
     public ResponseEntity<CollectionModel<GameStateDTO>> findAllGamesContainingIdentifier(@RequestParam String identifier) {
@@ -146,10 +146,10 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     }
 
     /**
-     * Get route to return all Games containing a given name
+     * Get route to return all Games containing a given name.
      *
-     * @param name of the searched gameState
-     * @return a List of filtered gameStates
+     * @param name of the searched gameState.
+     * @return a List of filtered gameStates.
      */
     @GetMapping(path = "/searchFor", params = "name")
     public ResponseEntity<CollectionModel<GameStateDTO>> findAllGamesContainingName(@RequestParam String name) {
@@ -166,8 +166,8 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     /**
      * Post route to create a new game and add the User to it.
      *
-     * @param holder holds the identifier of the gamestate object, and the user object to be added
-     * @return the changed GameStateDTO
+     * @param holder holds the identifier of the gamestate object, and the user object to be added.
+     * @return the changed GameStateDTO.
      */
     @PostMapping(path = "/createNewGame", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<GameStateDTO> createNewGame(
@@ -188,10 +188,10 @@ public class GameStateController extends AbstractController<GameStateDTO> {
     }
 
     /**
-     * Post route to add a User to an existing Game
+     * Post route to add a User to an existing Game.
      *
-     * @param holder holds the identifier of the gamestate object, and the user object to be added
-     * @return the changed GameStateDTO
+     * @param holder holds the identifier of the gamestate object, and the user object to be added.
+     * @return the changed GameStateDTO.
      */
     @PostMapping(path = "/addUser", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<GameStateDTO> addUser(
@@ -213,10 +213,10 @@ public class GameStateController extends AbstractController<GameStateDTO> {
 
 
     /**
-     * Delete route to remove a User from a Game
+     * Delete route to remove a User from a Game.
      *
-     * @param holder holds the identifier of the gamestate object, and the user object to be added
-     * @return the changed GameStateDTO, if it was deleted in the process, the identifier is empty
+     * @param holder holds the identifier of the gamestate object, and the user object to be added.
+     * @return the changed GameStateDTO, if it was deleted in the process, the identifier is empty.
      */
     @PostMapping(path = "/removeUser", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<GameStateDTO> removeUser(
@@ -238,10 +238,10 @@ public class GameStateController extends AbstractController<GameStateDTO> {
 
 
     /**
-     * Put route to change the Role of a User in a given Game
+     * Put route to change the Role of a User in a given Game.
      *
-     * @param holder holds a Map with a GameState, User Identifier Map and a String for the Role to be changed to
-     * @return the changed GameStateDTO
+     * @param holder holds a Map with a GameState, User Identifier Map and a String for the Role to be changed to.
+     * @return the changed GameStateDTO.
      */
     @PutMapping(path = "/changeGameUserRole", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<GameStateDTO> changeRoleFromUserInGameState(
@@ -264,10 +264,13 @@ public class GameStateController extends AbstractController<GameStateDTO> {
 
 
     /**
-     * Get Route to start the given Game. If the Game hasn't been initialized yet it is first initialized and then started.
+     * Get Route to start the given Game.
+     * If the Game hasn't been initialized yet it is first initialized and then started.
+     * Starting means the game is interactable for players, i.e: Joining, stopping it, storing it, etc. .
+     * All further checks and behaviour is done by the according services.
      *
-     * @param identifier the given Game State Identifier which should be started
-     * @return updated Detail Game with new Status
+     * @param identifier the given Game State Identifier which should be started.
+     * @return updated Detail Game with new Status.
      */
     @GetMapping(path = "/startGame", params = "identifier")
     public ResponseEntity<DetailGameStateDTO> startGame(@RequestParam String identifier) {
@@ -276,8 +279,14 @@ public class GameStateController extends AbstractController<GameStateDTO> {
         return findGameStateAsDetail(identifier);
     }
 
-    // Todo: Commentary
-    //Stopping the Game
+    /**
+     * Get Route to stop the given Game. Game is stored before closing.
+     * Closing means players cannot join it while it is stopped.
+     * All further checks and behaviour is done by the according services.
+     *
+     * @param identifier the given Game State Identifier which should be stopped.
+     * @return updated Detail Game with new Status.
+     */
     @GetMapping(path = "/stopGame", params = "identifier")
     public ResponseEntity<DetailGameStateDTO> stopGame(@RequestParam String identifier) {
 
@@ -291,8 +300,14 @@ public class GameStateController extends AbstractController<GameStateDTO> {
         return findGameStateAsDetail(identifier);
     }
 
-    // Todo: Commentary
-    //Storing Game to Database
+    /**
+     * Get Route to store the given Game.
+     * Game is paused/locked before storing process starts and is opened again once done.
+     * All further checks and behaviour is done by the according services.
+     *
+     * @param identifier the given Game State Identifier which should be stored.
+     * @return updated Detail Game with new Status.
+     */
     @GetMapping(path = "/storeGame", params = "identifier")
     public ResponseEntity<DetailGameStateDTO> storeGame(@RequestParam String identifier) {
 
@@ -302,17 +317,20 @@ public class GameStateController extends AbstractController<GameStateDTO> {
             throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + identifier);
         }
 
-        //service.lockGameState(gameLoop);
-
         service.storeGame(gameLoop);
-
-        //service.openGameState(gameLoop);
 
         return findGameStateAsDetail(identifier);
     }
 
-    // Todo: Commentary
-    //Pausing Game
+    /**
+     * Get Route to pause/unpause the given Game.
+     * The given game is checked if it is already paused, and if so it is opened again.
+     * Pausing means it is still interactable for players, but the game doesn't progress.
+     * All further checks and behaviour is done by the according services.
+     *
+     * @param identifier the given Game State Identifier which should be paused/unpaused.
+     * @return updated Detail Game with new Status.
+     */
     @GetMapping(path = "/pauseGame", params = "identifier")
     public ResponseEntity<DetailGameStateDTO> pausingGame(@RequestParam String identifier) {
 
