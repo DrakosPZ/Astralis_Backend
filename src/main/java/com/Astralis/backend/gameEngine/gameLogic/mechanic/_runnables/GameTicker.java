@@ -71,12 +71,12 @@ public class GameTicker implements Runnable {
     }
 
     /**
-     * //TODO: Add Commentary
+     * Method to forward the player's action to the actionEcoSystemManager.
      *
-     * @param action
+     * @param action The player's action stored in a Message Object.
      */
     public void input(MessageSpecialized action){
-        actionEcoSystemManager.recieveInput(action, activeState);
+        actionEcoSystemManager.receiveInput(action, activeState);
     }
 
 
@@ -123,9 +123,12 @@ public class GameTicker implements Runnable {
 
     /**
      * increases hour by one and raises hourFlag,
-     *      if the hour counter reaches 24, it is reset to 0 and dayFlag is raised,
-     *      if the day counter reaches 31, it is reset to 1 and monthFlag is raised,
-     *      if the month counter reaches 13, it is reset to 1 and yearFlag is raised
+     * <ul>
+     *     <li>if the hour counter reaches 24, it is reset to 0 and dayFlag is raised,</li>
+     *     <li>if the day counter reaches 31, it is reset to 1 and monthFlag is raised,</li>
+     *     <li>if the month counter reaches 13, it is reset to 1 and yearFlag is raised</li>
+     * </ul>
+     *
      * time values are set and for every flag raised the according gameTick Method is called.
      */
     private void increaseTime(){

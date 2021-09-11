@@ -24,10 +24,15 @@ public class ActionMoveManager {
     }
 
     /**
-     * TODO: Add Commentary
+     * Method to handle the player's move ship action input.
+     * <ol>
+     *     <li>For that it extracts the to be moved Ship from the actions context,</li>
+     *     <li>then it looks for the according object in the provided logicGameState</li>
+     *     <li>finally sets the new targetPosition on the gameState Ship.</li>
+     * </ol>
      *
-     * @param messageSpecialized
-     * @param logicGameState
+     * @param messageSpecialized The player's move ship action.
+     * @param logicGameState The gameState in which the ship is supposed to be moved
      */
     public void moveShip(MessageSpecialized messageSpecialized, LogicGameState logicGameState){
         MoveShip specialObject = (MoveShip) messageSpecialized.getSpecializedObject();

@@ -16,9 +16,15 @@ public class MessageDissectionService {
     private Gson gson;
 
     /**
-     * TODO: ADD COMMENTARY
-     * @param message
-     * @return
+     * Method to turn a jsonfied player's action into a fully constructed message
+     * Object containing the player's action.
+     *
+     * As the Message object contains the general information (for example what type of action it is.)
+     * and the specialized action specific information, it first has to dejsonfy the general object,
+     * after which the specialized Object can be dejsonfied.
+     *
+     * @param message The jsonfied player's action.
+     * @return The fully dejsonfied Message Object, containing the player's action.
      */
     public MessageSpecialized interpreteMessage(String message){
         Message messagePojo = JsonToPojo(message);
@@ -26,9 +32,11 @@ public class MessageDissectionService {
     }
 
     /**
-     * TODO: ADD COMMENTARY
-     * @param json
-     * @return
+     * Method to turn the jsonfied message into a message Object.
+     * The message object holds the jsonfied action specific object.
+     *
+     * @param json The jsonfied message object.
+     * @return The message object containing the general action information.
      */
     private Message JsonToPojo(String json){
         Message message = gson.fromJson(json, Message.class);
@@ -36,9 +44,10 @@ public class MessageDissectionService {
     }
 
     /**
-     * TODO: ADD COMMENTARY
-     * @param pojo
-     * @return
+     * Method to dejsonfy the specialized message string inside the given message pojo.
+     *
+     * @param pojo The message pojo containing the jsonfied specialized message.
+     * @return The fully dejsonfied specialized message object containing a players action.
      */
     private MessageSpecialized readPojo(Message pojo){
         MessageSpecialized read;

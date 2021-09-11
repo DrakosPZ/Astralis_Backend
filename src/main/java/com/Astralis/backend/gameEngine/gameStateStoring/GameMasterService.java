@@ -24,7 +24,12 @@ public class GameMasterService {
 
     private final static String FOLDER_BASE = "storage//gameState";
 
-    //#TODO: Documentation
+    /**
+     * A Method to load the stored gameFile out of the given folder's name.
+     *
+     * @param gameStateStorageLink The name of the folder where the gameFile is stored
+     * @return The latest gameState (gameState with the furthest date).
+     */
     public Optional<LogicGameState> loadGameStateFromDatabase(String gameStateStorageLink){
         LogicGameState LogicGameState = null;
         try{
@@ -51,7 +56,15 @@ public class GameMasterService {
         return Optional.of(LogicGameState);
     }
 
-    //#TODO: Documentation
+    /**
+     * Method to turn logicGameState into a gameFile and stores it in the given gameName's folder.
+     * The name of the file is written in a pattern like: "GameState_YEAR_MONTH_DAY_HOUR.txt".
+     * Checks first if a folder for the given gameName already exists, if not it is created.
+     *
+     * @param logicGameState The to be stored logicGameState.
+     * @param gameName The name of the folder where the file is supposed to be stored.
+     * @return The stored logicGameState.
+     */
     public Optional<LogicGameState> storeGameStateToDatabase(LogicGameState logicGameState, String gameName){
         checkForGamesFolder(gameName);
         try {
@@ -75,7 +88,18 @@ public class GameMasterService {
         return Optional.of(logicGameState);
     }
 
-    //#TODO: Documentation
+    /**
+     * A Method to initialize and set all the start Data of a logicGameState
+     * based of the given GameState.
+     * <ol>
+     *     <li>First initializes CURRENTLY TEST Data. CHANGE LATER TO ACTUAL START DATA.</li>
+     *     <li>Then stores finished LogicGameState to a GameFile. with the GameStates.Name as a Folder Name</li>
+     *     <li>Then sets the same Storing folder name in the GameStates.</li>
+     *     <li>Finally sets GameState Status to INITIALIZING.</li>
+     * </ol>
+     *
+     * @param gameState The database's gameState reference used to link the logicGameState to the lobby.
+     */
     public void initializeGameState(GameState gameState){
         //Test Data - replace with proper galaxy initialization
         String player1ID = "";

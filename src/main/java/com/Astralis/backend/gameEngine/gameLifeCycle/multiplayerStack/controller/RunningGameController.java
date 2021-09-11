@@ -19,7 +19,9 @@ public class RunningGameController {
     private final String UPDATE_ROUTE = "/topic/gameUpdates/";
     private final String RECEIVING_ROUTE = "/message/{id}";
 
-    //TODO: add Scream for help commentary
+    //if someone finds this and has a a better Idea how to implement the Controller
+    //which it may already be as read by the further down getReference Method,
+    //please implement the better solutions
     private static RunningGameController reference;
 
     private final SimpMessagingTemplate messagingTemplate;
@@ -37,18 +39,31 @@ public class RunningGameController {
         this.reference = this;
     }
 
+    //TODO: Maybe remove this part after 0.4 for I don't see why I implemented it in 0.3
     public static RunningGameController getReference(){
         return reference;
     }
 
-    //TODO: Commentary for Updating Method
-    public String sendGameStateUpdate(String message, @DestinationVariable("id") String gameId){
+    /**
+     * Method to send out a web-socket message to all connected frontend clients.
+     * It uses the "/runningGame/topic/gameUpdates/GAMEID" route.
+     * For sending it uses SimpleMessagingTemplate.
+     *
+     * @param message The jsonfied GameState.
+     * @param gameId the ID of the game for which it is supposed to be send out.
+     */
+    public void sendGameStateUpdate(String message, @DestinationVariable("id") String gameId){
         System.out.println(message);
         this.messagingTemplate.convertAndSend(UPDATE_ROUTE + gameId,  message);
-        return  message;
+        //return  message;
     }
 
-    //TODO: Add Commentary for the receiving server Side Link
+    /**
+     * Method to receive player's action input and forward them to the proper gameLoop.
+     *
+     * @param message The player's action as jsonfied String object.
+     * @param gameId The according gameId to which the action belongs.
+     */
     @MessageMapping(RECEIVING_ROUTE)
     public void receiveGameMessage(@Payload String message, @DestinationVariable("id") String gameId){
         System.out.println("Message to: " + gameId + " - " + message);

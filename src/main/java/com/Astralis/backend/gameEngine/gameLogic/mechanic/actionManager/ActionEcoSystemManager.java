@@ -27,11 +27,16 @@ public class ActionEcoSystemManager {
     }
 
     /**
-     * TODO: Add Commentary
+     * Method to forward player's action to the appropriate ActionManager.
+     * This is done based on the actions category as followed:
+     * <ul>
+     *     <li> MOVE -> actionMoveManager </li>
+     * </ul>
      *
-     * @param action
+     * @param action the action of the player.
+     * @param logicGameState the logicGameState the action happens in.
      */
-    public void recieveInput(MessageSpecialized action, LogicGameState logicGameState){
+    public void receiveInput(MessageSpecialized action, LogicGameState logicGameState){
         switch (action.getAction()){
             case MOVE -> actionMoveManager.moveShip(action, logicGameState);
         }
