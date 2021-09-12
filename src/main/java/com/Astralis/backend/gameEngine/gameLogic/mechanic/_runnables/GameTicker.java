@@ -1,7 +1,8 @@
 package com.Astralis.backend.gameEngine.gameLogic.mechanic._runnables;
 
+import com.Astralis.backend.gameEngine.gameLogic.mechanic.mechanicManager.TickManager;
 import com.Astralis.backend.management.model.GameStatus;
-import com.Astralis.backend.gameEngine.gameLogic.mechanic.MovementManager;
+import com.Astralis.backend.gameEngine.gameLogic.mechanic.mechanicManager.MovementManager;
 import com.Astralis.backend.gameEngine.gameLogic.mechanic.actionManager.ActionEcoSystemManager;
 import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoop;
@@ -9,7 +10,7 @@ import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.Mess
 
 public class GameTicker implements Runnable {
     private LogicGameState activeState;
-    private MovementManager movementManager;
+    private TickManager tickManager;
     private ActionEcoSystemManager actionEcoSystemManager;
     private GameLoop loop;
 
@@ -23,7 +24,7 @@ public class GameTicker implements Runnable {
     public GameTicker(LogicGameState activeState, GameLoop loop) {
         this.activeState = activeState;
         this.loop = loop;
-        this.movementManager = MovementManager.getMovementManager();
+        this.tickManager = TickManager.getTickManager();
         this.actionEcoSystemManager = ActionEcoSystemManager.getActionEcoSystemManager();
     }
 
@@ -83,45 +84,6 @@ public class GameTicker implements Runnable {
     //Game Logic Methods
 
     /**
-     * HourTick calls:
-     *      ShipMovement
-     */
-    private void hourTick(){
-        System.out.println("Hour Tick");
-        activeState.getCountries().forEach(country -> {
-            System.out.println("Country: " + country.getName());
-            movementManager.moveShip(country.getShip());
-        });
-    }
-
-    /**
-     * dayTick calls:
-     *
-     */
-    private void dayTick(){
-        System.out.println("Day Tick");
-
-    }
-
-    /**
-     * MonthTick calls:
-     *
-     */
-    private void monthTick(){
-        System.out.println("Month Tick");
-
-    }
-
-    /**
-     * YearTick calls:
-     *
-     */
-    private void yearTick(){
-        System.out.println("Year Tick");
-
-    }
-
-    /**
      * increases hour by one and raises hourFlag,
      * <ul>
      *     <li>if the hour counter reaches 24, it is reset to 0 and dayFlag is raised,</li>
@@ -165,16 +127,16 @@ public class GameTicker implements Runnable {
         activeState.setYear(year);
 
         if(hourFlag){
-            hourTick();
+            tickManager.hourTick(activeState);
         }
         if(dayFlag){
-            dayTick();
+            tickManager.dayTick(activeState);
         }
         if(monthFlag){
-            monthTick();
+            tickManager.monthTick(activeState);
         }
         if(yearFlag){
-            yearTick();
+            tickManager.yearTick(activeState);
         }
     }
 

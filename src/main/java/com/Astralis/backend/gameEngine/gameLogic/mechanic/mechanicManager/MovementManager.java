@@ -1,4 +1,4 @@
-package com.Astralis.backend.gameEngine.gameLogic.mechanic;
+package com.Astralis.backend.gameEngine.gameLogic.mechanic.mechanicManager;
 
 import com.Astralis.backend.gameEngine.gameLogic.helperModels.GameVector;
 import com.Astralis.backend.gameEngine.gameLogic.model.Position;
