@@ -5,27 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1824554a-c647-47e7-af02-4813221d56db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameScenarios/GameScenarioController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameScenarios/GameScenarioService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/MechanicClassManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/mechanicManager/TickManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/MovementManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/mechanicManager/MovementManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/_runnables/GameTicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/_runnables/GameTicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/Astralis/backend2/gameLogic/mechanic/GameLoopTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/Astralis/backend/gameLogic/mechanic/GameLoopTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageDissectionService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageDissectionService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageDissectionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageDissectionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/_runnables/GameTicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/_runnables/GameTicker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/actionManager/ActionEcoSystemManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/actionManager/ActionEcoSystemManager$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/actionManager/ActionEcoSystemManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/actionManager/ActionEcoSystemManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/actionManager/ActionMoveManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/actionManager/ActionMoveManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/controller/GameStateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/controller/GameStateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>

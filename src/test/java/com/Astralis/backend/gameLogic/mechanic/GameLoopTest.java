@@ -1,4 +1,4 @@
-package com.Astralis.backend2.gameLogic.mechanic;
+package com.Astralis.backend.gameLogic.mechanic;
 
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoop;
 import org.junit.jupiter.api.Test;

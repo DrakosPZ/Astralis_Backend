@@ -50,6 +50,10 @@ public class GameMasterController{
         );
     }
 
+
+
+    //Test Method
+
     /**
      * Test Route meant to test if the storing of GameStates to a Folder/GameFile works.
      * Creates a test GameState with a country and a ship and stores the to the "TestGame" folder.
