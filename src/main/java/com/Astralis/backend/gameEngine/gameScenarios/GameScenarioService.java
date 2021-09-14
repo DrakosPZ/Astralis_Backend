@@ -7,10 +7,17 @@ import com.Astralis.backend.gameEngine.gameLogic.model.Position;
 import com.Astralis.backend.gameEngine.gameLogic.model.Ship;
 import com.Astralis.backend.management.model.GameState;
 import com.Astralis.backend.management.model.GameStatus;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Transactional
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class GameScenarioService {
 
     public void initializeNormalGame(){

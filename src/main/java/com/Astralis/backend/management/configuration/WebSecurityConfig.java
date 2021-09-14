@@ -54,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         applyCors(http)
-                .antMatcher(tokenProperties.getLoginPath())
+                //TODO: This Line stopped authorization to work, dunno what it does, but if the rest of the authorization works without it until 4.0.x then kick it out of the Code
+                // .antMatcher(tokenProperties.getLoginPath())
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -69,8 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, tokenProperties.getLoginPath()).permitAll()
                 .antMatchers(HttpMethod.POST, tokenProperties.getRegistrationPath()).permitAll()
-                .antMatchers("/**").permitAll(); // TODO: replacing with authentication required
-                //.antMatchers("/**").authenticated();
+                .antMatchers("/**").authenticated();
     }
 
     private HttpSecurity applyCors(HttpSecurity http) throws Exception {

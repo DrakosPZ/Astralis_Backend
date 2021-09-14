@@ -38,8 +38,9 @@ public class MessageFormingService {
      * @param logicGameState The logicGameState which is to be jsonfied.
      */
     public void sendGameState(String gameID, LogicGameState logicGameState){
-        String jsonfiedGameState = gson.toJson(logicGameState);;
-        runningGameController.sendGameStateUpdate(jsonfiedGameState, gameID);
+        String jsonfiedGameState = gson.toJson(logicGameState);
+        //TODO: ADD WEBSOCKET AGAIN
+        //runningGameController.sendGameStateUpdate(jsonfiedGameState, gameID);
     }
 
     /**
