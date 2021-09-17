@@ -1,5 +1,6 @@
 package com.Astralis.backend.management.configuration;
 
+import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.configuration.WebSocketConfig;
 import com.Astralis.backend.management.filter.AuthenticationFilter;
 import com.Astralis.backend.management.filter.AuthorizationFilter;
 import com.Astralis.backend.management.service.UserService;
@@ -8,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -36,8 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService personService;
     @Autowired
     private LogoutSuccess logoutSuccess;
+    @Autowired
+    private AuthorizationFilter authorizationFilter;
 
-    //same as Controller annotation
+
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -58,18 +63,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // .antMatcher(tokenProperties.getLoginPath())
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                .and()
+                .headers()
+                .frameOptions().sameOrigin()
+
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedResponse())
+
                 .and()
                 .logout()
                 .logoutUrl(tokenProperties.getLogoutPath())
                 .logoutSuccessHandler(logoutSuccess)
+
                 .and()
                 .addFilter(new AuthenticationFilter(authenticationManagerBean(), tokenProperties))
-                .addFilterAfter(new AuthorizationFilter(tokenProperties), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, tokenProperties.getLoginPath()).permitAll()
                 .antMatchers(HttpMethod.POST, tokenProperties.getRegistrationPath()).permitAll()
+                .antMatchers(WebSocketConfig.ENDPOINT + "/**").permitAll()
                 .antMatchers("/**").authenticated();
     }
 

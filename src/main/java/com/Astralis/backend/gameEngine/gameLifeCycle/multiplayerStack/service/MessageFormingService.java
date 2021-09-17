@@ -39,8 +39,7 @@ public class MessageFormingService {
      */
     public void sendGameState(String gameID, LogicGameState logicGameState){
         String jsonfiedGameState = gson.toJson(logicGameState);
-        //TODO: ADD WEBSOCKET AGAIN
-        //runningGameController.sendGameStateUpdate(jsonfiedGameState, gameID);
+        runningGameController.sendGameStateUpdate(jsonfiedGameState, gameID);
     }
 
     /**

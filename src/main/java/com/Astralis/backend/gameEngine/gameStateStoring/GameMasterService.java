@@ -217,7 +217,8 @@ public class GameMasterService {
             long hour = Long.parseLong(name[4]);
             return ((year * 12 + month) * 30 + day) * 24 + hour;
         } catch (Exception e){
-            //In case some other file is being stored here because of what ever reason, return -1 as the smallest possible value
+            //In case some other file is being stored here because of what ever reason,
+            // return -1 as the smallest possible value.
             return -1;
         }
     }

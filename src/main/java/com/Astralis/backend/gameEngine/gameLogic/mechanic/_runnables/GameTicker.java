@@ -2,7 +2,6 @@ package com.Astralis.backend.gameEngine.gameLogic.mechanic._runnables;
 
 import com.Astralis.backend.gameEngine.gameLogic.mechanic.mechanicManager.TickManager;
 import com.Astralis.backend.management.model.GameStatus;
-import com.Astralis.backend.gameEngine.gameLogic.mechanic.mechanicManager.MovementManager;
 import com.Astralis.backend.gameEngine.gameLogic.mechanic.actionManager.ActionEcoSystemManager;
 import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoop;

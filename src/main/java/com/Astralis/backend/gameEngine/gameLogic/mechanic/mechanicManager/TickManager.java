@@ -1,9 +1,6 @@
 package com.Astralis.backend.gameEngine.gameLogic.mechanic.mechanicManager;
 
-import com.Astralis.backend.gameEngine.gameLogic.mechanic.actionManager.ActionMoveManager;
 import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 public class TickManager {
 

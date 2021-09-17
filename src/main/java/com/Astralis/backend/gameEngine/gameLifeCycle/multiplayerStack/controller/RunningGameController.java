@@ -5,10 +5,10 @@ import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.Mess
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.service.MessageDissectionService;
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoopManager;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.messaging.handler.annotation.DestinationVariable;
-//import org.springframework.messaging.handler.annotation.MessageMapping;
-//import org.springframework.messaging.handler.annotation.Payload;
-//import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,17 +24,15 @@ public class RunningGameController {
     //please implement the better solutions
     private static RunningGameController reference;
 
-    //TODO: ADD WEBSOCKET AGAIN
-    //private final SimpMessagingTemplate messagingTemplate;
+    private final SimpMessagingTemplate messagingTemplate;
     private final GameLoopManager gameLoopManager;
     private final MessageDissectionService messageDissectionService;
 
     @Autowired
-    public RunningGameController(/*SimpMessagingTemplate messagingTemplate,*/
+    public RunningGameController(SimpMessagingTemplate messagingTemplate,
                                  GameLoopManager gameLoopManager,
                                  MessageDissectionService messageDissectionService){
-        //TODO: ADD WEBSOCKET AGAIN
-        //this.messagingTemplate = messagingTemplate;
+        this.messagingTemplate = messagingTemplate;
         this.gameLoopManager = gameLoopManager;
         this.messageDissectionService = messageDissectionService;
 
@@ -54,11 +52,9 @@ public class RunningGameController {
      * @param message The jsonfied GameState.
      // @param gameId the ID of the game for which it is supposed to be send out.
      */
-    public void sendGameStateUpdate(String message/*, @DestinationVariable("id") String gameId*/){
+    public void sendGameStateUpdate(String message, @DestinationVariable("id") String gameId){
         System.out.println(message);
-        //TODO: ADD WEBSOCKET AGAIN
-        //this.messagingTemplate.convertAndSend(UPDATE_ROUTE + gameId,  message);
-        //return  message;
+        this.messagingTemplate.convertAndSend(UPDATE_ROUTE + gameId,  message);
     }
 
     /**
@@ -67,16 +63,15 @@ public class RunningGameController {
      // @param message The player's action as jsonfied String object.
      // @param gameId The according gameId to which the action belongs.
      */
-    //@MessageMapping(RECEIVING_ROUTE)
-    public void receiveGameMessage(/*@Payload String message, @DestinationVariable("id") String gameId*/){
-        //TODO: ADD WEBSOCKET AGAIN
-        /*System.out.println("Message to: " + gameId + " - " + message);
+    @MessageMapping(RECEIVING_ROUTE)
+    public void receiveGameMessage(@Payload String message, @DestinationVariable("id") String gameId){
+        System.out.println("Message to: " + gameId + " - " + message);
         MessageSpecialized actionCall = messageDissectionService.interpreteMessage(message);
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(gameId);
         if(gameLoop == null){
             throw new IllegalArgumentException("NO ACTIVE GAME FOUND WITH IDENTIFIER: " + gameId);
         }
-        gameLoop.forwardAction(actionCall);*/
+        gameLoop.forwardAction(actionCall);
     }
 
 }
