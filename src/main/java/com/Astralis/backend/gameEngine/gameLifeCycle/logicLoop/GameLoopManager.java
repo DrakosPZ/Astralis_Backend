@@ -57,4 +57,9 @@ public class GameLoopManager {
                 });
     }
 
+    //TODO: Add Documentation
+    public void disconnectPlayerFrom(GameLoop gameLoop, String playerID){
+        gameLoop.disconnectClienSession(playerID);
+    }
+
 }

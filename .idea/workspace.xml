@@ -5,36 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1824554a-c647-47e7-af02-4813221d56db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_websocket_2_4_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_messaging_5_4_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_messaging_5_3_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_websocket_5_3_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/configuration/SocketSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/jWTSecurity/JWTSecurityService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/jWTSecurity/WsToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/specialized/GameStateUpdate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Astralis_Backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Astralis_Backend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/configuration/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/configuration/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/Action.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/_runnables/GameTicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/_runnables/GameTicker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/mechanicManager/TickManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanic/mechanicManager/TickManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/configuration/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/configuration/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/filter/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/filter/AuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/filter/AuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/filter/AuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/configuration/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/configuration/WebMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/GameStateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/GameStateService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/gameState/Test2/GameState_4000_1_1_0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test2/GameState_4000_1_1_0.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/configuration/WebSocketConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/configuration/WebSocketConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/Action.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/Action.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/_runnables/GameTicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/_runnables/GameTicker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/mechanicManager/TickManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/mechanic/mechanicManager/TickManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/configuration/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/configuration/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/filter/AuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/filter/AuthenticationFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/filter/AuthorizationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/filter/AuthorizationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState$LogicGameStateBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState$LogicGameStateBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/configuration/WebMvcConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/configuration/WebMvcConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,19 +115,14 @@
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/configuration/WebSocketConfig.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="41" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/filter/AuthenticationFilter.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/Astralis/backend/jWTSecurity/JWTSecurityService.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="44" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

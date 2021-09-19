@@ -1,5 +1,9 @@
 package com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.service;
 
+import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.Action;
+import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.Message;
+import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.MessageSpecialized;
+import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.specialized.GameStateUpdate;
 import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.controller.RunningGameController;
 import com.google.gson.Gson;
@@ -38,17 +42,45 @@ public class MessageFormingService {
      * @param logicGameState The logicGameState which is to be jsonfied.
      */
     public void sendGameState(String gameID, LogicGameState logicGameState){
-        String jsonfiedGameState = gson.toJson(logicGameState);
-        runningGameController.sendGameStateUpdate(jsonfiedGameState, gameID);
+        Message gameStateMessage =
+                Message.builder()
+                        .gameID(gameID)
+                        .userID("")
+                        .action(Action.GAMEUPDATE)
+                        .specializedObject(gson.toJson(new GameStateUpdate(logicGameState)))
+                        .build();
+        String jsonfiedMessage = gson.toJson(gameStateMessage);
+        runningGameController.sendGameUpdate(jsonfiedMessage, gameID);
     }
 
     /**
-     * Method to formulate closing message and start closing process of a game Lobby.
+     * Method to formulate closing message and sending it out to all connected clients
      *
      * @param gameID The ID of the game that's supposed to be informed.
      */
     public void sendClosingMessage(String gameID){
-        //TODO: Actuall closing event send out
+        Message closingmessage =
+                Message.builder()
+                        .gameID(gameID)
+                        .userID("")
+                        .action(Action.CLOSEDGAME)
+                        .specializedObject(null)
+                    .build();
+        String jsonfiedMessage = gson.toJson(closingmessage);
+        runningGameController.sendGameUpdate(jsonfiedMessage, gameID);
+    }
+
+    //TODO DOCUMENTATION
+    public void playerDisconnectedMessage(String gameID, String playerID){
+        Message closingmessage =
+                Message.builder()
+                        .gameID(gameID)
+                        .userID(playerID)
+                        .action(Action.DISCONNECTED)
+                        .specializedObject(null)
+                        .build();
+        String jsonfiedMessage = gson.toJson(closingmessage);
+        runningGameController.sendGameUpdate(jsonfiedMessage, gameID);
     }
 
 }

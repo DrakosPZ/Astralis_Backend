@@ -1,5 +1,6 @@
 package com.Astralis.backend.gameEngine.gameLogic.model;
 
+import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.specialized.SpecializedMessage;
 import com.Astralis.backend.management.model.GameState;
 import com.Astralis.backend.management.model.GameStatus;
 import lombok.*;

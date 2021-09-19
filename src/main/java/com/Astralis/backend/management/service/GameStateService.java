@@ -417,6 +417,7 @@ public class GameStateService
         GameStateDTO returnedGameState =new GameStateDTO(gameState);
 
         if(gameState.getUserGameStates().size() <= 0){
+            stopGame(gameLoopManager.findActiveGameLoop(gameState.getIdentifier()));
             deleteByIdentifier(gameState.getIdentifier());
             returnedGameState.setIdentifier("");
         }
@@ -498,6 +499,12 @@ public class GameStateService
                 .orElseThrow(() -> new IllegalArgumentException("GameState ID has no according GameState."));
         User user = userRepo.findByIdentifier(identifierU)
                 .orElseThrow(() -> new IllegalArgumentException("User ID has no according User."));
+        GameLoop gameLoop = null;
+        try{
+            gameLoop = gameLoopManager.findActiveGameLoop(gameState.getIdentifier());
+        }catch (Exception e){
+            System.out.println("Game currently not running.");
+        }
 
         //Custom N:M Connection Part
         User_GameState_PK connectionID =
@@ -508,6 +515,9 @@ public class GameStateService
         userGameStateRepo.deleteById(connectionID);
 
         //Extra behaviour
+        if(gameLoop != null){
+            gameLoopManager.disconnectPlayerFrom(gameLoop, identifierU);
+        }
         GameStateDTO returnedGameState = checkForLastPlayerDeleted(gameState);
 
         return Optional.of(returnedGameState);

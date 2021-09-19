@@ -62,6 +62,11 @@ public class GameLoop {
         messageFormingService.sendClosingMessage(activeID);
     }
 
+    //TODO: Add Documentation
+    public void disconnectClienSession(String userID){
+        messageFormingService.playerDisconnectedMessage(activeID, userID);
+    }
+
     /**
      * Forwards the changing of the Game Status to the active Loop
      *

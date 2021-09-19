@@ -52,7 +52,7 @@ public class RunningGameController {
      * @param message The jsonfied GameState.
      // @param gameId the ID of the game for which it is supposed to be send out.
      */
-    public void sendGameStateUpdate(String message, @DestinationVariable("id") String gameId){
+    public void sendGameUpdate(String message, @DestinationVariable("id") String gameId){
         System.out.println(message);
         this.messagingTemplate.convertAndSend(UPDATE_ROUTE + gameId,  message);
     }
