@@ -5,28 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1824554a-c647-47e7-af02-4813221d56db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/specialized/GameStateUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/configuration/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/configuration/WebMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/GameStateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/GameStateService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test2/GameState_4000_1_1_0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test2/GameState_4000_1_1_0.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/controller/RunningGameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/Action.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/Action.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState$LogicGameStateBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState$LogicGameStateBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/configuration/WebMvcConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/configuration/WebMvcConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Astralis/backend/management/service/GameStateService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Nele/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test 2/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_16_10.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_17_23.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_17_3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_18_3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_18_8.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_4_22_11.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_4_23_20.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_17_21.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_19_23.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_20_14.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_22_1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_26_13.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test10/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test10/GameState_4000_1_1_14.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test2/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test20/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test3/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test4/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test5/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test6/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/Test8/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/TestG/GameState_4000_1_1_0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/TestG/GameState_4000_1_3_12.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/TestG/GameState_4000_1_3_20.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gameState/TestGame/GameState_4000_1_1_0.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
