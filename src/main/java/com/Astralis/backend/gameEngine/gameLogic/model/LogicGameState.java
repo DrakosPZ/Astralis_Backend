@@ -1,7 +1,6 @@
 package com.Astralis.backend.gameEngine.gameLogic.model;
 
-import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.specialized.SpecializedMessage;
-import com.Astralis.backend.management.model.GameState;
+import com.Astralis.backend.management.model.GameLobby;
 import com.Astralis.backend.management.model.GameStatus;
 import lombok.*;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class LogicGameState extends AbstractMemoryModel implements Serializable {
-    private GameState gameState;
+    private GameLobby gameLobby;
     private GameStatus gameStatus;
 
     //#possibly put into own class ffs

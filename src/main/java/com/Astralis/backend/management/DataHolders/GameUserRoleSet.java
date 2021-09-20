@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class GameUserRoleSet {
     private String identifierUser;
-    private String identifierGameState;
+    private String identifierGameLobby;
     private String role;
 }

@@ -100,7 +100,7 @@ public class UserService
         //for those that are fully loaded by the converter
         User model = convertDTOIntoModel(dto);
 
-        // not included gameStates --- added by remove and add route
+        // not included GameLobbis  --- added by remove and add route
 
         return findByIdentifier(model.getIdentifier()).get();
     }

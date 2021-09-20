@@ -5,7 +5,7 @@ import com.Astralis.backend.gameEngine.gameLogic.model.Country;
 import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameEngine.gameLogic.model.Position;
 import com.Astralis.backend.gameEngine.gameLogic.model.Ship;
-import com.Astralis.backend.management.model.GameState;
+import com.Astralis.backend.management.model.GameLobby;
 import com.Astralis.backend.management.model.GameStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +41,10 @@ public class GameScenarioService {
                         .build())
                 .build());
 
-        GameState gameState = new GameState();
-        gameState.setIdentifier("GID0");
+        GameLobby gameLobby = new GameLobby();
+        gameLobby.setIdentifier("GID0");
 
-        LogicGameState LogicGameState = new LogicGameState(gameState, GameStatus.RUNNING, 4000, 1, 1, 0, countries);
+        LogicGameState LogicGameState = new LogicGameState(gameLobby, GameStatus.RUNNING, 4000, 1, 1, 0, countries);
 
         gameLoop.startLoop("GID0", LogicGameState);
     }

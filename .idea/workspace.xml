@@ -4,35 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1824554a-c647-47e7-af02-4813221d56db" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Nele/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test 2/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_16_10.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_17_23.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_17_3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_18_3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_2_18_8.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_4_22_11.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_4_23_20.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_17_21.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_19_23.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_20_14.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_22_1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_5_26_13.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test10/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test10/GameState_4000_1_1_14.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test2/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test20/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test3/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test4/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test5/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test6/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test8/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/TestG/GameState_4000_1_1_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/TestG/GameState_4000_1_3_12.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/TestG/GameState_4000_1_3_20.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/TestGame/GameState_4000_1_1_0.txt" beforeDir="false" />
+    <list default="true" id="ebdec047-f0e0-4e44-84c0-b8a1cac4ffa2" name="Default Changelist" comment="fixup! F0.3.2: Added Commentary to clear up route error">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/persistence/GameLobbyRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameScenarios/GameScenarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameScenarios/GameScenarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/DataHolders/GameUserIDSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/DataHolders/GameUserIDSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/DataHolders/GameUserRoleSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/DataHolders/GameUserRoleSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/controller/GameStateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/controller/GameLobbyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/CustomeDetailDTOs/DetailGameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/CustomeDetailDTOs/DetailGameLobbyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/CustomeDetailDTOs/DetailUserGameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/CustomeDetailDTOs/DetailUserLobbyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/GameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/GameLobbyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/UserGameStateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/dto/UserGameLobbyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/model/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/model/GameLobby.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/model/UserGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/model/UserGameLobby.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/model/User_GameState_PK.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/model/User_GameLobby_PK.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/persistence/GameStateRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/persistence/UserGameStateRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/persistence/UserGameLobbyRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/GameStateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/GameLobbyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,10 +123,26 @@
           <line>51</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateStoring/GameMasterService.java</url>
+          <line>143</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo />
         <PinnedItemInfo parentTag="java.util.Collections$UnmodifiableMap$UnmodifiableEntrySet$UnmodifiableEntry" memberName="value" />
       </pinned-members>
     </pin-to-top-manager>

@@ -19,41 +19,34 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class User extends AbstractModel {
-
-    private String nickName;
-    private UserRole role;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-    private LoginInformation loginInformation;
+public class GameLobby extends AbstractModel {
+    private String name;
+    private String description;
+    private GameStatus status;
+    private String image;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(
-            cascade = {CascadeType.PERSIST},
+    @OneToMany(cascade = {CascadeType.PERSIST},
             fetch = FetchType.LAZY,
-            mappedBy = "user",
-            orphanRemoval = true
-    )
+            mappedBy = "gameLobby",
+            orphanRemoval = true)
     private List<UserGameLobby> userGameLobbies = new ArrayList<>();
 
+    //game Logic
+    //private RuleSet rules;
+    private String gameStorageFolder;
+
     //DTO Constructor
-    public User(UserDTO userDTO){
-        this.identifier = Optional.ofNullable(userDTO.getIdentifier())
+    public GameLobby(GameLobbyDTO gameLobbyDTO){
+        this.identifier = Optional.ofNullable(gameLobbyDTO.getIdentifier())
                 .orElse(UUID.randomUUID().toString());
-        this.nickName = userDTO.getNickName() == null ? "": userDTO.getNickName();
-        this.role = UserRole.valueOf(userDTO.getRole());
+        this.name = gameLobbyDTO.getName() == null ? "": gameLobbyDTO.getName();
+        this.description = gameLobbyDTO.getDescription() == null ? "": gameLobbyDTO.getDescription();
+        this.image = gameLobbyDTO.getImage() == null ? "": gameLobbyDTO.getImage();
+        this.status = GameStatus.valueOf(gameLobbyDTO.getStatus());
 
-        this.loginInformation = null;
-        if(userDTO.getLoginInformation() != null) {
-            setLoginInformation(new LoginInformation(userDTO.getLoginInformation()));
-        } else {
-            setLoginInformation(new LoginInformation());
-        }
-
-        (userDTO.getUserGameLobby() == null ? new ArrayList<GameLobbyDTO>() : userDTO.getUserGameLobby())
+        (gameLobbyDTO.getUserGameLobbies() == null ? new ArrayList<UserDTO>() : gameLobbyDTO.getUserGameLobbies())
                 .stream()
                 .map(x -> new UserGameLobby((UserGameLobbyDTO) x))
                 .forEach(this::addUserGameLobby);
@@ -65,18 +58,7 @@ public class User extends AbstractModel {
 
 
 
-
     //----------------------1:1 Relationship Methods----------------------
-    public void setLoginInformation(LoginInformation loginInformation){
-        if(this.loginInformation != null) {
-            if (this.loginInformation.equals(loginInformation)) {
-                return;
-            }
-        }
-        this.loginInformation = loginInformation;
-        loginInformation.setUser(this);
-    }
-
 
 
 
@@ -89,14 +71,14 @@ public class User extends AbstractModel {
             return;
         }
         userGameLobbies.add(userGameLobby);
-        userGameLobby.setUser(this);
+        userGameLobby.setGameLobby(this);
     }
 
     public void removeUserGameLobby(UserGameLobby userGameLobby) {
         if (!userGameLobbies.contains(userGameLobby)) {
             return;
         }
-        userGameLobby.setUser(null);
+        userGameLobby.setGameLobby(null);
         userGameLobbies.remove(userGameLobby);
     }
 

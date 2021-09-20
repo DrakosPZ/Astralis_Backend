@@ -18,7 +18,7 @@ public class UserDTO extends AbstractModelDto {
     private String role;
     private LoginInformationDTO loginInformation;
 
-    private List<UserGameStateDTO> userGameStates = new ArrayList<>();
+    private List<UserGameLobbyDTO> userGameLobby = new ArrayList<>();
 
     //O Constructor
     public UserDTO(User user){
@@ -28,8 +28,8 @@ public class UserDTO extends AbstractModelDto {
         this.loginInformation = user.getLoginInformation() == null ? new LoginInformationDTO(): new LoginInformationDTO(user.getLoginInformation());
         //this.loginInformation = null;
 
-        this.userGameStates = user.getUserGameStates() == null ? new ArrayList<>() : user.getUserGameStates()
-                .stream().map(element -> new UserGameStateDTO(element))
+        this.userGameLobby = user.getUserGameLobbies() == null ? new ArrayList<>() : user.getUserGameLobbies()
+                .stream().map(element -> new UserGameLobbyDTO(element))
                 .collect(Collectors.toList());
     }
 

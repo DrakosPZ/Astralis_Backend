@@ -1,6 +1,6 @@
 package com.Astralis.backend.management.DataHolders;
 
-import com.Astralis.backend.management.dto.GameStateDTO;
+import com.Astralis.backend.management.dto.GameLobbyDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class GameUserIDSet {
-    private GameStateDTO gameState;
+    private GameLobbyDTO gameLobby;
     private String userIdentifier;
 }

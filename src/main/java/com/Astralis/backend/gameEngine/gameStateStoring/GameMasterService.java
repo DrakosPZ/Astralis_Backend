@@ -1,8 +1,8 @@
 package com.Astralis.backend.gameEngine.gameStateStoring;
 
-import com.Astralis.backend.management.model.GameState;
+import com.Astralis.backend.management.model.GameLobby;
 import com.Astralis.backend.management.model.GameStatus;
-import com.Astralis.backend.management.model.UserGameState;
+import com.Astralis.backend.management.model.UserGameLobby;
 import com.Astralis.backend.gameEngine.gameLogic.model.Country;
 import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameEngine.gameLogic.model.Position;
@@ -98,19 +98,19 @@ public class GameMasterService {
      *     <li>Finally sets GameState Status to INITIALIZING.</li>
      * </ol>
      *
-     * @param gameState The database's gameState reference used to link the logicGameState to the lobby.
+     * @param gameLobby The database's gameState reference used to link the logicGameState to the lobby.
      */
-    public void initializeGameState(GameState gameState){
+    public void initializeGameState(GameLobby gameLobby){
         //Test Data - replace with proper galaxy initialization
         String player1ID = "";
         String player2ID = "";
-        List<UserGameState> list = gameState.getUserGameStates();
-        for (UserGameState userGameState: list) {
-            if(userGameState.getUser().getNickName().equals("DrakoD")){
-                player1ID = userGameState.getUser().getIdentifier();
+        List<UserGameLobby> list = gameLobby.getUserGameLobbies();
+        for (UserGameLobby userGameLobby : list) {
+            if(userGameLobby.getUser().getNickName().equals("DrakoD")){
+                player1ID = userGameLobby.getUser().getIdentifier();
             }
-            if(userGameState.getUser().getNickName().equals("KuroK")){
-                player2ID = userGameState.getUser().getIdentifier();
+            if(userGameLobby.getUser().getNickName().equals("KuroK")){
+                player2ID = userGameLobby.getUser().getIdentifier();
             }
         }
 
@@ -141,9 +141,9 @@ public class GameMasterService {
                 .build());
         LogicGameState logicGameState = new LogicGameState(null, GameStatus.RUNNING,4000, 1, 1, 0, countries);
 
-        storeGameStateToDatabase(logicGameState, gameState.getName());
-        gameState.setGameStorageFolder(getGameStorageLink(gameState.getName()));
-        gameState.setStatus(GameStatus.INITIALIZING);
+        storeGameStateToDatabase(logicGameState, gameLobby.getName());
+        gameLobby.setGameStorageFolder(getGameStorageLink(gameLobby.getName()));
+        gameLobby.setStatus(GameStatus.INITIALIZING);
     }
 
     /**
