@@ -2,7 +2,7 @@ package com.Astralis.backend.gameEngine.gameScenarios;
 
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoop;
 import com.Astralis.backend.gameEngine.gameLogic.model.Country;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.gameEngine.gameLogic.model.Position;
 import com.Astralis.backend.gameEngine.gameLogic.model.Ship;
 import com.Astralis.backend.management.model.GameLobby;
@@ -44,9 +44,9 @@ public class GameScenarioService {
         GameLobby gameLobby = new GameLobby();
         gameLobby.setIdentifier("GID0");
 
-        LogicGameState LogicGameState = new LogicGameState(gameLobby, GameStatus.RUNNING, 4000, 1, 1, 0, countries);
+        GameState GameState = new GameState(gameLobby, GameStatus.RUNNING, 4000, 1, 1, 0, countries);
 
-        gameLoop.startLoop("GID0", LogicGameState);
+        gameLoop.startLoop("GID0", GameState);
     }
 
 }

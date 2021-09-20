@@ -10,7 +10,7 @@ import com.Astralis.backend.management.dto.GameLobbyDTO;
 import com.Astralis.backend.management.dto.UserDTO;
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoop;
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoopManager;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.gameEngine.gameStateManagement.GameMasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -301,16 +301,16 @@ public class GameLobbyService
     public void startGame(String identifier){
         GameLobby gameLobby = findByIdentifier(identifier)
                 .orElseThrow(() -> new IllegalArgumentException("No GameLobby Present"));
-        LogicGameState logicGameState;
+        GameState gameState;
         //#TODO: Maybe implement this check rather over the status flag, as link may be removed later on
         if(gameLobby.getStatus() == GameStatus.UNINITIALIZED){
             gameMasterService.setUpNewGameState(gameLobby);
         }
 
-        logicGameState = gameMasterService.loadGameStateFromDatabase(gameLobby.getGameStorageFolder())
+        gameState = gameMasterService.loadGameStateFromDatabase(gameLobby.getGameStorageFolder())
                 .orElseThrow(() -> new IllegalArgumentException("No GameState found."));
 
-        gameLoopManager.addGameLoop(identifier, logicGameState);
+        gameLoopManager.addGameLoop(identifier, gameState);
 
         GameLoop gameLoop = gameLoopManager.findActiveGameLoop(identifier);
         manageStatus(gameLoop, GameStatus.RUNNING);
@@ -333,7 +333,7 @@ public class GameLobbyService
 
         manageStatus(gameLoop, GameStatus.CLOSED);
         gameLoopManager.removeGameLoop(gameLoop);
-        gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameLobby.getName());
+        gameMasterService.storeGameStateToDatabase(gameLoop.getGameState(), gameLobby.getName());
     }
 
     /**
@@ -348,7 +348,7 @@ public class GameLobbyService
         GameStatus previoues = gameLobby.getStatus();
 
         manageStatus(gameLoop, GameStatus.STORING);
-        gameMasterService.storeGameStateToDatabase(gameLoop.getLogicGameState(), gameLobby.getName());
+        gameMasterService.storeGameStateToDatabase(gameLoop.getGameState(), gameLobby.getName());
         manageStatus(gameLoop, previoues);
     }
 

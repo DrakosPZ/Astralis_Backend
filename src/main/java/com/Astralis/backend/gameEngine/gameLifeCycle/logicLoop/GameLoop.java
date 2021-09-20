@@ -1,9 +1,9 @@
 package com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop;
 
 
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.management.model.GameStatus;
 import com.Astralis.backend.gameEngine.gameLogic._runnables.GameTicker;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.MessageSpecialized;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.service.MessageFormingService;
 import lombok.AllArgsConstructor;
@@ -26,12 +26,12 @@ public class GameLoop {
     private MessageFormingService messageFormingService;
 
     /**
-     * Instantiates a GameLoop with a connected GameStateID, the LogicGamestate used for the Game.
+     * Instantiates a GameLoop with a connected GameStateID, the gameState used for the Game.
      *
      * @param gameStateID the Id of the GameState connected to the Game.
      * @param activeGameState the LogicalGameState used as a basis for the Game.
      */
-    public void startLoop(String gameStateID, LogicGameState activeGameState){
+    public void startLoop(String gameStateID, GameState activeGameState){
         activeID = gameStateID;
         activeLoop = new GameTicker(activeGameState, this);
 
@@ -48,9 +48,9 @@ public class GameLoop {
     }
 
     /**
-     * @return logicGameState of the running loop.
+     * @return gameState of the running loop.
      */
-    public LogicGameState getLogicGameState(){
+    public GameState getGameState(){
         return activeLoop.getActiveState();
     }
 
@@ -81,7 +81,7 @@ public class GameLoop {
      * (Sends out each GameTick)
      */
     public void updateStatus(){
-        messageFormingService.sendGameState(activeID, getLogicGameState());
+        messageFormingService.sendGameState(activeID, getGameState());
     }
 
     /**

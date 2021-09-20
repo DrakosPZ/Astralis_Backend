@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class LogicGameState extends AbstractMemoryModel implements Serializable {
+public class GameState extends AbstractMemoryModel implements Serializable {
     private GameLobby gameLobby;
     private GameStatus gameStatus;
 

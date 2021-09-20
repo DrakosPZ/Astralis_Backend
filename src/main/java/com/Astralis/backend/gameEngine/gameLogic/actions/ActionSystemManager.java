@@ -1,7 +1,7 @@
 package com.Astralis.backend.gameEngine.gameLogic.actions;
 
 import com.Astralis.backend.gameEngine.gameLogic.actions.classes.ActionMoveManager;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.MessageSpecialized;
 
 public class ActionSystemManager {
@@ -35,11 +35,11 @@ public class ActionSystemManager {
      * </ul>
      *
      * @param action the action of the player.
-     * @param logicGameState the logicGameState the action happens in.
+     * @param gameState the gameState the action happens in.
      */
-    public void receiveInput(MessageSpecialized action, LogicGameState logicGameState){
+    public void receiveInput(MessageSpecialized action, GameState gameState){
         switch (action.getAction()){
-            case MOVE -> actionMoveManager.moveShip(action, logicGameState);
+            case MOVE -> actionMoveManager.moveShip(action, gameState);
         }
     }
 

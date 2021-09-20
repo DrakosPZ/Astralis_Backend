@@ -2,9 +2,8 @@ package com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.service;
 
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.Action;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.Message;
-import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.MessageSpecialized;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.specialized.GameStateUpdate;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.controller.RunningGameController;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +34,19 @@ public class MessageFormingService {
     }
 
     /**
-     * Method to transform logicGameState into a String to be further handed to
+     * Method to transform gameState into a String to be further handed to
      * the runningGameController to be further send out to all connected users.
      *
-     * @param gameID The ID of the game of which the logicGameState originates and to which clients it is then later send.
-     * @param logicGameState The logicGameState which is to be jsonfied.
+     * @param gameID The ID of the game of which the gameState originates and to which clients it is then later send.
+     * @param gameState The gameState which is to be jsonfied.
      */
-    public void sendGameState(String gameID, LogicGameState logicGameState){
+    public void sendGameState(String gameID, GameState gameState){
         Message gameStateMessage =
                 Message.builder()
                         .gameID(gameID)
                         .userID("")
                         .action(Action.GAMEUPDATE)
-                        .specializedObject(gson.toJson(new GameStateUpdate(logicGameState)))
+                        .specializedObject(gson.toJson(new GameStateUpdate(gameState)))
                         .build();
         String jsonfiedMessage = gson.toJson(gameStateMessage);
         runningGameController.sendGameUpdate(jsonfiedMessage, gameID);

@@ -1,7 +1,7 @@
 package com.Astralis.backend.gameEngine.gameLogic.mechanics.classes;
 
 import com.Astralis.backend.gameEngine.gameLogic.helperModels.GameVector;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.gameEngine.gameLogic.model.Position;
 import com.Astralis.backend.gameEngine.gameLogic.model.Ship;
 
@@ -29,7 +29,7 @@ public class MovementManager {
      * //TODO: maybe don't forward the entire gameState
      * @param activeState the gameState to be updated
      */
-    public void updateMovement(LogicGameState activeState){
+    public void updateMovement(GameState activeState){
         activeState.getCountries().forEach(country -> {
             System.out.println("Country: " + country.getName());
             moveShip(country.getShip());

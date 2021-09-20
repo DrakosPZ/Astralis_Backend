@@ -1,7 +1,7 @@
 package com.Astralis.backend.gameEngine.gameLogic.mechanics;
 
 import com.Astralis.backend.gameEngine.gameLogic.mechanics.classes.MovementManager;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 
 public class TickManager {
 
@@ -29,7 +29,7 @@ public class TickManager {
      * HourTick calls:
      *      ShipMovement
      */
-    public void hourTick(LogicGameState activeState){
+    public void hourTick(GameState activeState){
         System.out.println("Hour Tick");
         movementManager.updateMovement(activeState);
     }
@@ -38,7 +38,7 @@ public class TickManager {
      * dayTick calls:
      *
      */
-    public void dayTick(LogicGameState activeState){
+    public void dayTick(GameState activeState){
         System.out.println("Day Tick");
     }
 
@@ -46,7 +46,7 @@ public class TickManager {
      * MonthTick calls:
      *
      */
-    public void monthTick(LogicGameState activeState){
+    public void monthTick(GameState activeState){
         System.out.println("Month Tick");
     }
 
@@ -54,7 +54,7 @@ public class TickManager {
      * YearTick calls:
      *
      */
-    public void yearTick(LogicGameState activeState){
+    public void yearTick(GameState activeState){
         System.out.println("Year Tick");
     }
 

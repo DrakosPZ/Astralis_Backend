@@ -1,7 +1,7 @@
 package com.Astralis.backend.gameEngine.gameStateManagement;
 
 import com.Astralis.backend.gameEngine.gameLogic.model.Country;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.gameEngine.gameLogic.model.Position;
 import com.Astralis.backend.gameEngine.gameLogic.model.Ship;
 import com.Astralis.backend.management.model.GameLobby;
@@ -21,13 +21,13 @@ import java.util.List;
 public class GameInitializationService {
 
     /**
-     * A Method to initialize and set all the start Data of a logicGameState
+     * A Method to initialize and set all the start Data of a gameState
      * based of the given GameState.
      * Initializes CURRENTLY TEST Data. CHANGE LATER TO ACTUAL START DATA.
      *
-     * @param gameLobby The database's gameState reference used to link the logicGameState to the lobby.
+     * @param gameLobby The database's gameState reference used to link the gameState to the lobby.
      */
-    public LogicGameState initialize(GameLobby gameLobby){
+    public GameState initialize(GameLobby gameLobby){
         //Test Data - replace with proper galaxy initialization
         String player1ID = "";
         String player2ID = "";
@@ -66,10 +66,10 @@ public class GameInitializationService {
                         .build())
                 .owner(player2ID)
                 .build());
-        LogicGameState logicGameState =
-                new LogicGameState(null, GameStatus.RUNNING,4000, 1, 1, 0, countries);
+        GameState gameState =
+                new GameState(null, GameStatus.RUNNING,4000, 1, 1, 0, countries);
 
-        return logicGameState;
+        return gameState;
     }
 
 }

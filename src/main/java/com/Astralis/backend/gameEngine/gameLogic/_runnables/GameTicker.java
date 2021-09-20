@@ -3,12 +3,12 @@ package com.Astralis.backend.gameEngine.gameLogic._runnables;
 import com.Astralis.backend.gameEngine.gameLogic.mechanics.TickManager;
 import com.Astralis.backend.management.model.GameStatus;
 import com.Astralis.backend.gameEngine.gameLogic.actions.ActionSystemManager;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoop;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.MessageSpecialized;
 
 public class GameTicker implements Runnable {
-    private LogicGameState activeState;
+    private GameState activeState;
     private TickManager tickManager;
     private ActionSystemManager actionSystemManager;
     private GameLoop loop;
@@ -20,7 +20,7 @@ public class GameTicker implements Runnable {
      * @param activeState the LogicState used for the GameTick
      * @param loop the Game Loop the Ticker is stored in, used to forward events to the clients
      */
-    public GameTicker(LogicGameState activeState, GameLoop loop) {
+    public GameTicker(GameState activeState, GameLoop loop) {
         this.activeState = activeState;
         this.loop = loop;
         this.tickManager = TickManager.getTickManager();
@@ -45,9 +45,9 @@ public class GameTicker implements Runnable {
     /**
      * Gets the current LogicsGameState
      *
-     * @return the used LogicGameState
+     * @return the used gameState
      */
-    public LogicGameState getActiveState(){
+    public GameState getActiveState(){
         return activeState;
     }
 

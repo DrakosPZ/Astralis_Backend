@@ -1,20 +1,14 @@
 package com.Astralis.backend.gameEngine.gameStateManagement;
 
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import com.Astralis.backend.management.model.GameLobby;
 import com.Astralis.backend.management.model.GameStatus;
-import com.Astralis.backend.management.model.UserGameLobby;
-import com.Astralis.backend.gameEngine.gameLogic.model.Country;
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
-import com.Astralis.backend.gameEngine.gameLogic.model.Position;
-import com.Astralis.backend.gameEngine.gameLogic.model.Ship;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,8 +25,8 @@ public class GameMasterService {
      * @param gameStateStorageLink The name of the folder where the gameFile is stored
      * @return The latest gameState (gameState with the furthest date).
      */
-    public Optional<LogicGameState> loadGameStateFromDatabase(String gameStateStorageLink){
-        LogicGameState LogicGameState = null;
+    public Optional<GameState> loadGameStateFromDatabase(String gameStateStorageLink){
+        GameState GameState = null;
         try{
             File[] files = new File(gameStateStorageLink).listFiles();
 
@@ -41,7 +35,7 @@ public class GameMasterService {
             ObjectInputStream objectIn =
                     new ObjectInputStream(fileIn);
 
-            LogicGameState = (LogicGameState) objectIn.readObject();
+            GameState = (GameState) objectIn.readObject();
 
             objectIn.close();
             fileIn.close();
@@ -54,28 +48,28 @@ public class GameMasterService {
             e.printStackTrace();
         }
 
-        return Optional.of(LogicGameState);
+        return Optional.of(GameState);
     }
 
     /**
-     * Method to turn logicGameState into a gameFile and stores it in the given gameName's folder.
+     * Method to turn GameState into a gameFile and stores it in the given gameName's folder.
      * The name of the file is written in a pattern like: "GameState_YEAR_MONTH_DAY_HOUR.txt".
      * Checks first if a folder for the given gameName already exists, if not it is created.
      *
-     * @param logicGameState The to be stored logicGameState.
+     * @param gameState The to be stored GameState.
      * @param gameName The name of the folder where the file is supposed to be stored.
-     * @return The stored logicGameState.
+     * @return The stored GameState.
      */
-    public Optional<LogicGameState> storeGameStateToDatabase(LogicGameState logicGameState, String gameName){
+    public Optional<GameState> storeGameStateToDatabase(GameState gameState, String gameName){
         checkForGamesFolder(gameName);
         try {
             FileOutputStream fileOut =
                     new FileOutputStream(new File(getGameStorageLink(gameName) + "//" +
-                            "GameState_" + logicGameState.getYear() + "_" + logicGameState.getMonth() + "_" + logicGameState.getDay() +  "_" + logicGameState.getHour() + ".txt"));
+                            "GameState_" + gameState.getYear() + "_" + gameState.getMonth() + "_" + gameState.getDay() +  "_" + gameState.getHour() + ".txt"));
             ObjectOutputStream objectOut =
                     new ObjectOutputStream(fileOut);
 
-            objectOut.writeObject(logicGameState);
+            objectOut.writeObject(gameState);
 
             objectOut.close();
             fileOut.close();
@@ -86,24 +80,24 @@ public class GameMasterService {
             System.err.println("Error initializing stream");
         }
 
-        return Optional.of(logicGameState);
+        return Optional.of(gameState);
     }
 
     /**
      * A Method to initialize and handle the received new gameState, based of the given GameLobby.
      * <ol>
      *     <li>First calls initialization method</li>
-     *     <li>Then stores finished LogicGameState to a GameFile. with the GameStates.Name as a Folder Name</li>
+     *     <li>Then stores finished GameState to a GameFile. with the GameStates.Name as a Folder Name</li>
      *     <li>Then sets the same Storing folder name in the GameStates.</li>
      *     <li>Finally sets GameState Status to INITIALIZING.</li>
      * </ol>
      *
-     * @param gameLobby The database's gameState reference used to link the logicGameState to the lobby.
+     * @param gameLobby The database's gameState reference used to link the GameState to the lobby.
      */
     public void setUpNewGameState(GameLobby gameLobby){
-        LogicGameState logicGameState = gameInitializationService.initialize(gameLobby);
+        GameState gameState = gameInitializationService.initialize(gameLobby);
 
-        storeGameStateToDatabase(logicGameState, gameLobby.getName());
+        storeGameStateToDatabase(gameState, gameLobby.getName());
         gameLobby.setGameStorageFolder(getGameStorageLink(gameLobby.getName()));
         gameLobby.setStatus(GameStatus.INITIALIZING);
     }

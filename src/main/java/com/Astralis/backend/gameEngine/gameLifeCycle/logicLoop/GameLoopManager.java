@@ -1,6 +1,6 @@
 package com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop;
 
-import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
+import com.Astralis.backend.gameEngine.gameLogic.model.GameState;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,12 +23,12 @@ public class GameLoopManager {
      * For this it initializes a new GameLoop forwarding the needed information to the according method.
      *
      * @param gameStateID The ID of the started gameState.
-     * @param LogicGameState The gameState holding running game information.
+     * @param GameState The gameState holding running game information.
      */
-    public void addGameLoop(String gameStateID, LogicGameState LogicGameState){
+    public void addGameLoop(String gameStateID, GameState GameState){
         GameLoop gameLoop = new GameLoop();
         gameLoops.add(gameLoop);
-        gameLoop.startLoop(gameStateID, LogicGameState);
+        gameLoop.startLoop(gameStateID, GameState);
     }
 
     /**
