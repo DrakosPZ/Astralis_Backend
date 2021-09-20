@@ -11,7 +11,7 @@ import com.Astralis.backend.management.dto.UserDTO;
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoop;
 import com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop.GameLoopManager;
 import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
-import com.Astralis.backend.gameEngine.gameStateStoring.GameMasterService;
+import com.Astralis.backend.gameEngine.gameStateManagement.GameMasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -304,7 +304,7 @@ public class GameLobbyService
         LogicGameState logicGameState;
         //#TODO: Maybe implement this check rather over the status flag, as link may be removed later on
         if(gameLobby.getStatus() == GameStatus.UNINITIALIZED){
-            gameMasterService.initializeGameState(gameLobby);
+            gameMasterService.setUpNewGameState(gameLobby);
         }
 
         logicGameState = gameMasterService.loadGameStateFromDatabase(gameLobby.getGameStorageFolder())

@@ -2,7 +2,7 @@ package com.Astralis.backend.gameEngine.gameLifeCycle.logicLoop;
 
 
 import com.Astralis.backend.management.model.GameStatus;
-import com.Astralis.backend.gameEngine.gameLogic.mechanic._runnables.GameTicker;
+import com.Astralis.backend.gameEngine.gameLogic._runnables.GameTicker;
 import com.Astralis.backend.gameEngine.gameLogic.model.LogicGameState;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.model.MessageSpecialized;
 import com.Astralis.backend.gameEngine.gameLifeCycle.multiplayerStack.service.MessageFormingService;
