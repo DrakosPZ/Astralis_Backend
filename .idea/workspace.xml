@@ -5,29 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ebdec047-f0e0-4e44-84c0-b8a1cac4ffa2" name="Default Changelist" comment="fixup! F0.3.2: Added Commentary to clear up route error">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/logicLoop/GameLoopManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/specialized/GameStateUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/model/specialized/GameStateUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLifeCycle/multiplayerStack/service/MessageFormingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/_runnables/GameTicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/_runnables/GameTicker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/actions/ActionSystemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/actions/ActionSystemManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/actions/classes/ActionMoveManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/actions/classes/ActionMoveManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanics/TickManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanics/TickManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanics/classes/MovementManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/mechanics/classes/MovementManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/model/LogicGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/model/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/utils/FindInGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameLogic/utils/FindInGameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameScenarios/GameScenarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameScenarios/GameScenarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateManagement/GameInitializationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateManagement/GameInitializationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateManagement/GameMasterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateManagement/GameMasterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateManagement/GameMasterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateManagement/GameMasterService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateManagement/dataHolders/LogicGameStateGameNameSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/gameEngine/gameStateManagement/dataHolders/GameStateGameNameSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/GameLobbyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Astralis/backend/management/service/GameLobbyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_0.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_1_1_8.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_4_1_12.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_4_1_12.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_4_1_16.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gameState/Test/GameState_4000_4_1_16.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +44,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../_intellij_src/test-rest-service-cors" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.notifications" />
   </component>
   <component name="RunManager">
     <configuration name="BackendApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
